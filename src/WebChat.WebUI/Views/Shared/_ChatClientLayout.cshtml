@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <base href="@System.Configuration.ConfigurationManager.AppSettings["BaseUrlPath"].ToString()" />
+    <!--Css-->
+    <link rel="stylesheet" href="~/Content/Styles/bootstrap/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/Content/Styles/chat/Client/Layout.css" />
+    <link rel="stylesheet" href="~/Content/Styles/chat/Client/ChatPage.css" />
+    <link rel="stylesheet" href="~/Content/Styles/chat/Client/PageStyles.css" />
+    <link rel="stylesheet" href="~/Content/Styles/font-icons/font-awesome.css">
+    <meta charset="utf-8" />
+    <!--Js-->
+    <script src="~/Scripts/jquery/jquery-1.10.2.js"></script>
+    <script src="~/Scripts/jquery/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery/jquery-ui.js"></script>
+    <script src="~/Scripts/bootstrap/bootstrap.min.js"></script>
+    <script src="~/Scripts/signalr/jquery.signalR-2.2.0.js"></script>
+    <script src="~/signalr/hubs"></script>
+    <script src="~/Scripts/angular/angular.js"></script>
+    <script src="~/Scripts/angular/angular-route.js"></script>
+    <script src="~/Scripts/angular/angular-resource.js"></script>
+    <script src="~/Scripts/signalr/angular-signalr-hub.js"></script>
+    <script src="~/app/ClientChat/app.js"></script>
+    <script src="~/app/ClientChat/Controllers/authController.js"></script>
+    <script src="~/app/ClientChat/Controllers/chatController.js"></script>
+    <script src="~/app/ClientChat/Controllers/waitAgentController.js"></script>
+    <script src="~/app/ClientChat/Controllers/endChatController.js"></script>
+    <script src="~/app/ClientChat/Services/authService.js"></script>
+    <script src="~/app/ClientChat/Services/dataService.js"></script>
+    <script src="~/app/ClientChat/Services/chatService.js"></script>
+    <script src="~/Scripts/Chat/client.js"></script>
+</head>
+<body>
+   
+        @RenderBody()
+       
+        <footer id="footer" style="background-color:antiquewhite">
+            <div class="col-xs-12">
+                <p class="text-right" style="padding-bottom:3px;">&copy; Web Chat Apriorit</p>
+            </div>
+        </footer>
+
+</body>
+</html>

@@ -1,0 +1,29 @@
+﻿@{
+    Layout = null;
+}
+
+@using  Microsoft.Owin.Security
+@model  IEnumerable<WebChat.WebUI.Models.Сhat.ExternalProviderViewModel> 
+
+<link rel="stylesheet" href="~/Content/Styles/chat/Client/PageStyles.css"/>
+<link rel="stylesheet" href="~/Content/Styles/bootstrap/bootstrap-social.css" />
+
+<div class="row enter-chat-container">
+    @{
+        if (Model.Select(p => p.Provider).Count() > 0)
+        {
+            <div id="socialLoginList" class="btn-toolbar" role="toolbar">
+                @foreach (var p in Model)
+                {
+                    <button class="btn btn-social external-login-form-submit @p.ReferenceClass" id="@p.Provider.AuthenticationType" onclick="authExternalProvider('@p.Provider.AuthenticationType')">
+                        <span class="@p.IconClass"></span>
+                        @p.Provider.AuthenticationType
+                    </button>
+                }
+            </div>
+        }
+    }
+</div>
+  
+          
+

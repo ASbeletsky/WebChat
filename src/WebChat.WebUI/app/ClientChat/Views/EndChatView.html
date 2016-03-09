@@ -1,0 +1,25 @@
+﻿<!--Header-->
+<div id="chat-window-header" class="portlet portlet-default" style="background-color: #f0ad4e;">
+    <div class="portlet-heading">
+        <div class="portlet-title">
+            <span class="glyphicon glyphicon-comment" style="color:oldlace; font-size:1.2em;"></span>
+            <div class="pull-right">
+                <a onclick="HideChat()" href="#">
+                    <span style="color:white; font-size:1.2em;" class="glyphicon gly glyphicon-minus "></span>
+                </a>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!--End Header-->
+
+<div>
+    <p class="text-center">
+        Вы действительно хотите завершить диалог с оператором? 
+    </p>
+    <div class="text-center">
+        <button class="btn btn-danger" ng-click="EndChat()"> Завершить </button>
+        <button class="btn btn-default" ng-click="CancelEndChat()"> Отмена </button>
+    </div>
+</div>

@@ -1,0 +1,45 @@
+﻿
+@{
+    ViewBag.Title = "AgentIndex";
+    Layout = "~/Views/Shared/_AngularLayout.cshtml";
+}
+
+
+
+<div ng-app="chatApp">
+        <div class="row">
+            <!--Dialog Navigation-->
+            <div  ng-controller="chatListController">
+                <ul id = "dialogs-navigation-menu "  style="list-style:none;">
+                    <li class="col-md-2 hidden-xs hidden-sm" ng-repeat="dialogLink in DialogsLinks">
+                        <div class="row">
+                            <a style="align-self:center; color:black;" href="/agent-dashboard/dialog/{{dialogLink.Dialog.DialogId}}">
+                                <div ng-class="(dialogLink.isEmpty()) ? 'empty-circle' : 'circle' ">
+                                    <img ng-src="{{dialogLink.Dialog.Client.PhotoUrl}}" class="img-circle" style="height:100px; width:auto" />
+                                </div>
+                                {{dialogLink.Dialog.Client.Name}}
+                            </a>
+                        </div>                                                                                          
+                    </li>
+                </ul>
+            </div>
+        </div><!--End Dialog Navigation-->
+        <div class="row">
+            <!--Active Dialog-->
+            <div ng-view>
+
+            </div>
+        </div><!--End Active Dialog-->
+</div>
+
+<script src="~/signalr/hubs"></script>
+<script src="~/Scripts/signalr/jquery.signalR-2.2.0.min.js"></script>
+<script src="~/Scripts/signalr/angular-signalr-hub.min.js"></script>
+<script src="~/app/AgentChat/app.js"></script>
+<script src="~/app/AgentChat/Controllers/chatListController.js"></script>
+<script src="~/app/AgentChat/Controllers/chatController.js"></script>
+<script src="~/app/AgentChat/Controllers/clientController.js"></script>
+<script src="~/app/AgentChat/Services/dataService.js"></script>
+<script src="~/app/AgentChat/Services/chatService.js"></script>
+<script src="~/Scripts/Chat/agent.js"></script> 
+

@@ -1,0 +1,112 @@
+﻿
+<div>
+    <div class="row" style="padding-top:20px;">
+        <div class="col-md-6 col-xs-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <span class="glyphicon glyphicon-comment"></span> Chat
+                    <div class="btn-group pull-right">
+                        <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                            <span class="glyphicon glyphicon-chevron-down"></span>
+                        </button>
+                        <ul class="dropdown-menu slidedown">
+                            <li>
+                                <a href="javascript:window.location.href=window.location.href">
+                                    <span class="glyphicon glyphicon-refresh">
+                                    </span>Обновить
+                                </a>
+                            </li>
+                            <li>
+                                    <a href="#" ng-click="AwayInDialog(Dialog.DialogId)">
+                                        <span class="fa fa-paperclip"></span>
+                                        Прикрепить
+                                    </a>                                
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <a href="#">
+                                    <span class="fa fa-times"></span>
+                                    Завершить диалог
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                    <div class="panel-body" style="height:400px; overflow-y:auto;">
+                        <ul style="list-style-type:none; padding-left:5px;">
+                            <li ng-repeat="message in Messages">
+                                <div class="chat-body clearfix">
+                                    <div class="header">
+                                        <strong class="primary-font">{{message.Client}}</strong> <small class="pull-right text-muted">
+                                            <span class="glyphicon glyphicon-time"></span>{{message.Time}}
+                                        </small>
+                                    </div>
+                                    <p style="padding-left:15px;"> {{message.Message}} </p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                <div class="panel-footer">
+                    <div class="input-group">
+                        <textarea id="message"
+                               type="text"
+                               ng-model="newMessage"
+                               ng-enter="sendMessage()"
+                               class="form-control input-lg pull-left"
+                               placeholder="Введите сообщение..."
+                               style="height:45px; resize:none;"    /> <span class="input-group-btn">
+                         <button class="btn btn-warning btn-lg" id="btn-chat" ng-click="sendMessage()">
+                               <span class="fa fa-paper-plane"></span>
+                         </button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--User Info-->
+        <div class="col-md-6 col-xs-12">
+            <h4 class="text-center">{{Client.Name}}</h4>
+            <p>
+                <i ng-show="Client.Info.UserType === 'Новый'" class="fa fa-user-plus"></i>
+                <i ng-show="Client.Info.UserType === 'Вернувшийся'" class="fa fa-user"></i>
+                 {{Client.Info.UserType}} пользователь
+            </p>
+            <p ng-show="Client.Info.Email != null">
+                <i class="fa fa-envelope-o"></i>
+                почта: {{Client.Info.Email}}
+            </p>
+            <p ng-show="Client.Info.Address != null">
+                <i class="fa fa-globe"></i>
+                адресс: {{Client.Info.Address}}
+            </p>
+            <div ng-show="Client.Info.UserType === 'Вернувшийся'">
+                <p>
+                    <i class="fa fa-comments-o"></i>
+                    диалогов: {{Client.Info.DialogsCount}} 
+                </p>
+                <p>
+                    <i class="fa fa-calendar"></i>
+                    последний диалог: {{Client.Info.LastChatDate}}
+                </p>
+                <div>
+                    В соц сетях:
+                    <ul style="list-style:none;">
+                        <li ng-repeat="snLink in Client.Info.SocialNetworkLinks">
+                            <div ng-init="provider = (snLink.indexOf('facebook') > -1) ? 'facebook' : twitter">
+                                <i class="fa fa-{{provider}}-square"></i>
+                                <a href="{{snLink}}">{{provider}}</a>
+                            </div>                                                      
+                        </li>
+                    </ul> 
+                </div>
+               
+            </div>
+        </div>
+    </div>
+
+    <footer class="chat-footer">
+        <div class="col-xs-12">
+            <p class="text-right">&copy; Web Chat Apriorit</p>
+        </div>
+    </footer>
+</div>

@@ -1,0 +1,19 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>OwnerStartPage</title>
+</head>
+<body>
+    <div> 
+        <h4> You can <a href="~/Account/RegisterOperator">Register operator</a> or go to Onwer info page <a href="~/Account/OwnerInfo">here.</a></h4>
+         @Html.ActionLink("ShowScript", "AppScript", "Owner");
+    </div>
+</body>
+</html>

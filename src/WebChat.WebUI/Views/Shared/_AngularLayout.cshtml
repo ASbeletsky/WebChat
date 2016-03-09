@@ -1,0 +1,59 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <base href="@System.Configuration.ConfigurationManager.AppSettings["BaseUrlPath"].ToString()" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+    <!--Css-->
+    <link rel="stylesheet" href="~/Content/Styles/bootstrap/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/Content/Styles/chat/Agent/DilogsNavigation.css" />
+    <link rel="stylesheet" href="~/Content/Styles/font-icons/font-awesome.min.css">
+
+    <!--Js-->
+    <script src="~/Scripts/jquery/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/jquery/jquery.validate.min.js"></script>
+    <script src="~/Scripts/bootstrap/bootstrap.min.js"></script>
+   
+    <script src="~/Scripts/angular/angular.js"></script>
+    <script src="~/Scripts/angular/angular-route.js"></script>
+    <script src="~/Scripts/angular/angular-resource.js"></script>   
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Главная", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @{
+                    bool IsAuthenticated = User.Identity.IsAuthenticated;
+                    if (IsAuthenticated)
+                    {
+                        if (User.IsInRole("SupportAgent"))
+                        {
+                            @Html.ActionLink("Чаты", "Index", "Agent", null, new { @class = "navbar-brand" });
+                        }
+                        if (User.IsInRole("Owner"))
+                        {
+                            Html.ActionLink("Мои приложения", "MainPage", "Owner", null, new { @class = "navbar-brand" });
+                        }
+                    }
+                }
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav"></ul>
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </div>
+
+    <div class="container body-content" style="margin-top:55px;">
+        @RenderBody()
+    </div>
+
+</body>
+</html> 

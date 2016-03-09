@@ -1,0 +1,85 @@
+﻿@{
+    Layout = "~/Views/Chat/_ChatLayout.cshtml";
+}
+
+@model  WebChat.WebUI.Models.Сhat.ChatStartPageViewModel
+
+<link rel="stylesheet" href="~/Content/Chat/StartPageFullStyles.css"/>
+
+<div class="container">
+    <br />
+    <div>
+        <p class="text-center">Укажите информацию о себе что бы войти в диалог с оператором</p>
+    </div>
+
+    <div class="enter-chat-container">
+        @using (Html.BeginForm("EmailLogin", "ChatStartPage", FormMethod.Post, new { id = "email-login-form", @class = "form-horizontal", role = "form" }))
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-xs-3">
+                        @Html.LabelFor(m => m.UserName, new { @class = "control-label" })
+                    </div>
+                    <div class="col-xs-9">
+                        @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div>@Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })</div>
+            </div>
+
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-xs-3">
+                        @Html.LabelFor(m => m.Email, new { @class = "control-label" })
+                    </div>
+                    <div class="col-xs-9">
+                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div>@Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })</div>
+            </div>
+        }
+    </div>
+    
+    <div class="btn-group-justified">
+        <a id="email-login-form-submit" class="btn btn-warning" role="button">Войти</a>
+    </div> 
+
+    <div class="divider-container">
+        <div class="strike">
+            <span>Или войдите через</span>
+        </div>
+    </div>
+         
+    <div class="row enter-chat-container">
+        @{
+            if (Model.loginProviders.Count() > 0)
+            {
+                using (Html.BeginForm("ExternalLogin", "Account", FormMethod.Post, new { returnUrl = Url.Action("ChatMainPage", "ChatMainPage")}))
+                {
+                  @Html.AntiForgeryToken()
+                  <div id="socialLoginList" class="div-container">                              
+                      @foreach (var p in Model.loginProviders)
+                       {
+                            <a  class="btn btn-primary col-xs-6" id="@p.AuthenticationType" name="provider" value="@p.AuthenticationType">@p.AuthenticationType</a>
+                       }           
+                  </div>
+              }
+         }
+      } 
+   </div>
+
+   <div class="div-container">
+       <div class="text-center">
+           <p style="font:small">Вход через соц сеть или указание почты позволяет сохранить диалог с оператором</p>
+       </div>
+   </div>
+
+    <script>
+        $('#email-login-form-submit').click(function () {
+            $('#email-login-form').submit();
+        });
+    </script>           
+</div>

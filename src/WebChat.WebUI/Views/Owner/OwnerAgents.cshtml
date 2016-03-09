@@ -1,0 +1,66 @@
+﻿@using WebChat.WebUI.Models
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>@ViewBag.Title</h1>
+
+    <div class="container agentsPage">
+        @Html.Partial("_MenuPartial")
+        <div style="padding-left: 0; padding-top: 0;" class="col-md-10">
+          
+            <div class="container">
+                <h3>Ваши агенты</h3>
+            @foreach (SupportAgentViewModel agent in ViewBag.Agents)
+            {
+
+                    <div class="col-md-5 agentCard">
+                        <div class="row">
+                            <img src="@agent.Image" class="agentPhoto"/>
+                            <div class="col-md-8 agentName">
+                                @agent.Name
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 ">Зарегистрирован</div>
+                                <div class="col-md-4">@agent.RegDate</div>
+
+                                <div class="col-md-4 "><i class="fa fa-comments-o"></i> Диалогов</div>
+                                <div class="col-md-4">@agent.DialogsCount</div>
+
+                                <div class="col-md-4 "><i class="fa fa-envelope-o"></i> Сообщений</div>
+                                <div class="col-md-4">@agent.MessagesCount</div>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row ">
+                            <div class="col-md-4 fieldTitle">Имя</div>
+                            <div class="col-md-8">
+                                @agent.Name
+                            </div>
+                            <div class="col-md-4 fieldTitle">Эл. почта</div>
+                            <div class="col-md-8">
+                                @agent.Email
+                            </div>
+                            <div class="col-md-4 fieldTitle">Телефон</div>
+                            <div class="col-md-8">
+                               <p>@agent.Phone</p> 
+                            </div>
+                        </div>
+                        <hr/>
+                        <div class="row agentsSites">
+                            <span>Работает с сайтами:</span><br>
+                            @foreach (var app in agent.RelatedApps)
+                            {
+                                <a class="active" data-appid="@app.Id" data-agentid="@agent.Id" href="EditApp/0">@app.WebsiteUrl</a><br />
+                            }
+                        </div>
+                        <br />
+                        <a href="/Owner/DeleteAgent/@agent.Id" style="margin-left: 10px;" class="pull-right btn btn-danger">Удалить</a>
+                        <a href="/Owner/EditAgent/@agent.Id" class="pull-right btn btn-warning editAgentBtn">Редактировать</a>
+                    </div>
+                
+            }
+            </div>
+            @Html.ActionLink("Добавить нового агента", "RegisterOperator", "Account", null, new { @class = "btn btn-success"})
+        </div>
+    </div>

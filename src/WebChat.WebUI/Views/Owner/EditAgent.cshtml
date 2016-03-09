@@ -1,0 +1,66 @@
+﻿@using WebChat.WebUI.Models
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    @model WebChat.WebUI.Models.RegisterOperatorViewModel
+}
+
+<div class="container">
+    <h3>Редактировать агента</h3>
+    @Html.ValidationSummary()
+    @Html.AntiForgeryToken()
+    @using (Html.BeginForm("EditAgent", "Owner", new { appId = ViewBag.AddId }, FormMethod.Post, new { @class = "form-horizontal" }))
+    {
+        <div class="form-group">
+            @Html.LabelFor(m => m.Name, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Name, null, new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Email, null, new { @class = "text-danger" })
+            </div>
+        </div>
+        @Html.HiddenFor(x => x.Password)
+        <div class="form-group">
+            @Html.LabelFor(m => m.Phone, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.Phone, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Phone, null, new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.PhotoSrc, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.PhotoSrc, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.PhotoSrc, null, new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Работает в приложениях", new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(item => item.SelectedApps, new MultiSelectList(Model.CustomerApps, "Id", "WebsiteUrl"), new { @class = "form-control chosen-select", multiple = "multiple" })
+            </div>
+            @Html.ValidationMessageFor(m => m.CustomerApps)
+        </div>
+
+        <input type="submit" value="Сохранить" class="btn btn-success col-md-offset-4" />
+    }
+</div>
+
+<link rel="stylesheet" href="~/Content/Styles/bootstrap/bootstrap.chosen.css" />
+<script src="~/Scripts/bootstrap/chosen.jquery.min.js"></script>
+<script src="~/Scripts/bootstrap/chosen.proto.min.js"></script>
+
+<script>
+        $(document).ready(function () {
+            $(".chosen-select").chosen();
+        });
+</script>

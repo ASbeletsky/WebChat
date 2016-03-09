@@ -1,0 +1,44 @@
+﻿@using WebChat.WebUI.Models
+@model WebChat.WebUI.Models.LoginViewModel
+@{
+    ViewBag.Title = "Log in";
+}
+<br />
+<div class="row">
+    <div class="text-center">
+        <h1 class="text-center login-title">Войдите в систему</h1>
+        <div class="">
+            <img class="profile-img" src="~/Content/Images/default-user-image.png"
+                 alt="">
+            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-signin", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "Адрес эл.почты", style = "margin-bottom:20px;" })
+                @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Пароль", style = "margin-bottom:20px;" })
+                <button class="btn btn-lg btn-primary" type="submit">
+                    Войти
+                </button>
+                <label class="checkbox pull-left">
+                    <input type="checkbox" value="remember-me">
+                    Запомнить меня
+                </label>
+
+                <div>
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                    @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

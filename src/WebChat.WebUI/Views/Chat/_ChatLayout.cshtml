@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <link rel="stylesheet" href="~/Content/Chat/ChatLayoutStiles.css"/>
+    <link rel="stylesheet" href="~/Content/bootstrap.css" />
+    <title>@ViewBag.Title</title>
+</head>
+<body style="zoom: 1; visibility: visible;">
+        <div class="navbar navbar-fixed-top chat-header" style="background-color: #f0ad4e;">
+            <div class="container">
+                <div class="navbar-collapse collapse">
+                    <div class="navbar-nav navbar-right">
+                        <a>
+                            <span style="color:white" class="glyphicon glyphicon-minus"></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container body-content">
+            @RenderBody()
+
+            <footer class="chat-footer">
+                <div class="col-xs-12">
+                    <p class="text-right">&copy; Web Chat Apriorit</p>
+                </div>                
+            </footer>
+        </div>
+     
+    @RenderSection("scripts", required: false)
+</body>
+</html>

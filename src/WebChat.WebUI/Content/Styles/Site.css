@@ -1,0 +1,246 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+    height: 100%;
+}
+
+html {
+height: 100%;
+}
+
+#wrap {
+    min-height: 100%;
+}
+
+#main {
+  padding-bottom: 0px; /* must be same height as the footer */
+}
+
+#main-footer {
+  position: relative;
+  margin-top: -40px; /* negative value of footer height */
+  height: 40px;
+  clear:both;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+.agentsPage input[type="text"] {
+    border: 1px solid #333;
+    border-radius: 3px;
+    padding: 3px;
+    box-sizing: border-box;    
+}
+.agentsPage input[type="password"] {
+    border: 1px solid #333;
+    border-radius: 3px;
+    padding: 3px;
+    box-sizing: border-box;    
+}
+
+/*OWNER PAGE STYLES*/
+.appCard {
+    padding: 10px 20px;
+    border: 2px solid #333;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    margin-left: 5%;
+    width: 45%;
+}
+
+.appUrl {
+    text-align: center;
+    font-size: 18px;
+    background: #333;
+    color: whitesmoke;
+    padding: 5px;
+    border-radius: 3px;
+    margin-bottom: 5px;   
+}
+
+.appShortInfoFields {
+    margin: 20px 0px;
+}
+
+.addAgentBlock {
+    margin: 20px;
+}
+
+.agentCard {
+    padding: 10px 20px;
+    border: 2px solid #333;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    margin-left: 5%;
+}
+
+.agentPhoto {
+    width: 30%;
+    float: left;
+    border: 2px solid #333;
+    border-radius: 6px;
+}
+
+.agentName{
+    *width: 60%;
+    float: right;
+    text-align: center;
+    font-size: 18px;
+    background: #333;
+    color: whitesmoke;
+    padding: 5px;
+    border-radius: 3px;
+    margin-bottom: 5px;
+}
+
+.editableData {
+    margin: 20px 0px;
+}
+
+.editableData .fieldTitle {
+    padding-top: 3px;
+}
+
+.editableData > div {
+    margin: 3px 0px;
+}
+
+.editableDataInput:disabled {
+    border: 1px solid transparent !important;
+    background: transparent;
+    color: #333;
+}
+
+.fieldTitle {
+    color: gray;
+    text-align: right;
+}
+
+
+.agentsSites {
+    padding: 0px 20px;
+}
+
+.agentsSites a {
+    color: gray;
+}
+
+.agentsSites a > span {
+    content: ' ';
+    display: inline-block;
+    vertical-align: bottom;
+    width: 20px;
+    height: 20px;
+    margin-left: 10px;
+    background: url('http://www.iconsearch.ru/uploads/icons/sweetiev3/16x16/16-em-cross.png');
+    background-size: cover;
+}
+
+.agentsSites .active {
+    color: #428bca;
+}
+
+.agentsSites .active .statusPic {
+    content: ' ';
+    display: inline-block;
+    vertical-align: bottom;
+    width: 20px;
+    height: 20px;
+    margin-left: 10px;
+    background: url('http://www.iconsearch.ru/uploads/icons/crystalclear/24x24/button_ok.png');
+    background-size: cover;
+}
+
+
+.graph {
+    margin-top: 20px;
+    border: 4px solid black;
+    padding: 20px;
+    border-color: #FF6600;
+    Background: #FFFF99;
+}
+
+/*OWNER PAGE STYLES*/
+
+/*main page*/
+.number {
+    display: block;
+    width: 70px;
+    height: 70px;
+    margin: 0 auto;
+    -webkit-border-radius: 60px;
+    -moz-border-radius: 60px;
+    border-radius: 60px;
+    background-color: #428bca; /*f0ad4e*/
+    color: #fff;
+    font-weight: 300;
+    font-size: 40px !important;
+    line-height: 70px;
+    text-align: center;
+}
+
+/*login page*/
+.form-signin
+{
+    max-width: 330px;
+    padding: 15px;
+    margin: 0 auto;
+}
+.form-signin .form-signin-heading, .form-signin .checkbox
+{
+    margin-bottom: 10px;
+}
+.form-signin .checkbox
+{
+    font-weight: normal;
+}
+.form-signin .form-control
+{
+    position: relative;
+    font-size: 16px;
+    height: auto;
+    padding: 10px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.form-signin .form-control:focus
+{
+    z-index: 2;
+}
+
+.login-title
+{
+    color: #555;
+    font-size: 18px;
+    font-weight: 400;
+    display: block;
+}
+.profile-img
+{
+    width: 96px;
+    height: 96px;
+    margin: 0 auto 10px;
+    display: block;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+}

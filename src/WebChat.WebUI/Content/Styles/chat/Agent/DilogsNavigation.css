@@ -1,0 +1,33 @@
+﻿.circle{
+    height: 120px;
+    width: 120px;
+    border-radius: 50%;
+    border: 10px solid transparent;
+    color: #fff;
+    background: #fff;
+    border: 5px solid #f79215;
+    text-align: center;
+    line-height: 108px;
+}
+
+.empty-circle{
+    height: 120px;
+    width: 120px;
+    border-radius: 50%;
+    border: 10px  dotted transparent;
+    color: #fff;
+    background: #fff;
+    border: 5px dashed #808080;
+    text-align: center;
+    line-height: 108px;
+}
+
+.empty-circle:hover {
+    border-color:black;
+}
+
+.center-block {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}

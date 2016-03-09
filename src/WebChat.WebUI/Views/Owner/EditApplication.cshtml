@@ -1,0 +1,43 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    @model WebChat.WebUI.Models.RegisterApplicationViewModel
+}
+
+<h1>Редактировать приложение</h1>
+
+<div class="container agentsPage">
+    @Html.Partial("_MenuPartial")
+    <div style="padding-left: 0; padding-top: 0;" class="col-md-10">
+        @Html.ValidationSummary()
+        @Html.AntiForgeryToken()
+        @using (Html.BeginForm("EditApplication", "Owner", FormMethod.Post, new { @class = "form-horizontal" }))
+        {
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.WebsiteUrl, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(m => m.WebsiteUrl, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.WebsiteUrl, null, new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.SubjectScope, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(m => m.SubjectScope, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.SubjectScope, null, new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.ContactEmail, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(m => m.ContactEmail, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.ContactEmail, null, new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <input type="submit" value="Сохранить" class="btn btn-success col-md-offset-4" />
+        }
+    </div>
+</div>

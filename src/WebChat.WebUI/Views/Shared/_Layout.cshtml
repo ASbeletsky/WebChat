@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="@System.Configuration.ConfigurationManager.AppSettings["BaseUrlPath"].ToString()" />
+    <title>@ViewBag.Title - WebChat Application</title>
+    <script src="~/Scripts/jquery/jquery-1.10.2.js"></script>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <link href="https://ajax.googleapis.com/ajax/static/modules/gviz/1.0/core/tooltip.css" rel="stylesheet" type="text/css">
+    <link href="~/Content/Styles/font-icons/font-awesome.css" rel="stylesheet"/>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Главная", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @{
+                    bool IsAuthenticated = User.Identity.IsAuthenticated;
+                    if (IsAuthenticated)
+                    {
+                        if (User.IsInRole("SupportAgent"))
+                        {                           
+                                @Html.ActionLink("Чаты", "Index", "Agent", null, new { @class = "navbar-brand" });                                                     
+                        }
+                        if (User.IsInRole("Owner"))
+                        {
+                            @Html.ActionLink("Мои приложения", "OwnerInfo", "Owner", null, new { @class = "navbar-brand" });
+                        }
+                    }
+                }                             
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav"></ul>
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </div>
+    <div id="wrap" class="container body-content">
+        <div id="main">
+            @RenderBody()
+        </div>           
+    </div>
+    
+    <footer id="main-footer">       
+        <div class="container body-content">
+            <hr />
+            <p>&copy; @DateTime.Now.Year - WebChat Develop Team</p>
+        </div>
+    </footer>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/CRUDhandler")
+    @RenderSection("scripts", required: false)
+
+    </body>
+</html>
+
+
+
