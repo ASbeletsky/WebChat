@@ -94,7 +94,7 @@
     <Compile Include="Concrete\DataBase\Statistic Entities\DialogsPerDay.cs" />
     <Compile Include="Concrete\DataBase\Statistic Entities\MessagesByMonth.cs" />
     <Compile Include="Concrete\DataBase\Statistic Entities\ResponceTimePerHour.cs" />
-    <Compile Include="Concrete\DataBase\WebChatDbContext.cs" />
+    <Compile Include="WebChatDbContext.cs" />
     <Compile Include="Concrete\DTO\AgentsDialogsDataDTO.cs" />
     <Compile Include="Concrete\DTO\StoredMessageDTO.cs" />
     <Compile Include="Concrete\EfUnitOfWork.cs" />
@@ -111,11 +111,11 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\WebChat.Infrastructure\WebChat.Infrastructure.csproj">
+    <ProjectReference Include="..\WebChat.Infrastructure\WebChat.Infrastructure.csproj">
       <Project>{d62df481-525c-48a6-b3df-ca2df24ebd78}</Project>
       <Name>WebChat.Infrastructure</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\WebChat.Models\WebChat.Models.csproj">
+    <ProjectReference Include="..\WebChat.Models\WebChat.Models.csproj">
       <Project>{3419782f-5b41-4edc-8bd2-39dd519d2e13}</Project>
       <Name>WebChat.Models</Name>
     </ProjectReference>

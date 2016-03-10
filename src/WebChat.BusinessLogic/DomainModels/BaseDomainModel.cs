@@ -2,7 +2,7 @@
 {
     #region Using
 
-    using WebChat.DataAccess.Data;
+    using WebChat.Infrastructure.Data;
 
     #endregion
 

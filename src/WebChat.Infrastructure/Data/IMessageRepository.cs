@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 using WebChat.DataAccess.Concrete.DTO;
 using WebChat.DataAccess.Concrete.Entities.Chat;
 
-namespace WebChat.DataAccess.Abstract
+namespace WebChat.Infrastructure.Data
+
 {
     public interface IMessageRepository : IRepository<Message>
     {

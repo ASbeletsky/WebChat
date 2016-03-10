@@ -1,18 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
-using System.Data.SqlClient;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WebChat.DataAccess.Abstract;
-using WebChat.DataAccess.Concrete.DataBase;
 using WebChat.DataAccess.Concrete.DTO;
-using WebChat.DataAccess.Concrete.Entities.Chat;
+using WebChat.Infrastructure.Data;
+using WebChat.Models.Entities.Chat;
 
 namespace WebChat.DataAccess.Concrete.Repositories
 {
-    public class MessageRepository : IMessageRepository
+    public class MessageRepository : IRepository<Message>
     {
         private readonly WebChatDbContext _context;
         public MessageRepository(WebChatDbContext context)

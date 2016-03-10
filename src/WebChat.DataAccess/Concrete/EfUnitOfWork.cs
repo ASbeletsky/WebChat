@@ -1,32 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WebChat.DataAccess.Abstract;
-using WebChat.DataAccess.Concrete.DataBase;
-using WebChat.DataAccess.Concrete.Entities.Chat;
-using WebChat.DataAccess.Concrete.Entities.Customer_apps;
-using WebChat.DataAccess.Concrete.Repositories;
-using WebChat.Models.Entities.Chat;
-
-namespace WebChat.DataAccess.Concrete
+﻿namespace WebChat.DataAccess.Concrete
 {
+
+    #region Using
+
+    using WebChat.DataAccess.Concrete.Repositories;
+    using WebChat.Models.Entities.Chat;
+    using WebChat.Infrastructure.Data;
+    using Models.Entities.CustomerApps;
+    using Models.Entities.Identity;
+    using System.Collections.Generic;
+
+    #endregion
+
     public class EfUnitOfWork : IDataService
     {
         private WebChatDbContext _context;
-        private IAmountOfDialogs amountOfDialogs;
         public EfUnitOfWork()
         {
             _context = WebChatDbContext.GetInstance();
         }
 
-        private CustomerAppRepository _customerApplications;
-        private UserRepository _users;
+        private IRepository<CustomerApplication> _customerApplications;
+        private IRepository<AppUser> _users;
         private IRepository<Dialog> _dialogs;
-        private MessageRepository _messages;
+        private IRepository<Message> _messages;
 
-        public ICustomerAppRepository CustomerApplications
+        public IRepository<CustomerApplication> CustomerApplications
         {
             get
             {
@@ -35,7 +34,7 @@ namespace WebChat.DataAccess.Concrete
                 return _customerApplications;
             }
         }
-        public UserRepository Users
+        public IRepository<AppUser> Users
         {
             get
             {
@@ -70,11 +69,17 @@ namespace WebChat.DataAccess.Concrete
             return new EfUnitOfWork();
         }
 
-        public void Dispose() {  }
+        public IEnumerable<TResult> ExecuteCollectionQuery<TResult>(string collectionQuery, params object[] parameters)
+        {            
+            IEnumerable<TResult> queryResults = _context.Database.SqlQuery<TResult>(collectionQuery, parameters);
+            return queryResults;
+        }
 
         public void Save()
         {
             _context.SaveChanges();
         }
+
+        public void Dispose() {  }
     }
 }

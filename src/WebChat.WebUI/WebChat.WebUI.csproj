@@ -393,15 +393,15 @@
     <Content Include="Views\Owner\EditAgent.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\WebChat.ApplicationBootstrap\WebChat.ApplicationBootstrap.csproj">
+    <ProjectReference Include="..\WebChat.ApplicationBootstrap\WebChat.ApplicationBootstrap.csproj">
       <Project>{7c9a88e4-dbd4-40a2-ae47-05b169205261}</Project>
       <Name>WebChat.ApplicationBootstrap</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\WebChat.Infrastructure\WebChat.Infrastructure.csproj">
+    <ProjectReference Include="..\WebChat.Infrastructure\WebChat.Infrastructure.csproj">
       <Project>{d62df481-525c-48a6-b3df-ca2df24ebd78}</Project>
       <Name>WebChat.Infrastructure</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\WebChat.Models\WebChat.Models.csproj">
+    <ProjectReference Include="..\WebChat.Models\WebChat.Models.csproj">
       <Project>{3419782f-5b41-4edc-8bd2-39dd519d2e13}</Project>
       <Name>WebChat.Models</Name>
     </ProjectReference>

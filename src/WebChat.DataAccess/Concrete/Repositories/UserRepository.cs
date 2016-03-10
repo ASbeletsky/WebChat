@@ -1,18 +1,18 @@
-﻿using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WebChat.DataAccess.Abstract;
-using WebChat.DataAccess.Concrete.DataBase;
-using WebChat.DataAccess.Concrete.Entities.Identity;
-using WebChat.DataAccess.Managers;
-
-namespace WebChat.DataAccess.Concrete.Repositories
+﻿namespace WebChat.DataAccess.Concrete.Repositories
 {
-    public class UserRepository
+    #region 
+
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using WebChat.DataAccess.Managers;
+    using WebChat.Infrastructure.Data;
+    using WebChat.Models.Entities.Identity;
+
+    #endregion
+
+    public class UserRepository : IRepository<AppUser>
     {
         private AppUserManager _userManager;
         private WebChatDbContext _context;
@@ -94,6 +94,21 @@ namespace WebChat.DataAccess.Concrete.Repositories
             var result = await _userManager.AddLoginAsync(userId, login);
 
             return result;
+        }
+
+        public AppUser GetById(dynamic id)
+        {
+            long userId = (long)id;
+        }
+
+        public void Create(AppUser item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Delete(dynamic id)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace WebChat.DataAccess.Data
+﻿namespace WebChat.Infrastructure.Data
 {
     #region Using
 
@@ -7,6 +7,7 @@
     using WebChat.Models.Entities.CustomerApps;
     using WebChat.Models.Entities.Identity;
     using System.Threading.Tasks;
+    using System.Collections.Generic;
 
     #endregion
 
@@ -16,7 +17,7 @@
         IRepository<Dialog> Dialogs { get; }
         IRepository<CustomerApplication> CustomerApplications { get; }
         IRepository<AppUser> Users { get; }
-        Task<TResult> ExecuteCommand<TResult>(string command, params object[] parameters);
+        IEnumerable<TResult> ExecuteCollectionQuery<TResult>(string collectionQuery, params object[] parameters);
         void Save();
     }
 }

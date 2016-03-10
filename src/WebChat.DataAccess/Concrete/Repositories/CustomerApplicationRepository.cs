@@ -1,19 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WebChat.DataAccess.Abstract;
-using WebChat.DataAccess.Concrete.DataBase;
 using WebChat.DataAccess.Concrete.DataBase.Statistic_Entities;
-using WebChat.DataAccess.Concrete.Entities.Customer_apps;
-using WebChat.DataAccess.Concrete.Entities.Identity;
+using WebChat.Infrastructure.Data;
+using WebChat.Models.Entities.CustomerApps;
 
 namespace WebChat.DataAccess.Concrete.Repositories
 {
-    public class CustomerAppRepository : ICustomerAppRepository
+    public class CustomerAppRepository : IRepository<CustomerApplication>
     {
         private readonly WebChatDbContext _context;
         public CustomerAppRepository(WebChatDbContext context)
@@ -28,14 +23,16 @@ namespace WebChat.DataAccess.Concrete.Repositories
 
         public IEnumerable<CustomerApplication> All
         {
-            get { return _context.CustomerApplication.AsQueryable(); }
+            get
+            {
+                return _context.CustomerApplication;
+            }
         }
 
         public void Create(CustomerApplication item)
         {
 
-                _context.CustomerApplication.Add(item);
-                _context.SaveChanges();
+             _context.CustomerApplication.Add(item);
         }
 
         public void Delete(dynamic Id)
@@ -133,5 +130,7 @@ namespace WebChat.DataAccess.Concrete.Repositories
             _context.Database.ExecuteSqlCommand("insert into dbo.UserApp values(@p0, @p1)", userId, appId);
             _context.SaveChanges();
         }
+
+
     }
 }

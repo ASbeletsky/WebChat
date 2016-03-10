@@ -1,4 +1,4 @@
-﻿namespace WebChat.DataAccess.Data
+﻿namespace WebChat.Infrastructure.Data
 {
     #region Using
 
@@ -10,10 +10,10 @@
     public interface IRepository<T> where T : class
     {
         IEnumerable<T> All { get; }
-        T GetById(dynamic Id);
+        T GetById(dynamic id);
         T Find(Func<T, bool> predicate);
         void Create(T item);
         void Update(T item);
-        void Delete(dynamic Id);
+        void Delete(dynamic id);
     }
 }

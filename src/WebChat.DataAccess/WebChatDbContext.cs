@@ -1,24 +1,17 @@
-﻿using Microsoft.AspNet.Identity.EntityFramework;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Data.Common;
-using System.Data.Entity;
-using System.Data.Entity.Infrastructure.Annotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WebChat.DataAccess.Concrete.Entities.Chat;
-using WebChat.DataAccess.Concrete.Entities.Customer_apps;
-using WebChat.DataAccess.Concrete.Entities.Identity;
-using System.Data.Entity.Infrastructure;
-using System.Data.Entity.Validation;
-using System.Globalization;
-using WebChat.DataAccess.Concrete.DataBase.Statistic_Entities;
-using System.Data.SqlClient;
-
-namespace WebChat.DataAccess.Concrete.DataBase
+﻿namespace WebChat.DataAccess
 {
+    #region Using
+
+    using System;
+    using System.Collections.Generic;
+    using System.Data.Common;
+    using System.Globalization;
+    using System.Linq;
+    using Microsoft.AspNet.Identity.EntityFramework;
+    using WebChat.Models.Entities.Identity;
+
+    #endregion
+
     public class WebChatDbContext : IdentityDbContext<AppUser,
                                                       AppRole,
                                                       long,

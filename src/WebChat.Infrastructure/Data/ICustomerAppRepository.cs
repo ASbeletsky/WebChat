@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 using WebChat.DataAccess.Concrete.DataBase.Statistic_Entities;
 using WebChat.DataAccess.Concrete.Entities.Customer_apps;
 
-namespace WebChat.DataAccess.Abstract
+namespace WebChat.Infrastructure.Data
+
 {
     public interface ICustomerAppRepository : IRepository<CustomerApplication>
     {

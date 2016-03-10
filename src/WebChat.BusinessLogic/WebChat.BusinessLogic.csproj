@@ -97,6 +97,8 @@
     <Compile Include="Chat\Balancers\BalancerType.cs" />
     <Compile Include="BussinessBindings.cs" />
     <Compile Include="DomainModels\BaseDomainModel.cs" />
+    <Compile Include="DomainModels\CustomerAppDomainModel.cs" />
+    <Compile Include="DomainModels\DialogDomainModel.cs" />
     <Compile Include="Managers\ChatManager.cs" />
     <Compile Include="Managers\AgentManager.cs" />
     <Compile Include="Chat\Entities\MessageDTO.cs" />
@@ -114,7 +116,7 @@
     <Compile Include="Managers\AppRoleManager.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\WebChat.Infrastructure\WebChat.Infrastructure.csproj">
+    <ProjectReference Include="..\WebChat.Infrastructure\WebChat.Infrastructure.csproj">
       <Project>{d62df481-525c-48a6-b3df-ca2df24ebd78}</Project>
       <Name>WebChat.Infrastructure</Name>
     </ProjectReference>

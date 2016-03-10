@@ -1,17 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WebChat.DataAccess.Abstract;
-using WebChat.DataAccess.Concrete.DataBase;
-using WebChat.DataAccess.Concrete.DTO;
-using WebChat.DataAccess.Concrete.Entities.Chat;
-
-namespace WebChat.DataAccess.Concrete.Repositories
+﻿namespace WebChat.DataAccess.Concrete.Repositories
 {
-    public class DialogRepository : IRepository<Dialog>, IAmountOfDialogs
+    #region Using
+
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using WebChat.Infrastructure.Data;
+    using WebChat.Models.Entities.Chat;
+
+    #endregion
+
+    public class DialogRepository : IRepository<Dialog>
     {
         private readonly WebChatDbContext _context;
         private static string numberOfDialogsByRole;
@@ -92,9 +92,6 @@ namespace WebChat.DataAccess.Concrete.Repositories
             _context.SaveChanges();
         }
 
-        public IEnumerable<AgentsDialogsDataDTO> getAgentsAmountOfDialogData(string role)
-        {
-            return _context.Database.SqlQuery<AgentsDialogsDataDTO>(NumberOfDialogsByRole, role);
-        }
+
     }
 }
