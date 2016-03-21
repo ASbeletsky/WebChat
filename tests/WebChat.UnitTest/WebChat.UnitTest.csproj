@@ -74,23 +74,14 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Balancers\BalancerByWorkingTimeTest.cs" />
-    <Compile Include="Chat\AssemblyInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
-    <ProjectReference Include="..\..\src\WebChat.BusinessLogic\WebChat.BusinessLogic.csproj">
-      <Project>{63EFF309-6A29-4481-9FF0-7BD5EF0A658A}</Project>
-      <Name>WebChat.BusinessLogic</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\WebChat.DataAccess\WebChat.DataAccess.csproj">
-      <Project>{88bdcf76-562c-42a0-a8e3-fa522a1e4ae6}</Project>
-      <Name>WebChat.DataAccess</Name>
-    </ProjectReference>
+    <Folder Include="Chat\" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
