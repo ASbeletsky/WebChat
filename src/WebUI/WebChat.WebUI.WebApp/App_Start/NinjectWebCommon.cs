@@ -1,7 +1,7 @@
-[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(WebChat.WebUI.WebApp.AppStart.NinjectWebCommon), "Start")]
-[assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(WebChat.WebUI.WebApp.AppStart.NinjectWebCommon), "Stop")]
+[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(WebChat.WebUI.WebApp.App_Start.NinjectWebCommon), "Start")]
+[assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(WebChat.WebUI.WebApp.App_Start.NinjectWebCommon), "Stop")]
 
-namespace WebChat.WebUI.WebApp.AppStart
+namespace WebChat.WebUI.WebApp.App_Start
 {
     #region Using
 
@@ -10,24 +10,24 @@ namespace WebChat.WebUI.WebApp.AppStart
     using Microsoft.Web.Infrastructure.DynamicModuleHelper;
     using Ninject;
     using Ninject.Web.Common;
-    using System.Web.Mvc;
+
 
     #endregion
 
-    public static class NinjectWebCommon 
+    public static class NinjectWebCommon
     {
         private static readonly Bootstrapper bootstrapper = new Bootstrapper();
 
         /// <summary>
         /// Starts the application
         /// </summary>
-        public static void Start() 
-        {
+        public static void Start()
+         {
             DynamicModuleUtility.RegisterModule(typeof(OnePerRequestHttpModule));
             DynamicModuleUtility.RegisterModule(typeof(NinjectHttpModule));
             bootstrapper.Initialize(CreateKernel);
         }
-        
+
         /// <summary>
         /// Stops the application.
         /// </summary>
@@ -35,7 +35,7 @@ namespace WebChat.WebUI.WebApp.AppStart
         {
             bootstrapper.ShutDown();
         }
-        
+
         /// <summary>
         /// Creates the kernel that will manage your application.
         /// </summary>
@@ -64,7 +64,7 @@ namespace WebChat.WebUI.WebApp.AppStart
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-            DependencyResolver.SetResolver(new Services.Common.NinjectDependencyResolver(kernel));
-        }        
+            System.Web.Mvc.DependencyResolver.SetResolver(new Services.Common.NinjectDependencyResolver(kernel));
+        }
     }
 }

@@ -10,14 +10,17 @@
     {
         [Required]
         [DataType(DataType.Url)]
-        [Display(Name = "Url адрес сайта")]
+        [Display(Name = "Url адрес")]
         public string WebSiteUrl { get; set; }
 
         [Required]
-        [StringLength(256, ErrorMessage = "The field must be maximum 256 characters long.", MinimumLength = 1)]
         [DataType(DataType.Text)]
-        [Display(Name = "Сфера дейтельности сайта")]
+        [Display(Name = "Сфера дейтельности")]
         public string Occupation { get; set; }
+
+        [DataType(DataType.EmailAddress)]
+        [Display(Name = "Контактный email")]
+        public string ContactEmail { get; set; }
 
     }
 }

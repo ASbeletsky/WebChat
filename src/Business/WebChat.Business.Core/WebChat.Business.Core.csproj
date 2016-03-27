@@ -63,14 +63,18 @@
     <Compile Include="Chat\Dialog.cs" />
     <Compile Include="ChatManager.cs" />
     <Compile Include="BusinessBase.cs" />
-    <Compile Include="User\ChatMember.cs" />
+    <Compile Include="Chat\Message.cs" />
+    <Compile Include="Customer\CustomerApp.cs" />
+    <Compile Include="Identity\Agent.cs" />
+    <Compile Include="Identity\ChatMember.cs" />
     <Compile Include="ChatMessage.cs" />
     <Compile Include="CustomerAppManager.cs" />
     <Compile Include="DialogManager.cs" />
+    <Compile Include="Identity\Client.cs" />
     <Compile Include="MessageDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="User\Customer.cs" />
-    <Compile Include="User\User.cs" />
+    <Compile Include="Customer\Customer.cs" />
+    <Compile Include="Identity\User.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Domain\WebChat.Domain.Core\WebChat.Domain.Core.csproj">

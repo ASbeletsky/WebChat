@@ -1,4 +1,4 @@
-﻿namespace WebChat.WebUI.WebApp.AppStart
+﻿namespace WebChat.WebUI.WebApp.App_Start
 {
     #region Using
 

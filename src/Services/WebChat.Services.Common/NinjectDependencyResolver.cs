@@ -1,21 +1,24 @@
 ﻿namespace WebChat.Services.Common
 {
+
     #region Using
 
     using Ninject;
     using System;
     using System.Collections.Generic;
-    using System.Web.Mvc;
 
+    using Interfaces;
+    using System.Reflection;
+    using System.IO;
     #endregion
 
-    public class NinjectDependencyResolver : IDependencyResolver
+    public class NinjectDependencyResolver : System.Web.Mvc.IDependencyResolver, IDependencyContainer
     {
         private IKernel kernel;
         public NinjectDependencyResolver(IKernel kernelParam)
         {
             kernel = kernelParam;
-            AddBindings();
+            AddBindings();        
         }
         public object GetService(Type serviceType)
         {
@@ -34,7 +37,13 @@
 
         private void AddBindings()
         {
-            var assemblies = AppDomain.CurrentDomain.GetAssemblies();
+            string folder =  Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "bin\\");
+            var assemblies = new List<Assembly>
+            {
+                 Assembly.LoadFile(folder +  "WebChat.Services.Common.dll"),
+                 Assembly.LoadFile(folder +  "WebChat.Business.Services.dll")
+            };
+
             kernel.Load(assemblies);
         }
     }

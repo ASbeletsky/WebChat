@@ -40,9 +40,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ICustomerService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Domain\WebChat.Domain.Core\WebChat.Domain.Core.csproj">
+      <Project>{dbb555d6-a7c2-4b1f-8f57-87441426a187}</Project>
+      <Name>WebChat.Domain.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Domain\WebChat.Domain.Interfaces\WebChat.Domain.Interfaces.csproj">
+      <Project>{914aa30d-3796-46b1-a8a5-401d494d070b}</Project>
+      <Name>WebChat.Domain.Interfaces</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WebChat.Business.Core\WebChat.Business.Core.csproj">
       <Project>{7818d512-0834-49cd-8253-6320dc5543a9}</Project>
       <Name>WebChat.Business.Core</Name>

@@ -7,9 +7,10 @@
     using System.Linq;
     using Services.Interfaces;
     using Domain.Core.Identity;
-    using Business.Core.User;
+    using Business.Core.Identity;
     using WebChat.Domain.Data;
-
+    using Business.Core.Customer;
+    using Domain.Core.Application;
     #endregion
 
     public class EntityConverter : IEntityConverter
@@ -20,26 +21,8 @@
 
         #endregion
 
-        #region Static Members
 
-        private static readonly EntityConverter _instance;
-        static EntityConverter()
-        {
-            _instance = new EntityConverter();
-        }
-
-        public static EntityConverter Instance
-        {
-            get
-            {
-                return _instance;
-            }
-        }
-
-        #endregion
-
-
-        private EntityConverter()
+        public EntityConverter()
         {
             InitializeMappings();
         }
@@ -64,12 +47,15 @@
         {
             var config = new MapperConfiguration(mapper =>
             {
+                mapper.CreateMap<User, UserModel>();
 
-                mapper.CreateMap<UserModel, User>()
-                      .Include<UserModel, Customer>()
-                      .ForMember(user => user.PhotoSource, model => model.MapFrom(x => x.Claims.FirstOrDefault(c => c.ClaimType == AppClaimTypes.PhotoSource).ClaimValue))
-                      .ReverseMap();
-                     
+                mapper.CreateMap<UserModel, User>();
+
+                mapper.CreateMap<CustomerApplicationModel, CustomerApplication>();
+
+                mapper.CreateMap<CustomerApplication, CustomerApplicationModel>();
+
+                mapper.CreateMissingTypeMaps = true;                    
             });
 
            mapper = config.CreateMapper();

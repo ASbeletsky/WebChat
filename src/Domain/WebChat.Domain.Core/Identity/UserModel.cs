@@ -19,7 +19,7 @@
         public DateTime RegistrationDate { get; set; }
         public virtual ICollection<MessageModel> Messages { get; set; }
         public virtual ICollection<DialogModel> Dialogs { get; set; }
-        public virtual ICollection<CustomerApplicationModel> RelatedApplications { get; set; }
+        public virtual ICollection<CustomerApplicationModel> RelatedApplications { get; private set; }
         public virtual ICollection<CustomerApplicationModel> myOwnApplications { get; set; } //для владельцев
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<UserModel, long> manager)

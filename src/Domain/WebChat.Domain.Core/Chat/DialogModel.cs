@@ -5,7 +5,7 @@
     using System;
     using System.Collections.Generic;
     using Identity;
-
+    using Application;
     #endregion
 
     public class DialogModel
@@ -30,19 +30,30 @@
         public DateTime StartedAt
         {
             get;
-            private set;
+            set;
         }
 
         public DateTime ClosedAt
         {
             get;
-            private set;
+            set;
+        }
+
+        public int AppId
+        {
+            get;
+            set;
         }
 
         public virtual ICollection<MessageModel> Messages
         {
             get;
             private set;
+        }
+
+        public virtual CustomerApplicationModel App
+        {
+            get;
         }
 
         public virtual ICollection<UserModel> Users

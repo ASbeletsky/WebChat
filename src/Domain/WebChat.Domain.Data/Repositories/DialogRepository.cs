@@ -70,6 +70,11 @@
             }
         }
 
+        public IEnumerable<DialogModel> GetApplicationDialogs(int appId)
+        {
+            return this.All.Where(dialog => dialog.AppId == appId);
+        }
+
         #endregion
     }
 }

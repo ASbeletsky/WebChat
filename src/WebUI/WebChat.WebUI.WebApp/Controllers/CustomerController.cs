@@ -3,23 +3,33 @@
     #region Using
 
     using System.Web.Mvc;
-    using Business.Core.User;
     using WebChat.WebUI.ViewModels.Shared;
-    using Business.Management;
     using System;
     using System.Threading.Tasks;
+    using Business.Interfaces;
+    using ViewModels.Customer;
+    using Business.Core.Customer;
 
     #endregion
 
-    public class CustomerController : BaseMVCController
+    public class CustomerController : BaseMvcController
     {
-        private CustomerManagement _customerManagement;
+        #region Private Members
 
-        public CustomerController(CustomerManagement customerManagement)
+        private ICustomerService _customerService;
+
+        #endregion
+
+        #region Constructor
+
+        public CustomerController(ICustomerService customerService)
         {
-            this._customerManagement = customerManagement;
+            this._customerService = customerService;
         }
 
+        #endregion
+
+        #region Register Customer
 
         [HttpGet]
         public ActionResult RegisterCustomer()
@@ -36,7 +46,7 @@
                 if (ModelState.IsValid)
                 {
                     var newCustomer = new Customer(model.Name, model.Email);
-                    newCustomer = await _customerManagement.CreateCustomer(newCustomer);
+                    newCustomer = await _customerService.CreateCustomerAsync(newCustomer);
                     return RedirectToAction("CustomerHome");
                 }
                 
@@ -49,6 +59,41 @@
             }
         }
 
+        #endregion
+
+        #region Register Customer And First App
+
+        [HttpGet]
+        public ActionResult RegisterCustomerAndFirstApp()
+        {
+            var model = new RegisterCustomerAndFirstAppViewModel();
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> RegisterCustomerAndFirstApp(RegisterCustomerAndFirstAppViewModel model)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var newCustomer = new Customer(model.Customer.Name, model.Customer.Email);
+                    newCustomer = await _customerService.CreateCustomerAsync(newCustomer);
+                    var firstApp = new CustomerApplication(model.App.WebSiteUrl, model.App.Occupation, model.App.ContactEmail, newCustomer.Id);
+                    newCustomer.AddApplication(firstApp);
+                    return RedirectToAction("CustomerHome");
+                }
+
+                return View(model);
+            }
+            catch (Exception ex)
+            {
+                AddModelErrors(ex);
+                return View(model);
+            }
+        }
+
+        #endregion
 
         //        private List<AppUser> GetRelatedAgents(int appId)
         //        {

@@ -1,8 +1,8 @@
 ﻿namespace WebChat.Domain.Interfaces.Repositories
 {
+
     #region Using
 
-    using System;
     using System.Collections.Generic;
     using WebChat.Domain.Core.Application;
     using WebChat.Domain.Interfaces;

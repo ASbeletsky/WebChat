@@ -12,6 +12,7 @@
     {
         string GenerateAppKey();
         int GetIdByAppKey(string appKey);
+        ICollection<CustomerApplicationModel> GetApplicationsByOwner(long userId);
 
         //IEnumerable<AgentAndMessageCount> MostActiveAgentOnDay(int AppId, DateTime Day);
         //IEnumerable<MessagesByMonth> MessageCountInCurrentAndPreviosMonth(int AppId);

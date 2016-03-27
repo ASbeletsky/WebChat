@@ -1,10 +1,10 @@
 ﻿
 namespace WebChat.Domain.Core.Identity
 {
-    public class Roles
+    public enum Roles : int
     {
-        public const string Customer = "Customer";
-        public const string Client = "Client";
-        public const string Agent = "Agent";
+        Client = 1,
+        Agent = 2,
+        Customer = 3
     }
 }

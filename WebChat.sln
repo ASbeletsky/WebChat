@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{52412EFB-4B46-4F59-8BBE-DEE30865B908}"
 EndProject
@@ -41,7 +41,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Business", "Business", "{AD
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebChat.Business.Interfaces", "src\Business\WebChat.Business.Interfaces\WebChat.Business.Interfaces.csproj", "{D883B227-28D6-415B-9E8C-AE4428831EC3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebChat.Business.Management", "src\Business\WebChat.Business.Management\WebChat.Business.Management.csproj", "{05A34531-C04B-44EE-8B7C-9ACDD75AF347}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebChat.Business.Services", "src\Business\WebChat.Business.Services\WebChat.Business.Services.csproj", "{05A34531-C04B-44EE-8B7C-9ACDD75AF347}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

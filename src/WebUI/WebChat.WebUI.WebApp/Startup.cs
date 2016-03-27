@@ -7,20 +7,20 @@ namespace WebChat.WebUI.WebApp
     using System.Web.Mvc;
     using System.Web.Optimization;
     using System.Web.Routing;
-    using WebChat.WebUI.WebApp.AppStart;
+    using WebChat.WebUI.WebApp.App_Start;
 
     #endregion 
 
     public partial class Startup
     {
         public void Configuration(IAppBuilder app)
-        {
+        {           
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             ConfigureAuth(app);
-            app.UseWebApi(WebApiConfig.Register());
+            app.UseWebApi(WebApiConfig.Register());            
         }
     }
 }

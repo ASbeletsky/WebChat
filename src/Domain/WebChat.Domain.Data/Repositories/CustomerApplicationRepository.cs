@@ -97,6 +97,11 @@
             }
         }
 
+        public ICollection<CustomerApplicationModel> GetApplicationsByOwner(long userId)
+        {
+            return this.All.Where(app => app.OwnerId == userId).ToList();
+        }
+
         #endregion
 
         /*------------------------------------- Функции ---------------------------------------------*/

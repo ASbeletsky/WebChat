@@ -7,8 +7,8 @@
     <ProjectGuid>{05A34531-C04B-44EE-8B7C-9ACDD75AF347}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>WebChat.Business.Management</RootNamespace>
-    <AssemblyName>WebChat.Business.Management</AssemblyName>
+    <RootNamespace>WebChat.Business.Services</RootNamespace>
+    <AssemblyName>WebChat.Business.Services</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -50,9 +50,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BusinessServicesBindings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="CustomerManagment.cs" />
-    <Compile Include="UserManagement.cs" />
+    <Compile Include="CustomerService.cs" />
+    <Compile Include="UserService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Domain\WebChat.Domain.Core\WebChat.Domain.Core.csproj">

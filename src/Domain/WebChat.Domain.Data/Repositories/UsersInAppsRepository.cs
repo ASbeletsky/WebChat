@@ -10,6 +10,7 @@
     using Domain.Interfaces;
     using WebChat.Domain.Interfaces.Repositories;
     using WebChat.Domain.Data;
+    using Core.Identity;
 
     #endregion
     public class UsersInAppsRepository : IUsersInAppsRepository

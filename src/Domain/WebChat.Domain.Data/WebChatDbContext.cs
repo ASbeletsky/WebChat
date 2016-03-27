@@ -78,12 +78,11 @@
 
         public virtual DbSet<CustomerApplicationModel> CustomerApplications { get; set; }
         public virtual DbSet<UsersInAppsModel> UsersInApplications { get; set; }
-        public virtual DbSet<UserRoleModel> UserRoles { get; set; }
         public virtual DbSet<UsersInRolesModel> UsersInRoles { get; set; }
         public virtual DbSet<DialogModel> Dialogs { get; set; }
         public virtual DbSet<MessageModel> Messages { get; set; }
 
-                    #endregion
+        #endregion
 
         #region Table Mappings
 
@@ -97,9 +96,17 @@
             this.MapUserRoleTable();
             this.MapUserLoginTable();
             this.MapUserClaimTable();
+            this.MapUsersInAppsTable();
             this.MapCustomerAppTable();
             this.MapDialogTable();
             this.MapMessageTable();
+        }
+
+        private void MapUsersInAppsTable()
+        {
+            var usersInAppsTable = ModelBuilder.Entity<UsersInAppsModel>().ToTable("UserApp");
+
+            usersInAppsTable.HasKey(x => new { x.AppId, x.UserId });
         }
 
         private void MapUserTable()
@@ -119,15 +126,6 @@
                          ud.MapRightKey("Dialog_Id");
                      });
             userTable.Property(user => user.RegistrationDate).IsOptional();
-
-            userTable.HasMany(user => user.RelatedApplications)
-                     .WithMany(app => app.RelatedUsers)
-                     .Map(user_app =>
-                     {
-                         user_app.ToTable("UserApp");
-                         user_app.MapLeftKey("UserId");
-                         user_app.MapRightKey("AppId");
-                     });
         }
 
         private void MapAppRoleTable()
@@ -153,15 +151,8 @@
         private void MapCustomerAppTable()
         {
             ModelBuilder.Entity<CustomerApplicationModel>().ToTable("CustomerApplication")
-                .HasKey<int>(app => app.Id)
-                .HasMany(app => app.RelatedUsers)
-                     .WithMany(user => user.RelatedApplications)
-                     .Map(user_app =>
-                     {
-                         user_app.ToTable("UserApp");
-                         user_app.MapLeftKey("AppId");
-                         user_app.MapRightKey("UserId");
-                     });
+                .HasKey<int>(app => app.Id);
+
 
             ModelBuilder.Entity<CustomerApplicationModel>()
                 .HasRequired(app => app.Owner)

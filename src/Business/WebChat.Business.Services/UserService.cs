@@ -1,29 +1,41 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using WebChat.Business.Core;
-using WebChat.Business.Core.User;
-using WebChat.Domain.Core.Identity;
-using WebChat.Domain.Data.Managers;
-using WebChat.Services.Interfaces;
-
-namespace WebChat.Business.Management
+﻿namespace WebChat.Business.Services
 {
-    public abstract class UserManagement
+    using Core.Customer;
+    #region Using
+
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
+    using WebChat.Business.Core;
+    using WebChat.Business.Core.Identity;
+    using WebChat.Domain.Core.Identity;
+    using WebChat.Domain.Data.Managers;
+    using WebChat.Services.Interfaces;
+
+    #endregion
+
+    public abstract class UserService
     {
+        #region Private Members
+
         private AppUserManager _domainUserManager;
         private IEntityConverter _entityConverter;
+
+        #endregion
+
+        #region Protected Members
 
         protected AppUserManager DomainUserManager;
         protected IEntityConverter EntityConverter;
 
-        [Ninject.Inject]
-        public UserManagement(AppUserManager domainUserManager, IEntityConverter entityConverter)
+        #endregion
+        
+        public UserService(AppUserManager domainUserManager, IEntityConverter entityConverter)
         {
             this._domainUserManager = domainUserManager;
             this._entityConverter = entityConverter;
         }
 
-        public async Task<User> CreateUser(User user)
+        public async Task<User> CreateUserAsync(User user)
         {
             var userModel = _entityConverter.Convert<User, UserModel>(user);
             var result = await _domainUserManager.CreateAsync(userModel);

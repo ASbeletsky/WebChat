@@ -1,4 +1,4 @@
-﻿namespace WebChat.WebUI.WebApp.AppStart
+﻿namespace WebChat.WebUI.WebApp.App_Start
 {
     #region Using
 
@@ -12,8 +12,6 @@
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery/*.js"));
 
-            // Используйте версию Modernizr для разработчиков, чтобы учиться работать. Когда вы будете готовы перейти к работе,
-            // используйте средство сборки на сайте http://modernizr.com, чтобы выбрать только нужные тесты.
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
 

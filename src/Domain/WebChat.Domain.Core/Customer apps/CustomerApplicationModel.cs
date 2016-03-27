@@ -37,25 +37,25 @@ public class CustomerApplicationModel
         public long OwnerId
         {
             get;
-            private set;
+            set;
         }
 
         public string WebsiteUrl
         {
             get;
-            private set;
+            set;
         }
 
         public string SubjectScope
         {
             get;
-            private set;
+            set;
         }
 
         public string ContactEmail
         {
             get;
-            private set;
+            set;
         }
 
         public virtual UserModel Owner
