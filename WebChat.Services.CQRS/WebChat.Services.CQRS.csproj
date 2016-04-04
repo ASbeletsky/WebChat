@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{E96D703E-04B9-4808-9B7C-47C166E412C9}</ProjectGuid>
+    <ProjectGuid>{83573FB7-591F-4C17-AEEA-639B19806655}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>WebChat.Services.Interfaces</RootNamespace>
-    <AssemblyName>WebChat.Services.Interfaces</AssemblyName>
+    <RootNamespace>WebChat.Services.CQRS</RootNamespace>
+    <AssemblyName>WebChat.Services.CQRS</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -30,14 +30,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.Owin, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Microsoft.Owin.3.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -48,27 +40,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Command\ICommand.cs" />
-    <Compile Include="Command\ICommandDispatcher.cs" />
-    <Compile Include="Command\ICommandHandler.cs" />
-    <Compile Include="Command\ICommandResult.cs" />
-    <Compile Include="IDependencyContainer.cs" />
-    <Compile Include="IEntityConverter.cs" />
-    <Compile Include="Query\IQuery.cs" />
-    <Compile Include="Query\IQueryDispatcher.cs" />
-    <Compile Include="Query\IQueryHandel.cs" />
-    <Compile Include="Query\IQueryResult.cs" />
-    <Compile Include="IRealTimeWebService.cs" />
+    <Compile Include="CommandDispatcher.cs" />
+    <Compile Include="QueryDispatcher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Domain\WebChat.Domain.Core\WebChat.Domain.Core.csproj">
-      <Project>{dbb555d6-a7c2-4b1f-8f57-87441426a187}</Project>
-      <Name>WebChat.Domain.Core</Name>
+    <ProjectReference Include="..\src\Services\WebChat.Services.Interfaces\WebChat.Services.Interfaces.csproj">
+      <Project>{e96d703e-04b9-4808-9b7c-47c166e412c9}</Project>
+      <Name>WebChat.Services.Interfaces</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
