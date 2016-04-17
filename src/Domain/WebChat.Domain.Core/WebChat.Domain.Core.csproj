@@ -30,12 +30,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+    <Reference Include="EntityFramework">
+      <HintPath>..\..\..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core">
       <HintPath>..\..\..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Ninject, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -49,23 +55,40 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Chat\DialogModel.cs" />
-    <Compile Include="Chat\MessageModel.cs" />
-    <Compile Include="Chat\UsersDialogsModel.cs" />
-    <Compile Include="Customer apps\CustomerApplicationModel.cs" />
-    <Compile Include="Customer apps\UsersInApplicationsModel.cs" />
-    <Compile Include="Identity\Roles.cs" />
-    <Compile Include="Identity\UserRoleModel.cs" />
-    <Compile Include="Identity\UserModel.cs" />
-    <Compile Include="Identity\UserClaimModel.cs" />
-    <Compile Include="Identity\UserLoginModel.cs" />
-    <Compile Include="Identity\UsersInRolesModel.cs" />
+    <Compile Include="AgentManager.cs" />
+    <Compile Include="ChatAgent.cs" />
+    <Compile Include="ChatClient.cs" />
+    <Compile Include="Chat\Dialog.cs" />
+    <Compile Include="ChatManager.cs" />
+    <Compile Include="BusinessBase.cs" />
+    <Compile Include="Chat\Message.cs" />
+    <Compile Include="Customer\CustomerApp.cs" />
+    <Compile Include="Identity\Agent.cs" />
+    <Compile Include="Identity\ChatMember.cs" />
+    <Compile Include="ChatMessage.cs" />
+    <Compile Include="CustomerAppManager.cs" />
+    <Compile Include="DialogManager.cs" />
+    <Compile Include="Identity\Client.cs" />
+    <Compile Include="MessageDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Customer\Customer.cs" />
+    <Compile Include="Identity\User.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WebChat.Domain.Interfaces\WebChat.Domain.Interfaces.csproj">
+      <Project>{914aa30d-3796-46b1-a8a5-401d494d070b}</Project>
+      <Name>WebChat.Domain.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Infrastructure\Data\WebChat.Infrastructure.Data.Storage\WebChat.Infrastructure.Data.Storage.csproj">
+      <Project>{7dbebae9-9813-4d46-99cd-a786acce5e0b}</Project>
+      <Name>WebChat.Infrastructure.Data.Storage</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

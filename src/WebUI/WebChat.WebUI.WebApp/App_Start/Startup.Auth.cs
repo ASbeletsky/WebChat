@@ -10,14 +10,13 @@
     using Owin;
     using Microsoft.Owin.Security;
     using System.Threading.Tasks;
-    using WebChat.Domain.Core.Identity;
     using Microsoft.Owin.Security.Facebook;
     using System.Configuration;
-    using Services.Common;
     using Domain.Data;
     using Microsoft.Owin.Security.Twitter;
-    using Domain.Data.Managers;
-
+    using Infrastructure.Services.Common;
+    using Infrastructure.Data.Storage.Managers;
+    using Infrastructure.Data.Models.Identity;
     #endregion
 
     public partial class Startup

@@ -3,16 +3,39 @@
     #region Using
 
     using System;
-    using System.Linq;
     using System.Collections.Generic;
     using System.Web.Mvc;
-    using BusinessLogic.DomainModels;
-    using Services.Interfaces;
-    using Services.Common;
+    using Infrastructure.CQRS.Interfaces;
+    using Infrastructure.Services.Interfaces;
+
     #endregion
 
     public class BaseMvcController : Controller
     {
+        public BaseMvcController()
+        {
+            this.QueryDispatcher = DependencyResolver.Current.GetService<IQueryDispatcher>();
+            this.CommandDispatcher = DependencyResolver.Current.GetService<ICommandDispatcher>();
+            this.EntityConverter = DependencyResolver.Current.GetService<IEntityConverter>();
+        }
+
+        protected IQueryDispatcher QueryDispatcher
+        {
+            get;
+            private set;
+        }
+
+        protected ICommandDispatcher CommandDispatcher
+        {
+            get;
+            private set;
+        }
+
+        protected IEntityConverter EntityConverter
+        {
+            get;
+            private set;
+        }
 
         /// <summary>
         /// Overridden OnException method to catch server exceptions. If the request is AJAX return JSON else redirect user to Error view.

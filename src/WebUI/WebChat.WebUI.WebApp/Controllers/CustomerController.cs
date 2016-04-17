@@ -4,30 +4,12 @@
 
     using System.Web.Mvc;
     using WebChat.WebUI.ViewModels.Shared;
-    using System;
-    using System.Threading.Tasks;
-    using Business.Interfaces;
     using ViewModels.Customer;
-    using Business.Core.Customer;
 
     #endregion
 
     public class CustomerController : BaseMvcController
     {
-        #region Private Members
-
-        private ICustomerService _customerService;
-
-        #endregion
-
-        #region Constructor
-
-        public CustomerController(ICustomerService customerService)
-        {
-            this._customerService = customerService;
-        }
-
-        #endregion
 
         #region Register Customer
 
@@ -38,26 +20,26 @@
             return View(model);
         }
 
-        [HttpPost]
-        public async Task<ActionResult> RegisterCustomer(RegisterViewModel model)
-        {
-            try
-            {
-                if (ModelState.IsValid)
-                {
-                    var newCustomer = new Customer(model.Name, model.Email);
-                    newCustomer = await _customerService.CreateCustomerAsync(newCustomer);
-                    return RedirectToAction("CustomerHome");
-                }
+        //[HttpPost]
+        //public async Task<ActionResult> RegisterCustomer(RegisterViewModel model)
+        //{
+        //    try
+        //    {
+        //        if (ModelState.IsValid)
+        //        {
+        //            var newCustomer = new Customer(model.Name, model.Email);
+        //            newCustomer = await _customerService.CreateCustomerAsync(newCustomer);
+        //            return RedirectToAction("CustomerHome");
+        //        }
                 
-                return View(model);
-            }
-            catch(Exception ex)
-            {
-                AddModelErrors(ex);
-                return View(model);
-            }
-        }
+        //        return View(model);
+        //    }
+        //    catch(Exception ex)
+        //    {
+        //        AddModelErrors(ex);
+        //        return View(model);
+        //    }
+        //}
 
         #endregion
 
@@ -70,28 +52,28 @@
             return View(model);
         }
 
-        [HttpPost]
-        public async Task<ActionResult> RegisterCustomerAndFirstApp(RegisterCustomerAndFirstAppViewModel model)
-        {
-            try
-            {
-                if (ModelState.IsValid)
-                {
-                    var newCustomer = new Customer(model.Customer.Name, model.Customer.Email);
-                    newCustomer = await _customerService.CreateCustomerAsync(newCustomer);
-                    var firstApp = new CustomerApplication(model.App.WebSiteUrl, model.App.Occupation, model.App.ContactEmail, newCustomer.Id);
-                    newCustomer.AddApplication(firstApp);
-                    return RedirectToAction("CustomerHome");
-                }
+        //[HttpPost]
+        //public async Task<ActionResult> RegisterCustomerAndFirstApp(RegisterCustomerAndFirstAppViewModel model)
+        //{
+        //    try
+        //    {
+        //        if (ModelState.IsValid)
+        //        {
+        //            var newCustomer = new Customer(model.Customer.Name, model.Customer.Email);
+        //            newCustomer = await _customerService.CreateCustomerAsync(newCustomer);
+        //            var firstApp = new CustomerApplication(model.App.WebSiteUrl, model.App.Occupation, model.App.ContactEmail, newCustomer.Id);
+        //            newCustomer.AddApplication(firstApp);
+        //            return RedirectToAction("CustomerHome");
+        //        }
 
-                return View(model);
-            }
-            catch (Exception ex)
-            {
-                AddModelErrors(ex);
-                return View(model);
-            }
-        }
+        //        return View(model);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        AddModelErrors(ex);
+        //        return View(model);
+        //    }
+        //}
 
         #endregion
 

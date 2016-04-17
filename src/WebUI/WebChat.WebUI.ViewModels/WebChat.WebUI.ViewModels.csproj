@@ -54,7 +54,12 @@
     <Compile Include="Сhat\AuthViewModel.cs" />
     <Compile Include="Сhat\ExternalProviderViewModel.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\..\Infrastructure\CQRS\WebChat.Infrastructure.CQRS.Interfaces\WebChat.Infrastructure.CQRS.Interfaces.csproj">
+      <Project>{c7252524-6e96-4439-83af-bea7767fa681}</Project>
+      <Name>WebChat.Infrastructure.CQRS.Interfaces</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

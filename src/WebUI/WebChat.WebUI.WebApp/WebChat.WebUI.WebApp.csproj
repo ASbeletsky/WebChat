@@ -239,7 +239,6 @@
     <Content Include="Content\Styles\jquery-ui\jquery-ui.theme.css" />
     <Content Include="Content\Styles\jquery-ui\jquery-ui.theme.min.css" />
     <Content Include="Content\Styles\Site.css" />
-    <Content Include="packages.config" />
     <Content Include="Content\Styles\fonts\fontawesome-webfont.eot" />
     <Content Include="Content\Styles\fonts\fontawesome-webfont.ttf" />
     <Content Include="Content\Styles\fonts\fontawesome-webfont.woff" />
@@ -256,6 +255,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Customer\RegisterCustomerAndFirstApp.cshtml" />
+    <Content Include="packages.config" />
     <None Include="Properties\PublishProfiles\Local Deploy.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -318,6 +318,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="App_Start\NinjectWebCommon.cs" />
+    <Compile Include="Controllers\CustomerAppController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\BaseMvcController.cs" />
@@ -327,37 +328,45 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Business\WebChat.Business.Interfaces\WebChat.Business.Interfaces.csproj">
-      <Project>{d883b227-28d6-415b-9e8c-ae4428831ec3}</Project>
-      <Name>WebChat.Business.Interfaces</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Business\WebChat.Business.Services\WebChat.Business.Services.csproj">
-      <Project>{05a34531-c04b-44ee-8b7c-9acdd75af347}</Project>
-      <Name>WebChat.Business.Services</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Domain\WebChat.Domain.Core\WebChat.Domain.Core.csproj">
       <Project>{dbb555d6-a7c2-4b1f-8f57-87441426a187}</Project>
       <Name>WebChat.Domain.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Domain\WebChat.Domain.Data\WebChat.Domain.Data.csproj">
+    <ProjectReference Include="..\..\Infrastructure\CQRS\WebChat.Infrastructure.Commands\WebChat.Infrastructure.CQRS.Commands.csproj">
+      <Project>{83573fb7-591f-4c17-aeea-639b19806655}</Project>
+      <Name>WebChat.Infrastructure.CQRS.Commands</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Infrastructure\CQRS\WebChat.Infrastructure.CQRS.Interfaces\WebChat.Infrastructure.CQRS.Interfaces.csproj">
+      <Project>{c7252524-6e96-4439-83af-bea7767fa681}</Project>
+      <Name>WebChat.Infrastructure.CQRS.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Infrastructure\CQRS\WebChat.Infrastructure.Queries\WebChat.Infrastructure.CQRS.Queries.csproj">
+      <Project>{c10228b2-a692-46bb-888a-414b9699c4d0}</Project>
+      <Name>WebChat.Infrastructure.CQRS.Queries</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Infrastructure\Data\WebChat.Infrastructure.Data.Models\WebChat.Infrastructure.Data.Models.csproj">
+      <Project>{3f08e828-e4b0-4192-8aa5-d2754168b54d}</Project>
+      <Name>WebChat.Infrastructure.Data.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Infrastructure\Data\WebChat.Infrastructure.Data.Storage\WebChat.Infrastructure.Data.Storage.csproj">
       <Project>{7dbebae9-9813-4d46-99cd-a786acce5e0b}</Project>
-      <Name>WebChat.Domain.Data</Name>
+      <Name>WebChat.Infrastructure.Data.Storage</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Infrastructure\Services\WebChat.Infrastructure.Services.Common\WebChat.Infrastructure.Services.Common.csproj">
+      <Project>{a8088694-03df-4298-a47f-183216f84cc5}</Project>
+      <Name>WebChat.Infrastructure.Services.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Infrastructure\Services\WebChat.Infrastructure.Services.Interfaces\WebChat.Infrastructure.Services.Interfaces.csproj">
+      <Project>{e96d703e-04b9-4808-9b7c-47c166e412c9}</Project>
+      <Name>WebChat.Infrastructure.Services.Interfaces</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Domain\WebChat.Domain.Interfaces\WebChat.Domain.Interfaces.csproj">
       <Project>{914aa30d-3796-46b1-a8a5-401d494d070b}</Project>
       <Name>WebChat.Domain.Interfaces</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Business\WebChat.Business.Core\WebChat.Business.Core.csproj">
+    <ProjectReference Include="..\..\Domain\WebChat.Business.Core\WebChat.Domain.Core.csproj">
       <Project>{7818d512-0834-49cd-8253-6320dc5543a9}</Project>
-      <Name>WebChat.Business.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Services\WebChat.Services.Common\WebChat.Services.Common.csproj">
-      <Project>{a8088694-03df-4298-a47f-183216f84cc5}</Project>
-      <Name>WebChat.Services.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Services\WebChat.Services.Interfaces\WebChat.Services.Interfaces.csproj">
-      <Project>{e96d703e-04b9-4808-9b7c-47c166e412c9}</Project>
-      <Name>WebChat.Services.Interfaces</Name>
+      <Name>WebChat.Domain.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\WebChat.WebUI.ViewModels\WebChat.WebUI.ViewModels.csproj">
       <Project>{4194cdfd-a790-46aa-a7f6-79b7371dee0b}</Project>
@@ -367,7 +376,9 @@
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Views\CustomerApp\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

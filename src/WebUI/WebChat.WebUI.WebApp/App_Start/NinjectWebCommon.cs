@@ -64,7 +64,7 @@ namespace WebChat.WebUI.WebApp.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-            System.Web.Mvc.DependencyResolver.SetResolver(new Services.Common.NinjectDependencyResolver(kernel));
+            System.Web.Mvc.DependencyResolver.SetResolver(new WebChat.Infrastructure.Services.Common.NinjectDependencyResolver(kernel));
         }
     }
 }

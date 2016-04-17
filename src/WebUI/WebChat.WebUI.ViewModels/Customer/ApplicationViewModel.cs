@@ -1,12 +1,14 @@
 ﻿namespace WebChat.WebUI.ViewModels.Customer
 {
+    
     #region Using
 
     using System.ComponentModel.DataAnnotations;
+    using Infrastructure.CQRS.Interfaces;
 
     #endregion
 
-    public class ApplicationViewModel
+    public class ApplicationViewModel : IQueryResult
     {
         [Required]
         [DataType(DataType.Url)]

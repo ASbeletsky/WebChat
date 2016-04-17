@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // Управление общими сведениями о сборке осуществляется с помощью 
 // набора атрибутов. Измените значения этих атрибутов, чтобы изменить сведения,
 // связанные со сборкой.
-[assembly: AssemblyTitle("WebChat.Domain.Core")]
+[assembly: AssemblyTitle("WebChat.Infrastructure.Business.Core")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("WebChat.Domain.Core")]
+[assembly: AssemblyProduct("WebChat.Infrastructure.Business.Core")]
 [assembly: AssemblyCopyright("Copyright ©  2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // Следующий GUID служит для идентификации библиотеки типов, если этот проект будет видимым для COM
-[assembly: Guid("dbb555d6-a7c2-4b1f-8f57-87441426a187")]
+[assembly: Guid("7818d512-0834-49cd-8253-6320dc5543a9")]
 
 // Сведения о версии сборки состоят из следующих четырех значений:
 //

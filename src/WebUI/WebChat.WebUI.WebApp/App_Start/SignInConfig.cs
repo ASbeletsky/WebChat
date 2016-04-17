@@ -1,12 +1,12 @@
 ﻿namespace WebChat.WebUI.WebApp.App_Start
 {
+    using Infrastructure.Data.Models.Identity;
+    using Infrastructure.Data.Storage.Managers;
     #region Using
 
     using Microsoft.AspNet.Identity.Owin;
     using Microsoft.Owin;
     using Microsoft.Owin.Security;
-    using WebChat.Domain.Core.Identity;
-    using Domain.Data.Managers;
 
     #endregion
 
