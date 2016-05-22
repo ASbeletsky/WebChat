@@ -9,6 +9,6 @@
         /// Gets an instance of specified service
         /// </summary>
         /// <typeparam name="T">service type</typeparam>
-        T Get<T>();
+        T GetService<T>();
     }
 }

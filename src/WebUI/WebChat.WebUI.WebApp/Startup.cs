@@ -17,7 +17,7 @@ namespace WebChat.WebUI.WebApp
         {
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
-            BundleConfig.RegisterBundles(BundleTable.Bundles);
+            BundleConfig.RegisterBundles(BundleTable.Bundles);           
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             ConfigureAuth(app);
             app.UseWebApi(WebApiConfig.Register());

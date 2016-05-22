@@ -4,11 +4,7 @@
 
     using Newtonsoft.Json;
     using AutoMapper;
-    using System.Linq;
     using Services.Interfaces;
-    using Domain.Core.Identity;
-    using Business.Core.User;
-    using WebChat.Domain.Data;
 
     #endregion
 
@@ -65,11 +61,6 @@
             var config = new MapperConfiguration(mapper =>
             {
 
-                mapper.CreateMap<UserModel, User>()
-                      .Include<UserModel, Customer>()
-                      .ForMember(user => user.PhotoSource, model => model.MapFrom(x => x.Claims.FirstOrDefault(c => c.ClaimType == AppClaimTypes.PhotoSource).ClaimValue))
-                      .ReverseMap();
-                     
             });
 
            mapper = config.CreateMapper();

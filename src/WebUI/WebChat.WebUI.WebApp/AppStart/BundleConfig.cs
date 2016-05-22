@@ -5,15 +5,19 @@
     using System.Web.Optimization;
 
     #endregion
+
     public class BundleConfig
-    {
+    {     
+        static BundleConfig ()
+        {
+            BundleTable.EnableOptimizations = true;
+        }
+
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery/*.js"));
 
-            // Используйте версию Modernizr для разработчиков, чтобы учиться работать. Когда вы будете готовы перейти к работе,
-            // используйте средство сборки на сайте http://modernizr.com, чтобы выбрать только нужные тесты.
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
 

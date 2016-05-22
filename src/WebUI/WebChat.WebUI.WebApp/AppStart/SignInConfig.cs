@@ -5,8 +5,8 @@
     using Microsoft.AspNet.Identity.Owin;
     using Microsoft.Owin;
     using Microsoft.Owin.Security;
-    using WebChat.Domain.Core.Identity;
     using Domain.Data.Managers;
+    using Data.Storage.Identity;
 
     #endregion
 

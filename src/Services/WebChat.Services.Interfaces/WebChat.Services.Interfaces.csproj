@@ -48,6 +48,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DependencyContainer.cs" />
     <Compile Include="IDependencyInjector.cs" />
     <Compile Include="IEntityConverter.cs" />
     <Compile Include="IRealTimeWebService.cs" />
@@ -55,9 +56,9 @@
     <Compile Include="RequestContext.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Domain\WebChat.Domain.Core\WebChat.Domain.Core.csproj">
+    <ProjectReference Include="..\..\Data\WebChat.Data.Models\WebChat.Data.Models.csproj">
       <Project>{dbb555d6-a7c2-4b1f-8f57-87441426a187}</Project>
-      <Name>WebChat.Domain.Core</Name>
+      <Name>WebChat.Data.Models</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{D883B227-28D6-415B-9E8C-AE4428831EC3}</ProjectGuid>
+    <ProjectGuid>{60EA94AC-0183-44CF-9D04-376172A194F1}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>WebChat.Business.Interfaces</RootNamespace>
@@ -41,12 +41,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\WebChat.Business.Core\WebChat.Business.Core.csproj">
-      <Project>{7818d512-0834-49cd-8253-6320dc5543a9}</Project>
-      <Name>WebChat.Business.Core</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

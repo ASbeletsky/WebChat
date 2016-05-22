@@ -11,7 +11,8 @@ namespace WebChat.WebUI.WebApp.AppStart
     using Ninject;
     using Ninject.Web.Common;
     using System.Web.Mvc;
-
+    using Services.Interfaces;
+    using Services.Common;
     #endregion
 
     public static class NinjectWebCommon 
@@ -64,7 +65,10 @@ namespace WebChat.WebUI.WebApp.AppStart
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-            DependencyResolver.SetResolver(new Services.Common.NinjectDependencyResolver(kernel));
-        }        
+            var container = new NinjectDependencyResolver(kernel);
+            DependencyContainer.SetContainer(container);
+            DependencyResolver.SetResolver(container);
+        }
+
     }
 }

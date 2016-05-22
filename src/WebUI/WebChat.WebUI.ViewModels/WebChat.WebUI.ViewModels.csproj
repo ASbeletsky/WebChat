@@ -43,7 +43,9 @@
   <ItemGroup>
     <Compile Include="AccountViewModels.cs" />
     <Compile Include="AgentMessagesViewModel.cs" />
-    <Compile Include="Customer\ApplicationViewModel.cs" />
+    <Compile Include="Customer\CustomerAndAppViewModel.cs" />
+    <Compile Include="Operator\RegisterOperatorViewModel.cs" />
+    <Compile Include="Shared\LoginViewModel.cs" />
     <Compile Include="Shared\RegisterViewModel.cs" />
     <Compile Include="ManageViewModels.cs" />
     <Compile Include="OwnerViewModel.cs" />
@@ -54,7 +56,12 @@
     <Compile Include="Сhat\AuthViewModel.cs" />
     <Compile Include="Сhat\ExternalProviderViewModel.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\..\Data\WebChat.Data.Models\WebChat.Data.Models.csproj">
+      <Project>{dbb555d6-a7c2-4b1f-8f57-87441426a187}</Project>
+      <Name>WebChat.Data.Models</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

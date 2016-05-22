@@ -10,13 +10,13 @@
     using Owin;
     using Microsoft.Owin.Security;
     using System.Threading.Tasks;
-    using WebChat.Domain.Core.Identity;
     using Microsoft.Owin.Security.Facebook;
     using System.Configuration;
     using Services.Common;
-    using Domain.Data;
     using Microsoft.Owin.Security.Twitter;
     using Domain.Data.Managers;
+    using Data.Storage.Identity;
+    using Data.Storage;
 
     #endregion
 

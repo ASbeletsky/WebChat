@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{52412EFB-4B46-4F59-8BBE-DEE30865B908}"
 EndProject
@@ -9,11 +9,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{AECD6714
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebChat.UnitTest", "tests\WebChat.UnitTest\WebChat.UnitTest.csproj", "{58F021EF-767F-4775-9E07-C85094599E0D}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{7206B4D3-E94C-4F15-B7A0-3633DDE4DE95}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{7206B4D3-E94C-4F15-B7A0-3633DDE4DE95}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebChat.Domain.Core", "src\Domain\WebChat.Domain.Core\WebChat.Domain.Core.csproj", "{DBB555D6-A7C2-4B1F-8F57-87441426A187}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebChat.Data.Models", "src\Data\WebChat.Data.Models\WebChat.Data.Models.csproj", "{DBB555D6-A7C2-4B1F-8F57-87441426A187}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebChat.Domain.Interfaces", "src\Domain\WebChat.Domain.Interfaces\WebChat.Domain.Interfaces.csproj", "{914AA30D-3796-46B1-A8A5-401D494D070B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebChat.Data.Interfaces", "src\Data\WebChat.Data.Interfaces\WebChat.Data.Interfaces.csproj", "{914AA30D-3796-46B1-A8A5-401D494D070B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{DBCDD30B-8392-460E-8C81-44CA88980C46}"
 EndProject
@@ -29,19 +29,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebChat.WebUI.WebApp", "src
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebChat.Services.Common", "src\Services\WebChat.Services.Common\WebChat.Services.Common.csproj", "{A8088694-03DF-4298-A47F-183216F84CC5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebChat.Business.Chat", "src\Business\WebChat.Business.Chat\WebChat.Business.Chat.csproj", "{1187F602-A776-4F41-8291-E6BACDFEC3D5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebChat.Business", "src\Business\WebChat.Business\WebChat.Business.csproj", "{7818D512-0834-49CD-8253-6320DC5543A9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebChat.Business.Balancer", "src\Business\WebChat.Business.Balancer\WebChat.Business.Balancer.csproj", "{F07502CE-55EA-417F-A006-A5A4A0CF9F02}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebChat.Data.Storage", "src\Data\WebChat.Data.Storage\WebChat.Data.Storage.csproj", "{7DBEBAE9-9813-4D46-99CD-A786ACCE5E0B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebChat.Business.Core", "src\Business\WebChat.Business.Core\WebChat.Business.Core.csproj", "{7818D512-0834-49CD-8253-6320DC5543A9}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Business", "Business", "{4C16636D-BDF3-4331-9840-49E47075FCBE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebChat.Domain.Data", "src\Domain\WebChat.Domain.Data\WebChat.Domain.Data.csproj", "{7DBEBAE9-9813-4D46-99CD-A786ACCE5E0B}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Business", "Business", "{AD9C0A63-9430-4F71-8A07-742D102F902F}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebChat.Business.Interfaces", "src\Business\WebChat.Business.Interfaces\WebChat.Business.Interfaces.csproj", "{D883B227-28D6-415B-9E8C-AE4428831EC3}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebChat.Business.Management", "src\Business\WebChat.Business.Management\WebChat.Business.Management.csproj", "{05A34531-C04B-44EE-8B7C-9ACDD75AF347}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebChat.Business.Interfaces", "src\Business\WebChat.Business.Interfaces\WebChat.Business.Interfaces.csproj", "{60EA94AC-0183-44CF-9D04-376172A194F1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -81,14 +75,6 @@ Global
 		{A8088694-03DF-4298-A47F-183216F84CC5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A8088694-03DF-4298-A47F-183216F84CC5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A8088694-03DF-4298-A47F-183216F84CC5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1187F602-A776-4F41-8291-E6BACDFEC3D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1187F602-A776-4F41-8291-E6BACDFEC3D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1187F602-A776-4F41-8291-E6BACDFEC3D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1187F602-A776-4F41-8291-E6BACDFEC3D5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F07502CE-55EA-417F-A006-A5A4A0CF9F02}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F07502CE-55EA-417F-A006-A5A4A0CF9F02}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F07502CE-55EA-417F-A006-A5A4A0CF9F02}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F07502CE-55EA-417F-A006-A5A4A0CF9F02}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7818D512-0834-49CD-8253-6320DC5543A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7818D512-0834-49CD-8253-6320DC5543A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7818D512-0834-49CD-8253-6320DC5543A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -97,14 +83,10 @@ Global
 		{7DBEBAE9-9813-4D46-99CD-A786ACCE5E0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7DBEBAE9-9813-4D46-99CD-A786ACCE5E0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7DBEBAE9-9813-4D46-99CD-A786ACCE5E0B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D883B227-28D6-415B-9E8C-AE4428831EC3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D883B227-28D6-415B-9E8C-AE4428831EC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D883B227-28D6-415B-9E8C-AE4428831EC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D883B227-28D6-415B-9E8C-AE4428831EC3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{05A34531-C04B-44EE-8B7C-9ACDD75AF347}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{05A34531-C04B-44EE-8B7C-9ACDD75AF347}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{05A34531-C04B-44EE-8B7C-9ACDD75AF347}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{05A34531-C04B-44EE-8B7C-9ACDD75AF347}.Release|Any CPU.Build.0 = Release|Any CPU
+		{60EA94AC-0183-44CF-9D04-376172A194F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60EA94AC-0183-44CF-9D04-376172A194F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60EA94AC-0183-44CF-9D04-376172A194F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60EA94AC-0183-44CF-9D04-376172A194F1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -121,12 +103,9 @@ Global
 		{4194CDFD-A790-46AA-A7F6-79B7371DEE0B} = {19B8BDEC-C7D5-4F5C-B18B-4E3F4B9D53BD}
 		{64622C38-90C2-4F5E-B9BD-053CB328988F} = {19B8BDEC-C7D5-4F5C-B18B-4E3F4B9D53BD}
 		{A8088694-03DF-4298-A47F-183216F84CC5} = {DBCDD30B-8392-460E-8C81-44CA88980C46}
-		{1187F602-A776-4F41-8291-E6BACDFEC3D5} = {AD9C0A63-9430-4F71-8A07-742D102F902F}
-		{F07502CE-55EA-417F-A006-A5A4A0CF9F02} = {AD9C0A63-9430-4F71-8A07-742D102F902F}
-		{7818D512-0834-49CD-8253-6320DC5543A9} = {AD9C0A63-9430-4F71-8A07-742D102F902F}
+		{7818D512-0834-49CD-8253-6320DC5543A9} = {4C16636D-BDF3-4331-9840-49E47075FCBE}
 		{7DBEBAE9-9813-4D46-99CD-A786ACCE5E0B} = {7206B4D3-E94C-4F15-B7A0-3633DDE4DE95}
-		{AD9C0A63-9430-4F71-8A07-742D102F902F} = {52412EFB-4B46-4F59-8BBE-DEE30865B908}
-		{D883B227-28D6-415B-9E8C-AE4428831EC3} = {AD9C0A63-9430-4F71-8A07-742D102F902F}
-		{05A34531-C04B-44EE-8B7C-9ACDD75AF347} = {AD9C0A63-9430-4F71-8A07-742D102F902F}
+		{4C16636D-BDF3-4331-9840-49E47075FCBE} = {52412EFB-4B46-4F59-8BBE-DEE30865B908}
+		{60EA94AC-0183-44CF-9D04-376172A194F1} = {4C16636D-BDF3-4331-9840-49E47075FCBE}
 	EndGlobalSection
 EndGlobal

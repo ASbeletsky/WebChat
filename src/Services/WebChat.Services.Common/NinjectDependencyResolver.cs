@@ -1,15 +1,17 @@
 ﻿namespace WebChat.Services.Common
 {
+    
     #region Using
 
     using Ninject;
     using System;
     using System.Collections.Generic;
     using System.Web.Mvc;
+    using Interfaces;
 
     #endregion
 
-    public class NinjectDependencyResolver : IDependencyResolver
+    public class NinjectDependencyResolver : IDependencyResolver, IDependencyContainer
     {
         private IKernel kernel;
         public NinjectDependencyResolver(IKernel kernelParam)
@@ -17,6 +19,7 @@
             kernel = kernelParam;
             AddBindings();
         }
+
         public object GetService(Type serviceType)
         {
             return kernel.TryGet(serviceType);
