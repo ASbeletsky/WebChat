@@ -14,23 +14,23 @@
 
     public class AddOrEditCustomerAppCommandHandler : BaseCommandHandler, ICommandHandler<AddOrEditCustomerAppCommand>
     {
-        private ICustomerAppRepository apps;
+        private IApplicationRepository apps;
         private IEntityConverter converter;
         public AddOrEditCustomerAppCommandHandler(IUnitOfWork uow, IEntityConverter converter) : base(uow, converter)
         {
-            this.apps = uow.CustomerApplications;
+            this.apps = uow.Applications;
         }
         public async Task<CommandResult> Execute(AddOrEditCustomerAppCommand command)
         {
             var result = new CommandResult();
-            CustomerApplicationModel applicationModel = null;
+            ApplicationModel applicationModel = null;
             bool isNewApp = command.AppId > 0;
 
             try
             {
                 if (isNewApp)
                 {
-                    applicationModel = converter.Convert<AddOrEditCustomerAppCommand, CustomerApplicationModel>(command);
+                    applicationModel = converter.Convert<AddOrEditCustomerAppCommand, ApplicationModel>(command);
                     apps.Create(applicationModel);
                     result.Success = true;
                     result.Message = "Ваше приложение успешно создано.";

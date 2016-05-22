@@ -63,13 +63,16 @@
   <ItemGroup>
     <Compile Include="AppClaimTypes.cs" />
     <Compile Include="EfUnitOfWork.cs" />
+    <Compile Include="Factories\ApplicationFactory.cs" />
+    <Compile Include="Factories\FactoryBase.cs" />
+    <Compile Include="Factories\UserFactory.cs" />
     <Compile Include="Managers\AppRoleManager.cs" />
     <Compile Include="Managers\AppUserMenager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\AgentRepository.cs" />
+    <Compile Include="Repositories\ClientRepository.cs" />
     <Compile Include="Repositories\CustomerApplicationRepository.cs" />
-    <Compile Include="Repositories\DialogRepository.cs" />
-    <Compile Include="Repositories\UsersInAppsRepository.cs" />
-    <Compile Include="Repositories\MessageRepository.cs" />
+    <Compile Include="Repositories\CustomerRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
     <Compile Include="WebChatDbContext.cs" />
   </ItemGroup>
@@ -78,6 +81,18 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Domain\WebChat.Domain.Core\WebChat.Domain.Core.csproj">
+      <Project>{dbb555d6-a7c2-4b1f-8f57-87441426a187}</Project>
+      <Name>WebChat.Domain.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Domain\WebChat.Domain.Interfaces\WebChat.Domain.Interfaces.csproj">
+      <Project>{914aa30d-3796-46b1-a8a5-401d494d070b}</Project>
+      <Name>WebChat.Domain.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Services\WebChat.Infrastructure.Services.Interfaces\WebChat.Infrastructure.Services.Interfaces.csproj">
+      <Project>{e96d703e-04b9-4808-9b7c-47c166e412c9}</Project>
+      <Name>WebChat.Infrastructure.Services.Interfaces</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WebChat.Infrastructure.Data.Interfaces\WebChat.Infrastructure.Data.Interfaces.csproj">
       <Project>{04bf9d1c-12f5-4bb4-afd3-cb6bf74ce9dd}</Project>
       <Name>WebChat.Infrastructure.Data.Interfaces</Name>

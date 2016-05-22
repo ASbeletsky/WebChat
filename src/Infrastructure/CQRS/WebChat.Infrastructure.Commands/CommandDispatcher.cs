@@ -11,9 +11,9 @@
 
     public class CommandDispatcher : ICommandDispatcher
     {
-        IDependencyContainer container;
+        IDependencyResolver container;
 
-        public CommandDispatcher(IDependencyContainer container)
+        public CommandDispatcher(IDependencyResolver container)
         {
             if (container == null)
             {

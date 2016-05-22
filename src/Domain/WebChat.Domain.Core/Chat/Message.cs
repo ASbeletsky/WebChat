@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WebChat.Business.Core.Chat
+namespace WebChat.Domain.Core.Chat
 {
     public class Message
     {

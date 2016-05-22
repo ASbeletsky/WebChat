@@ -10,10 +10,10 @@
     public interface IUnitOfWork : IDisposable
     {
         IUserRepository Users { get; }
-        ICustomerAppRepository CustomerApplications { get; }
-        IUsersInAppsRepository UsersInApplication { get; }       
-        IMessageRepository Messages { get; }
-        IDialogRepository Dialogs { get; }
+        ICustomerRepository Customers { get; }
+        IClientRepository Clients { get; }
+        IAgentRepository Agents { get; }
+        IApplicationRepository Applications { get; }    
         void Save();
     }
 }

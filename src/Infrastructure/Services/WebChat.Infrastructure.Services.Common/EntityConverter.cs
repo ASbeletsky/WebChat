@@ -5,8 +5,8 @@
     using Newtonsoft.Json;
     using AutoMapper;
     using Services.Interfaces;
-    using Business.Core.Identity;
-    using Business.Core.Customer;
+    using Domain.Core.Identity;
+    using Domain.Core.Customer;
     using Data.Models.Identity;
     using Data.Models.Application;
 
@@ -51,13 +51,13 @@
         {
             var config = new MapperConfiguration(mapper =>
             {
-                mapper.CreateMap<User, UserModel>();
+                var modelToUser = mapper.CreateMap<UserModel, User>();
+                modelToUser.ForMember(user => user.Login, model => model.MapFrom(m => m.UserName))
+                           .ForMember(user => user.Login, model => model.MapFrom(m => m.UserName))
 
-                mapper.CreateMap<UserModel, User>();
+                mapper.CreateMap<ApplicationModel, Application>();
 
-                mapper.CreateMap<CustomerApplicationModel, CustomerApplication>();
-
-                mapper.CreateMap<CustomerApplication, CustomerApplicationModel>();
+                mapper.CreateMap<Application, ApplicationModel>();
 
                 mapper.CreateMissingTypeMaps = true;                    
             });

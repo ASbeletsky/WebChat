@@ -9,102 +9,91 @@
     using System.Threading.Tasks;
     using Interfaces.Repositories;
     using Models.Application;
-
+    using Services.Interfaces;
+    using Factories;
+    using Domain.Core.Customer;
+    using Domain.Core.Identity;
+    using Models.Identity;
     #endregion
 
-    public class CustomerAppRepository : ICustomerAppRepository
+    public class ApplicationRepository : IApplicationRepository
     {
         #region Private Memebers
 
-        private readonly WebChatDbContext _context;
-
+        private readonly WebChatDbContext context;
+        private readonly IEntityConverter converter;
+        private readonly ApplicationFactory factory;
 
         #endregion
 
         #region Constructors
-        public CustomerAppRepository(WebChatDbContext context)
+        public ApplicationRepository(WebChatDbContext context, IEntityConverter converter, ApplicationFactory factory)
         {
-            _context = context;
+            this.context = context;
+            this.converter = converter;
+            this.factory = factory;
         }
 
         #endregion
 
-        #region IRepository Members
-
-        public CustomerApplicationModel GetById(int id)
-        {
-            return _context.CustomerApplications.Find(id);
-        }
-
-        public CustomerApplicationModel Find(Func<CustomerApplicationModel, bool> predicate)
-        {
-            return _context.CustomerApplications.FirstOrDefault(predicate);
-        }
-
-        public IEnumerable<CustomerApplicationModel> All
+        public IEnumerable<Application> All
         {
             get
             {
-                return _context.CustomerApplications;
+                IEnumerable<ApplicationModel> models = context.Applications;
+                IEnumerable<Application> apps = factory.RestoreApplicationsFromModels(models);
+                return apps;
             }
         }
 
-        public void Create(CustomerApplicationModel item)
+        public void Create(Application item)
         {
-            _context.CustomerApplications.Add(item);
-            _context.SaveChanges();
-        }
-
-        public void Update(CustomerApplicationModel item)
-        {
-            _context.Entry(item).State = EntityState.Modified;
-            _context.SaveChanges();
+            ApplicationModel newApp = converter.Convert<Application, ApplicationModel>(item);
+            context.Applications.Add(newApp);
         }
 
         public void Delete(int id)
         {
-            var appForDelete = _context.CustomerApplications.Find(id);
-            if(appForDelete != null)
+            var recordForDelete = context.Applications.Find(id);
+            if (recordForDelete != null)
             {
-                _context.CustomerApplications.Remove(appForDelete);
-                _context.SaveChanges();
+                context.Applications.Remove(recordForDelete);
             }
         }
 
-        #endregion
+        public Application GetById(int id)
+        {
+            ApplicationModel model = context.Applications.Find(id);
+            Application app = factory.RestoreApplicationFromModel(model);
+            return app;
+        }
+
+        public void Update(Application item)
+        {
+            ApplicationModel app = converter.Convert<Application, ApplicationModel>(item);
+            context.Entry(app).State = EntityState.Modified;
+        }
 
         #region ICustomerAppRepository Members
 
-        public string GenerateAppKey()
+        public IEnumerable<Client> GetApplicationClients(int appId)
         {
-            return _context.Database.SqlQuery<string>("dbo.GenerateAppKey()").FirstOrDefault();
+            var userModels = from userInApp in context.UsersInApplications
+                             join userModel in context.Users on userInApp.UserId equals userModel.Id
+                             where userInApp.AppId == appId && userModel.Roles.Any(role => role.RoleId == (int)Roles.Client)
+                             select userModel;
+
+            return converter.Convert<IEnumerable<UserModel>, IEnumerable<User>>(userModels) as IEnumerable<Client>;
         }
 
-        public int GetIdByAppKey(string appKey)
+        public IEnumerable<Agent> GetApplicationAgents(int appId)
         {
-            var currentApp = _context.CustomerApplications.FirstOrDefault(app => app.AppKey == appKey);
-            if (currentApp != null)
-            {
-                return currentApp.Id;
-            }
-            else
-            {
-                throw new ArgumentNullException
-                    (
-                        paramName: "CustomerApplication",
-                        message: string.Format("Customer application with key \"{0}\" not found", appKey)
-                    );
-            }
-        }
+            var userModels = from userInApp in context.UsersInApplications
+                             join userModel in context.Users on userInApp.UserId equals userModel.Id
+                             where userInApp.AppId == appId && userModel.Roles.Any(role => role.RoleId == (int)Roles.Agent)
+                             select userModel;
 
-        public ICollection<CustomerApplicationModel> GetApplicationsByOwner(long userId)
-        {
-            return this.All.Where(app => app.OwnerId == userId).ToList();
-        }
-
-        public async Task<CustomerApplicationModel> GetByIdAsync(int appId)
-        {
-            return await this._context.CustomerApplications.FirstOrDefaultAsync(app => app.Id == appId);
+            return converter.Convert<IEnumerable<UserModel>, IEnumerable<User>>(userModels) as IEnumerable<Agent>;
         }
 
         #endregion

@@ -62,9 +62,8 @@
     <Compile Include="ChatManager.cs" />
     <Compile Include="BusinessBase.cs" />
     <Compile Include="Chat\Message.cs" />
-    <Compile Include="Customer\CustomerApp.cs" />
+    <Compile Include="Customer\Application.cs" />
     <Compile Include="Identity\Agent.cs" />
-    <Compile Include="Identity\ChatMember.cs" />
     <Compile Include="ChatMessage.cs" />
     <Compile Include="CustomerAppManager.cs" />
     <Compile Include="DialogManager.cs" />
@@ -73,22 +72,33 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Customer\Customer.cs" />
     <Compile Include="Identity\User.cs" />
+    <Compile Include="ValueObjects\UserAuthentificationInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Infrastructure\CQRS\WebChat.Infrastructure.CQRS.Interfaces\WebChat.Infrastructure.CQRS.Interfaces.csproj">
+      <Project>{c7252524-6e96-4439-83af-bea7767fa681}</Project>
+      <Name>WebChat.Infrastructure.CQRS.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Infrastructure\CQRS\WebChat.Infrastructure.Queries\WebChat.Infrastructure.CQRS.Queries.csproj">
+      <Project>{c10228b2-a692-46bb-888a-414b9699c4d0}</Project>
+      <Name>WebChat.Infrastructure.CQRS.Queries</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Infrastructure\Services\WebChat.Infrastructure.Services.Interfaces\WebChat.Infrastructure.Services.Interfaces.csproj">
+      <Project>{e96d703e-04b9-4808-9b7c-47c166e412c9}</Project>
+      <Name>WebChat.Infrastructure.Services.Interfaces</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WebChat.Domain.Interfaces\WebChat.Domain.Interfaces.csproj">
       <Project>{914aa30d-3796-46b1-a8a5-401d494d070b}</Project>
       <Name>WebChat.Domain.Interfaces</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Infrastructure\Data\WebChat.Infrastructure.Data.Storage\WebChat.Infrastructure.Data.Storage.csproj">
-      <Project>{7dbebae9-9813-4d46-99cd-a786acce5e0b}</Project>
-      <Name>WebChat.Infrastructure.Data.Storage</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Entities\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

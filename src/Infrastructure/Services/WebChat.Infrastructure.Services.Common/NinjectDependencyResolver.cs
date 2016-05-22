@@ -12,14 +12,16 @@
     using System.IO;
     #endregion
 
-    public class NinjectDependencyResolver : System.Web.Mvc.IDependencyResolver, IDependencyContainer
+    public class NinjectDependencyResolver : System.Web.Mvc.IDependencyResolver, IDependencyResolver
     {
         private IKernel kernel;
+
         public NinjectDependencyResolver(IKernel kernelParam)
         {
             kernel = kernelParam;
             AddBindings();        
         }
+
         public object GetService(Type serviceType)
         {
             return kernel.TryGet(serviceType);

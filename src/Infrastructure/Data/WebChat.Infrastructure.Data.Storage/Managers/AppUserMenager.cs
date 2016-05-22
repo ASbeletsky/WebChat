@@ -18,7 +18,7 @@
         public AppUserManager(IUserStore<UserModel, long> store) 
             :base(store)
         {
-              
+                
         }
 
 

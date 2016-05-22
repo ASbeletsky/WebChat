@@ -1,18 +1,18 @@
 ﻿namespace WebChat.Infrastructure.Data.Interfaces.Repositories
-{   
+{
     #region Using
 
     using System.Collections.Generic;
-    using System.Threading.Tasks;
     using Models.Application;
+    using Domain.Core.Customer;
+    using Domain.Core.Identity;
+
     #endregion
 
-    public interface ICustomerAppRepository : IRepository<CustomerApplicationModel, int>
+    public interface IApplicationRepository : IRepository<Application, int>
     {
-        string GenerateAppKey();
-        int GetIdByAppKey(string appKey);
-        ICollection<CustomerApplicationModel> GetApplicationsByOwner(long userId);
-        Task<CustomerApplicationModel> GetByIdAsync(int appId);
+        IEnumerable<Client> GetApplicationClients(int appId);
+        IEnumerable<Agent> GetApplicationAgents(int appId);
 
         //IEnumerable<AgentAndMessageCount> MostActiveAgentOnDay(int AppId, DateTime Day);
         //IEnumerable<MessagesByMonth> MessageCountInCurrentAndPreviosMonth(int AppId);

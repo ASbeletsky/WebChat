@@ -7,9 +7,8 @@
     #endregion
 
     public interface IQueryHandler<TParameter, TResult>
-       where TResult : IQueryResult
        where TParameter : IQuery
     {
-        Task<TResult> Retrieve(TParameter query);
+        TResult Execute(TParameter query);
     }
 }

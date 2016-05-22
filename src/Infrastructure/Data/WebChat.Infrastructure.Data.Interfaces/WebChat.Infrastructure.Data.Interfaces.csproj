@@ -49,16 +49,24 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ComplexKey.cs" />
-    <Compile Include="Repositories\ICustomerAppRepository.cs" />
-    <Compile Include="Repositories\IDialogRepository.cs" />
-    <Compile Include="Repositories\IMessageRepository.cs" />
+    <Compile Include="Repositories\IAgentRepository.cs" />
+    <Compile Include="Repositories\IApplicationRepository.cs" />
+    <Compile Include="Repositories\IClientRepository.cs" />
+    <Compile Include="Repositories\ICustomerRepository.cs" />
     <Compile Include="IUnitOfWork.cs" />
     <Compile Include="IRepository.cs" />
     <Compile Include="Repositories\IUserRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\IUsersInAppsRepository.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Domain\WebChat.Domain.Core\WebChat.Domain.Core.csproj">
+      <Project>{dbb555d6-a7c2-4b1f-8f57-87441426a187}</Project>
+      <Name>WebChat.Domain.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Domain\WebChat.Domain.Interfaces\WebChat.Domain.Interfaces.csproj">
+      <Project>{914aa30d-3796-46b1-a8a5-401d494d070b}</Project>
+      <Name>WebChat.Domain.Interfaces</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WebChat.Infrastructure.Data.Models\WebChat.Infrastructure.Data.Models.csproj">
       <Project>{3f08e828-e4b0-4192-8aa5-d2754168b54d}</Project>
       <Name>WebChat.Infrastructure.Data.Models</Name>

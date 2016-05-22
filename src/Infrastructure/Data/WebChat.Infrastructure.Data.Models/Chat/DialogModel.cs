@@ -51,7 +51,7 @@
             private set;
         }
 
-        public virtual CustomerApplicationModel App
+        public virtual ApplicationModel App
         {
             get;
         }

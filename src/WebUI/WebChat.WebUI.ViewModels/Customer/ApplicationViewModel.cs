@@ -8,7 +8,7 @@
 
     #endregion
 
-    public class ApplicationViewModel : IQueryResult
+    public class ApplicationViewModel 
     {
         [Required]
         [DataType(DataType.Url)]

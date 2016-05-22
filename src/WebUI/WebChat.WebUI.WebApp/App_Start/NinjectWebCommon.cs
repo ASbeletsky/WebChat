@@ -10,7 +10,7 @@ namespace WebChat.WebUI.WebApp.App_Start
     using Microsoft.Web.Infrastructure.DynamicModuleHelper;
     using Ninject;
     using Ninject.Web.Common;
-
+    using Infrastructure.Services.Common;
 
     #endregion
 
@@ -64,7 +64,8 @@ namespace WebChat.WebUI.WebApp.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-            System.Web.Mvc.DependencyResolver.SetResolver(new WebChat.Infrastructure.Services.Common.NinjectDependencyResolver(kernel));
+            DependencyResolver.SetResolver(new NinjectDependencyResolver(kernel));
+            System.Web.Mvc.DependencyResolver.SetResolver(DependencyResolver.Current);
         }
     }
 }

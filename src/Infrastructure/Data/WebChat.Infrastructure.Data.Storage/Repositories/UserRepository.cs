@@ -8,77 +8,71 @@
     using System.Linq;
     using Interfaces.Repositories;
     using Models.Identity;
-
+    using Services.Interfaces;
+    using Domain.Core.Identity;
+    using Factories;
+    using Managers;
     #endregion
 
     public class UserRepository : IUserRepository
     {
         #region Private Memebers
 
-        private readonly WebChatDbContext _context;
+        private readonly WebChatDbContext context;
+        private readonly IEntityConverter converter;
+        private readonly UserFactory factory;
 
         #endregion
 
         #region Constructors
-        public UserRepository(WebChatDbContext context)
+        public UserRepository(WebChatDbContext context, IEntityConverter converter, UserFactory factory)
         {
-            _context = context;
+            this.context = context;
+            this.converter = converter;
+            this.factory = factory;               
         }
 
         #endregion
 
         #region IRepository Members
 
-        public UserModel GetById(long id)
+        public User GetById(long id)
         {
-            return _context.Users.Find(id);
+            UserModel model = context.Users.Find(id);
+            User user = factory.RestoreUserFromModel(model);
+            return user;
         }
 
-        public UserModel Find(Func<UserModel, bool> predicate)
-        {
-            return _context.Users.FirstOrDefault(predicate);
-        }
-
-        public IEnumerable<UserModel> All
+        public IEnumerable<User> All
         {
             get
             {
-                return _context.Users;
+                IEnumerable<UserModel> models = context.Users;
+                IEnumerable<User> users = factory.RestoreUsersFromModels(models);
+                return users;
             }
         }
 
-        public void Create(UserModel item)
+        public void Create(User item)
         {
-            _context.Users.Add(item);
-            _context.SaveChanges();
+            throw new NotImplementedException();
         }
 
-        public void Update(UserModel item)
+        public void Update(User item)
         {
-            _context.Entry(item).State = EntityState.Modified;
-            _context.SaveChanges();
+            UserModel model = converter.Convert<User, UserModel>(item);
+            context.Entry(model).State = EntityState.Modified;
+            context.SaveChanges();
         }
 
         public void Delete(long id)
         {
-            var recordForDelete = _context.Users.Find(id);
+            var recordForDelete = context.Users.Find(id);
             if (recordForDelete != null)
             {
-                _context.Users.Remove(recordForDelete);
-                _context.SaveChanges();
+                context.Users.Remove(recordForDelete);
+                context.SaveChanges();
             }
-        }
-
-        #endregion
-
-        #region IUserRepository Members
-        public IEnumerable<UserModel> GetUsersInRole(string roleName)
-        {
-            var role = _context.Roles.FirstOrDefault(x => x.Name == roleName);
-            if (role != null)
-                return role.Users as IEnumerable<UserModel>;
-            else
-                throw new ArgumentException("Role \"{0}\" doesn't found", roleName);
         }
 
         #endregion

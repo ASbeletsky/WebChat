@@ -1,12 +1,14 @@
-﻿namespace WebChat.Business.Core.Identity
+﻿namespace WebChat.Domain.Core.Identity
 {
+    using Domain.Core.ValueObjects;
+    using Domain.Interfaces;
     #region Using
 
     using System;
 
     #endregion
 
-    public abstract class User 
+    public abstract class User : AggregateRoot<long>
     {
 
         #region Private Members
@@ -19,31 +21,11 @@
 
         #region Public Properties
 
-        public long Id 
-        {
-            get;
-        }
-
-        public string Name 
-        {
-            get;            
-        }
-
-        public string UserName 
-        {
-            get;          
-        }
-
-        public string Email 
-        {
-            get;           
-        }
-
-        public DateTime RegistrationDate 
-        {
-            get;           
-        }
-
+        public string Name { get; private set; }
+        public string Email { get; private set; }
+        public string PhoneNumber { get; private set; }
+        public UserAuthentificationInfo AuthentificationInfo { get; private set; }
+   
         #endregion
 
         //public IEnumerable<CustomerApplication> GetRelatedApplications()

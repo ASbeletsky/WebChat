@@ -48,7 +48,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IDependencyContainer.cs" />
+    <Compile Include="DependencyResolver.cs" />
+    <Compile Include="IDependencyResolver.cs" />
     <Compile Include="IEntityConverter.cs" />
     <Compile Include="IRealTimeWebService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

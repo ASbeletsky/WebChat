@@ -1,14 +1,13 @@
 ﻿namespace WebChat.Infrastructure.Data.Interfaces.Repositories
 {
-    using Models.Identity;
+    using Domain.Core.Identity;
     #region Using
 
     using System.Collections.Generic;
 
     #endregion
 
-    public interface IUserRepository : IRepository<UserModel, long>
+    public interface IUserRepository : IRepository<User, long>
     {
-        IEnumerable<UserModel> GetUsersInRole(string roleName);
     }
 }

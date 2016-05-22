@@ -2,18 +2,17 @@
 {
     #region Using
 
-    using System;
+    using Domain.Interfaces;
     using System.Collections.Generic;
 
     #endregion
 
-    public interface IRepository<TModel, TKey> where TModel : class
+    public interface IRepository<TAggregateRoot, TKey> where TAggregateRoot : AggregateRoot<TKey> where TKey: struct
     {
-        TModel GetById(TKey id);
-        TModel Find(Func<TModel, bool> predicate);
-        IEnumerable<TModel> All { get; }
-        void Create(TModel item);
-        void Update(TModel item);
+        TAggregateRoot GetById(TKey id);
+        IEnumerable<TAggregateRoot> All { get; }
+        void Create(TAggregateRoot item);
+        void Update(TAggregateRoot item);
         void Delete(TKey id);
     }
 }

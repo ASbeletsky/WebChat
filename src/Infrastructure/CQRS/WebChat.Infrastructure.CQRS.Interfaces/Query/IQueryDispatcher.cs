@@ -6,10 +6,9 @@
 
     #endregion
 
-    public interface IQueryDispatcher
+    public interface IQueryStorage
     {
-        Task<TResult> Execute<TParameter, TResult>(TParameter query)
-            where TParameter : IQuery
-            where TResult : IQueryResult;
+        TResult RunQuery<TParameter, TResult>(TParameter query)
+            where TParameter : IQuery;
     }
 }

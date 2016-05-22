@@ -1,4 +1,4 @@
-﻿namespace WebChat.Business.Core.Identity
+﻿namespace WebChat.Domain.Core.Identity
 {
     #region Using
 

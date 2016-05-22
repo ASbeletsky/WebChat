@@ -14,18 +14,19 @@
     {
         public BaseMvcController()
         {
-            this.QueryDispatcher = DependencyResolver.Current.GetService<IQueryDispatcher>();
-            this.CommandDispatcher = DependencyResolver.Current.GetService<ICommandDispatcher>();
-            this.EntityConverter = DependencyResolver.Current.GetService<IEntityConverter>();
+            var dependencyResolver = System.Web.Mvc.DependencyResolver.Current;
+            this.Queries = dependencyResolver.GetService<IQueryStorage>();
+            this.Commands = dependencyResolver.GetService<ICommandDispatcher>();
+            this.EntityConverter = dependencyResolver.GetService<IEntityConverter>();
         }
 
-        protected IQueryDispatcher QueryDispatcher
+        protected IQueryStorage Queries
         {
             get;
             private set;
         }
 
-        protected ICommandDispatcher CommandDispatcher
+        protected ICommandDispatcher Commands
         {
             get;
             private set;

@@ -13,6 +13,5 @@ namespace WebChat.WebUI.Controllers
         {
             return View();
         }
-
     }
 }

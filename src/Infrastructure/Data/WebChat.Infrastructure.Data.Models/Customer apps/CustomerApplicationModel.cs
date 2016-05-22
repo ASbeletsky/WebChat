@@ -7,14 +7,14 @@ using Identity;
 
 #endregion
 
-public class CustomerApplicationModel
+public class ApplicationModel
     {
-        private CustomerApplicationModel()
+        private ApplicationModel()
         {
             this.RelatedUsers = new HashSet<UserModel>();
         }
 
-        public CustomerApplicationModel(string appKey, long ownerId, string websiteUrl, string contactEmail) : this()
+        public ApplicationModel(string appKey, long ownerId, string websiteUrl, string contactEmail) : this()
         {
             this.AppKey = appKey;
             this.OwnerId = ownerId;

@@ -66,7 +66,6 @@
         {
             return new WebChatDbContext(connectionString);
         }
-
         public static WebChatDbContext GetInstance(DbConnection dbConnection)
         {
             return new WebChatDbContext(dbConnection);
@@ -76,7 +75,7 @@
 
         #region Tables
 
-        public virtual DbSet<CustomerApplicationModel> CustomerApplications { get; set; }
+        public virtual DbSet<ApplicationModel> Applications { get; set; }
         public virtual DbSet<UsersInAppsModel> UsersInApplications { get; set; }
         public virtual DbSet<UsersInRolesModel> UsersInRoles { get; set; }
         public virtual DbSet<DialogModel> Dialogs { get; set; }
@@ -150,19 +149,19 @@
         
         private void MapCustomerAppTable()
         {
-            ModelBuilder.Entity<CustomerApplicationModel>().ToTable("CustomerApplication")
+            ModelBuilder.Entity<ApplicationModel>().ToTable("CustomerApplication")
                 .HasKey<int>(app => app.Id);
 
 
-            ModelBuilder.Entity<CustomerApplicationModel>()
+            ModelBuilder.Entity<ApplicationModel>()
                 .HasRequired(app => app.Owner)
                     .WithMany(user => user.myOwnApplications)
                     .HasForeignKey(app => app.OwnerId);
 
-            ModelBuilder.Entity<CustomerApplicationModel>()
+            ModelBuilder.Entity<ApplicationModel>()
                 .Property(app => app.ContactEmail).IsRequired();
 
-            ModelBuilder.Entity<CustomerApplicationModel>()
+            ModelBuilder.Entity<ApplicationModel>()
                 .Property(app => app.WebsiteUrl).IsRequired();
 
         }
@@ -238,5 +237,16 @@
         }
 
         #endregion
+
+        public IQueryable<UserModel> GetUsersInRole(long roleId)
+        {
+            return this.Users.Where(user => user.Roles.Any(role => role.RoleId == roleId))
+                             .Select(user => user);
+        }
+
+        public bool IsUserInRole(long userId, long roleId)
+        {
+            return this.UsersInRoles.Any(role => role.RoleId == roleId && role.UserId == userId);
+        }
     }
 }

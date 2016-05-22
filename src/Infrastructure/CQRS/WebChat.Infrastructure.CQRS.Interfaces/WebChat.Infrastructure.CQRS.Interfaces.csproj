@@ -48,7 +48,6 @@
     <Compile Include="Query\IQuery.cs" />
     <Compile Include="Query\IQueryDispatcher.cs" />
     <Compile Include="Query\IQueryHandel.cs" />
-    <Compile Include="Query\IQueryResult.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

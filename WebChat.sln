@@ -55,6 +55,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebChat.Infrastructure.CQRS
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebChat.Services.Interfaces", "src\Services\WebChat.Services.Interfaces\WebChat.Services.Interfaces.csproj", "{C3C08634-0EC3-48CC-8B93-95C3E9F3D900}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebChat.Infrastructure.CQRS.QueryHandlers", "src\Infrastructure\CQRS\WebChat.Infrastructure.CQRS.QueryHandlers\WebChat.Infrastructure.CQRS.QueryHandlers.csproj", "{F6DE32F9-40DE-4B34-BE5E-10D53E9CC84A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -129,6 +131,10 @@ Global
 		{C3C08634-0EC3-48CC-8B93-95C3E9F3D900}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C3C08634-0EC3-48CC-8B93-95C3E9F3D900}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C3C08634-0EC3-48CC-8B93-95C3E9F3D900}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F6DE32F9-40DE-4B34-BE5E-10D53E9CC84A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F6DE32F9-40DE-4B34-BE5E-10D53E9CC84A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F6DE32F9-40DE-4B34-BE5E-10D53E9CC84A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F6DE32F9-40DE-4B34-BE5E-10D53E9CC84A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -158,5 +164,6 @@ Global
 		{05A34531-C04B-44EE-8B7C-9ACDD75AF347} = {BE0BCB5D-5DC9-4BAB-800D-F8FFF6CEA7AC}
 		{C7252524-6E96-4439-83AF-BEA7767FA681} = {07521E5C-9C1E-4BD8-B902-B228870135F6}
 		{C3C08634-0EC3-48CC-8B93-95C3E9F3D900} = {BE0BCB5D-5DC9-4BAB-800D-F8FFF6CEA7AC}
+		{F6DE32F9-40DE-4B34-BE5E-10D53E9CC84A} = {07521E5C-9C1E-4BD8-B902-B228870135F6}
 	EndGlobalSection
 EndGlobal

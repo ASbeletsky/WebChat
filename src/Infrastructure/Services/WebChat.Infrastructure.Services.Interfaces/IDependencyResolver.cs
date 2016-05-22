@@ -3,7 +3,7 @@
     /// <summary>
     /// Represents interface for dependency injectors
     /// </summary>
-    public interface IDependencyContainer
+    public interface IDependencyResolver
     {
         /// <summary>
         /// Gets an instance of specified service

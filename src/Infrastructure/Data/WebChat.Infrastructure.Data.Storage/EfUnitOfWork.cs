@@ -1,27 +1,33 @@
 ﻿namespace WebChat.Infrastructure.Data.Storage
 {
+    #region Using
+
+    using Factories;
     using Interfaces;
     using Interfaces.Repositories;
     using Repositories;
-    #region Using
-
+    using Services.Interfaces;
     using System;
 
     #endregion
+
     public class EfUnitOfWork : IUnitOfWork
     {
         #region Private Members
 
-        private WebChatDbContext _context;
-        private IMessageRepository _messages;
-        private IDialogRepository _dialogs;
-        private ICustomerAppRepository _customerApplications;
-        private IUserRepository _users;
-        private IUsersInAppsRepository usersInApplication;
+        private WebChatDbContext context;
+        private readonly IEntityConverter converter;
+
+        private IApplicationRepository applications;
+        private IUserRepository users;
+        private ICustomerRepository customers;
+        private IClientRepository clients;
+        private IAgentRepository agents;
 
         private EfUnitOfWork()
         {
-            _context = WebChatDbContext.GetInstance();
+            context = WebChatDbContext.GetInstance();
+            converter = DependencyResolver.Current.GetService<IEntityConverter>();
         }
 
         #endregion
@@ -42,59 +48,76 @@
 
         #region IUnitOfWork Members
 
-        public ICustomerAppRepository CustomerApplications
+        public IApplicationRepository Applications
         {
             get
             {
-                if (_customerApplications == null)
-                    _customerApplications = new CustomerAppRepository(_context);
-                return _customerApplications;
+                if (applications == null)
+                {
+                    var appFactory = DependencyResolver.Current.GetService<ApplicationFactory>();
+                    applications = new ApplicationRepository(context, converter, appFactory);
+                }
+
+                return applications;
             }
         }
-
-        public IDialogRepository Dialogs
-        {
-            get
-            {
-                if (_dialogs == null)
-                    _dialogs = new DialogRepository(_context);
-                return _dialogs;
-            }
-        }
-
-        public IMessageRepository Messages
-        {
-            get
-            {
-                if (_messages == null)
-                    _messages = new MessageRepository(_context);
-                return _messages;
-            }
-        }
-
+      
         public IUserRepository Users
         {
             get
             {
-                if (_users == null)
-                    _users = new UserRepository(_context);
-                return _users;
+                if (users == null)
+                {
+                    var userFactory = DependencyResolver.Current.GetService<UserFactory>();
+                    users = new UserRepository(context, converter, userFactory);
+                }
+
+                return users;
             }
         }
 
-        public IUsersInAppsRepository UsersInApplication
+        public ICustomerRepository Customers
         {
             get
             {
-                if (usersInApplication == null)
-                    usersInApplication = new UsersInAppsRepository(_context);
-                return usersInApplication;
+                if (clients == null)
+                {
+                    var userFactory = DependencyResolver.Current.GetService<UserFactory>();
+                    customers = new CustomerRepository(context, converter, userFactory);
+                }
+                return customers;
+            }
+        }
+
+        public IClientRepository Clients
+        {
+            get
+            {
+                if (clients == null)
+                {
+                    var userFactory = DependencyResolver.Current.GetService<UserFactory>();
+                    clients = new ClientRepository(context, converter, userFactory);
+                }
+                return clients;
+            }
+        }
+
+        public IAgentRepository Agents
+        {
+            get
+            {
+                if (agents == null)
+                { 
+                    var userFactory = DependencyResolver.Current.GetService<UserFactory>();
+                    agents = new AgentRepository(context, converter, userFactory);
+                }
+                return agents;
             }
         }
 
         public void Save()
         {
-            _context.SaveChanges();
+            context.SaveChanges();
         }
 
         #endregion
@@ -109,7 +132,7 @@
             {
                 if (disposing)
                 {
-                    _context.Dispose();
+                    context.Dispose();
                 }
                 this.disposed = true;
             }

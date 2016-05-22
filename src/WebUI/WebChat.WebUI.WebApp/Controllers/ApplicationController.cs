@@ -1,6 +1,5 @@
 ﻿namespace WebChat.WebUI.Controllers
 {
-
     #region Using
 
     using System.Threading.Tasks;
@@ -8,7 +7,7 @@
     using WebChat.WebUI.ViewModels.Customer;
     using WebChat.WebUI.WebApp.Controllers;
     using Infrastructure.CQRS.Commands.CustomerApp;
-    using Infrastructure.CQRS.Queries.CustomerApp;
+    using Infrastructure.CQRS.Queries.Application;
 
     #endregion
 
@@ -22,9 +21,9 @@
         }
 
         [HttpGet]
-        public async Task<ActionResult> Edit(EditCustomerAppQuery query)
+        public async Task<ActionResult> Edit(EditApplicationQuery query)
         {
-            var model = await QueryDispatcher.Execute<EditCustomerAppQuery, ApplicationViewModel>(query);
+            var model =  Queries.RunQuery<EditApplicationQuery, ApplicationViewModel>(query);
             if (model == null)
             {
                 return Json("Приложение не найдено.");
@@ -41,7 +40,7 @@
             if (ModelState.IsValid)
             {
                 var editApplicationCommand = EntityConverter.Convert<ApplicationViewModel, AddOrEditCustomerAppCommand>(model);
-                var editResult = await CommandDispatcher.Execute(editApplicationCommand);
+                var editResult = await Commands.Execute(editApplicationCommand);
                 return Json(editResult);
             }
 
