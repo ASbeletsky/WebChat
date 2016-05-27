@@ -3,6 +3,7 @@
     #region Using
 
     using Data.Models.Application;
+    using System.Collections.Generic;
     using WebChat.Domain.Interfaces;
 
     #endregion

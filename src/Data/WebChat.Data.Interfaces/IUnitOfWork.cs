@@ -11,7 +11,7 @@
     public interface IUnitOfWork : IDisposable
     {
         IUserRepository Users { get; }
-        ICustomerAppRepository CustomerApplications { get; }
+        ICustomerAppRepository Applications { get; }
         IUsersInAppsRepository UsersInApplication { get; }       
         IMessageRepository Messages { get; }
         IDialogRepository Dialogs { get; }

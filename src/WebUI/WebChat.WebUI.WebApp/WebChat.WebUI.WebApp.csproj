@@ -283,9 +283,6 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="ApplicationInsights.config">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -349,7 +346,9 @@
     <Compile Include="AppStart\WebApiConfig.cs" />
     <Compile Include="AppStart\NinjectWebCommon.cs" />
     <Compile Include="Controllers\Site\AccountController.cs" />
+    <Compile Include="Controllers\Site\CustomerController.cs" />
     <Compile Include="Controllers\Site\HomeController.cs" />
+    <Compile Include="Controllers\MvcBaseController.cs" />
     <Compile Include="Extentions\JsonpResult.cs" />
     <Compile Include="Extentions\RenderHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -390,6 +389,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\Chat\" />
+    <Folder Include="Views\MvcBase\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

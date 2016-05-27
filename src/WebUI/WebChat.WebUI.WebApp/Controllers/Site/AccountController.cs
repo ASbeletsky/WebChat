@@ -204,7 +204,7 @@ namespace WebChat.WebUI.Controllers
                         ContactEmail = model.App.ContactEmail,
                         SubjectScope = model.App.SubjectScope
                     };
-                    UnitOfWork.CustomerApplications.Create(newApp);
+                    UnitOfWork.Applications.Create(newApp);
                     return RedirectToAction("OwnerInfo", "Owner");
                 }
                 AddErrors(registerResult);
@@ -224,7 +224,7 @@ namespace WebChat.WebUI.Controllers
             var customerId = User.Identity.GetUserId<long>();
             var model = new RegisterOperatorViewModel
             {
-                CustomerApps = UnitOfWork.CustomerApplications.GetCustomerApplications(customerId)
+                CustomerApps = UnitOfWork.Applications.GetCustomerApplications(customerId)
             };
 
             return View("~/Views/Owner/RegisterAgent.cshtml", model);
@@ -253,7 +253,7 @@ namespace WebChat.WebUI.Controllers
 
                     foreach (var appId in model.SelectedApps)
                     {
-                        UnitOfWork.CustomerApplications.AddUserToApplication(agent.Id, appId);                        
+                        UnitOfWork.Applications.AddUserToApplication(agent.Id, appId);                        
                     }
                     UnitOfWork.Save();
                     return RedirectToAction("OwnerAgents", "Owner");
@@ -265,7 +265,7 @@ namespace WebChat.WebUI.Controllers
             }
 
             var customerId = User.Identity.GetUserId<long>();
-            model.CustomerApps = UnitOfWork.CustomerApplications.GetCustomerApplications(customerId);
+            model.CustomerApps = UnitOfWork.Applications.GetCustomerApplications(customerId);
 
             return View("~/Views/Owner/RegisterAgent.cshtml", model);
         }

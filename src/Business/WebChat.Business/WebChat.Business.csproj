@@ -86,6 +86,10 @@
       <Project>{7dbebae9-9813-4d46-99cd-a786acce5e0b}</Project>
       <Name>WebChat.Data.Storage</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\WebUI\WebChat.WebUI.ViewModels\WebChat.WebUI.ViewModels.csproj">
+      <Project>{4194cdfd-a790-46aa-a7f6-79b7371dee0b}</Project>
+      <Name>WebChat.WebUI.ViewModels</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

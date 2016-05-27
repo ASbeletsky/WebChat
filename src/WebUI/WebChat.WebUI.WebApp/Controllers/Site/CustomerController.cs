@@ -6,113 +6,42 @@
     using WebChat.WebUI.ViewModels.Shared;
     using System;
     using System.Threading.Tasks;
-
+    using Business.DomainModels;
     #endregion
 
-    public class CustomerController : BaseMVCController
+    public class CustomerController : MvcBaseController
     {
-        private CustomerManagement _customerManagement;
+        private readonly ApplicationDomainModel application;
+        private readonly CustomerDomainModel customer;
+        private long customerId;
 
-        public CustomerController(CustomerManagement customerManagement)
+        public CustomerController()
         {
-            this._customerManagement = customerManagement;
+            this.application = DependencyResolver.Current.GetService<ApplicationDomainModel>();
+            this.customer = DependencyResolver.Current.GetService<CustomerDomainModel>();
+            this.customerId = base.CurrentUserId;
         }
 
+        //private List<AppUser> GetRelatedAgents(int appId)
+        //{
+        //    return UnitOfWork.Users.GetUsersInRole("SupportAgent").ToArray()
+        //                                               .Where(a => a.RelatedApplications.Any(ra => ra.Id == appId))
+        //                                               .ToList();
+        //}
 
-        [HttpGet]
-        public ActionResult RegisterCustomer()
+
+        public ActionResult AppScript(int appId)
         {
-            var model = new RegisterViewModel();
-            return View(model);
+            string script = application.GenerateScript(appId);
+            return View(model: script);
         }
 
-        [HttpPost]
-        public async Task<ActionResult> RegisterCustomer(RegisterViewModel model)
+        public ActionResult OwnerInfo()
         {
-            try
-            {
-                if (ModelState.IsValid)
-                {
-                    var newCustomer = new Customer(model.Name, model.Email);
-                    newCustomer = await _customerManagement.CreateCustomer(newCustomer);
-                    return RedirectToAction("CustomerHome");
-                }
-                
-                return View(model);
-            }
-            catch(Exception ex)
-            {
-                AddModelErrors(ex);
-                return View(model);
-            }
+            var model = customer.GetApplicationsInfo(customerId);
+            ViewBag.Title = "Сводка данных по чатам";
+            return View();
         }
-
-
-        //        private List<AppUser> GetRelatedAgents(int appId)
-        //        {
-        //            return UnitOfWork.Users.GetUsersInRole("SupportAgent").ToArray()
-        //                                                       .Where(a => a.RelatedApplications.Any(ra => ra.Id == appId))
-        //                                                       .ToList();
-        //        }
-
-
-        //        public ActionResult AppScript(int appId)
-        //        {
-        //            string BaseUrl = ConfigurationManager.AppSettings["BaseUrlPath"].ToString();
-        //            var manager = new CustomerAppManager(BaseUrl);
-        //            string script = manager.GenerateScript(appId: appId);
-        //            return View(model: script);
-        //        }
-
-        //        public ActionResult OwnerInfo()
-        //        {
-        //            var users = UnitOfWork.Users.All.ToList();
-
-        //            var appsList = UnitOfWork.CustomerApplications.All
-        //                                     .Where(a => a.OwnerUser_Id == OwnerId)
-        //                                     .ToList();
-
-        //            List<OwnerViewModelApp> appsInfo = new List<OwnerViewModelApp>();
-
-        //            foreach (var app in appsList)
-        //            {
-
-        //                OwnerViewModelApp appShortInfo = new OwnerViewModelApp();
-        //                appShortInfo.appId = app.Id;
-        //                appShortInfo.siteUrl = app.WebsiteUrl;
-
-        //                appShortInfo.relatedAgents = GetRelatedAgents(app.Id);
-
-        //                string mostActiveAgentName = "";
-        //                int mostActiveAgentDialogsCount = 0;
-        //                int appDialogsCount = 0;
-        //                int appMessagesCount = 0;
-        //                foreach (var agent in appShortInfo.relatedAgents)
-        //                {
-        //                    if (mostActiveAgentDialogsCount < agent.Dialogs.Count)
-        //                    {
-        //                        mostActiveAgentDialogsCount = agent.Dialogs.Count;
-        //                        mostActiveAgentName = agent.Name;
-        //                    }
-        //                    appDialogsCount += agent.Dialogs.Count;
-        //                    foreach (var dialog in agent.Dialogs)
-        //                    {
-        //                        appMessagesCount += dialog.Messages.Count;
-        //                    }
-        //                }
-        //                appShortInfo.appDialogsCount = appDialogsCount;
-        //                appShortInfo.appMessagesCount = appMessagesCount;
-        //                appShortInfo.mostActiveAgentName = mostActiveAgentName;
-        //                appShortInfo.mostActiveAgentDialogsCount = mostActiveAgentDialogsCount;
-
-        //                appsInfo.Add(appShortInfo);
-        //            }
-
-        //            ViewBag.Apps = appsInfo;
-        //            ViewBag.Title = "Сводка данных по чатам";
-
-        //            return View();
-        //        }
 
         //        public ActionResult OwnerAgents()
         //        {
