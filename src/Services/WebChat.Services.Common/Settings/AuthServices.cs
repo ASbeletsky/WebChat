@@ -1,15 +1,16 @@
 ﻿namespace WebChat.Services.Common
-{
+{ 
     #region Using
 
     using System.Configuration;
+    using Interfaces.Settings;
 
     #endregion
 
-    public class AuthServices : ConfigurationSection
+    public class AuthServices : ConfigurationSection, IAuthSettings
     {
         [ConfigurationProperty("FacebookService", IsRequired = true)]
-        public FacebookServiceElement FacebookService
+        public IFacebookServiceSettings FacebookSettings
         {
             get
             {
@@ -22,7 +23,7 @@
         }
 
         [ConfigurationProperty("TwitterService", IsRequired = true)]
-        public TwitterServiceElement TwitterService
+        public ITwitterServiceSettings TwitterSettings
         {
             get
             {

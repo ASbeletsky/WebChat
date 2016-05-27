@@ -1,12 +1,14 @@
 ﻿namespace WebChat.Services.Common
 {
+    
     #region Using
 
     using System.Configuration;
+    using Interfaces.Settings;
 
     #endregion
 
-    public class FacebookServiceElement : ConfigurationElement
+    public class FacebookServiceElement : ConfigurationElement, IFacebookServiceSettings
     {
         [ConfigurationProperty("appId", IsRequired = true)]
         public string AppId

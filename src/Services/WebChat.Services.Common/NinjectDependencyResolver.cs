@@ -11,10 +11,10 @@
 
     #endregion
 
-    public class NinjectDependencyResolver : IDependencyResolver, IDependencyContainer
+    public class NinjectDependencyContainer : IDependencyResolver, IDependencyContainer
     {
         private IKernel kernel;
-        public NinjectDependencyResolver(IKernel kernelParam)
+        public NinjectDependencyContainer(IKernel kernelParam)
         {
             kernel = kernelParam;
             AddBindings();
