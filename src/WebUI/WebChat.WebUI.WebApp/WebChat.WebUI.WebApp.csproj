@@ -285,9 +285,11 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
-    <Content Include="Views\Account\RegisterСustomerAndApp.cshtml" />
+    <Content Include="Views\Account\RegisterCustomerAndFirstApp.cshtml" />
     <Content Include="Views\Account\RegisterOperator.cshtml" />
+    <Content Include="Views\Account\_Register.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Application\_Application.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -349,6 +351,7 @@
     <Compile Include="AppStart\Startup.Auth.cs" />
     <Compile Include="AppStart\WebApiConfig.cs" />
     <Compile Include="AppStart\NinjectWebCommon.cs" />
+    <Compile Include="Extentions\HtmlHelperExtentions.cs" />
     <Compile Include="WebAppBindings.cs" />
     <Compile Include="Controllers\Site\AccountController.cs" />
     <Compile Include="Controllers\Site\CustomerController.cs" />
@@ -394,7 +397,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\Chat\" />
-    <Folder Include="Views\MvcBase\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

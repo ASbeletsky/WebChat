@@ -22,7 +22,7 @@
 
     public partial class Startup
     {
-        private IAuthSettings config = DependencyContainer.Current.GetService< IAuthSettings>();
+        private IAuthSettings config = DependencyContainer.Current.GetService<IApplicationSettings>().AuthSettings;
         public void ConfigureAuth(IAppBuilder app)
         {
             app.SetDefaultSignInAsAuthenticationType(DefaultAuthenticationTypes.ApplicationCookie);

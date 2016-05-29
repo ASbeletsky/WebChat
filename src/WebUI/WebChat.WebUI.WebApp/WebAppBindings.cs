@@ -1,12 +1,19 @@
-﻿using Ninject.Modules;
-
-namespace WebChat.WebUI.WebApp
+﻿namespace WebChat.WebUI.WebApp
 {
-    //public class WebAppBindings : NinjectModule
-    //{
-    //    public override void Load()
-    //    {
-           
-    //    }
-    //}
+    #region Using
+
+    using Microsoft.Owin.Security;
+    using Ninject.Modules;
+    using Ninject.Web.Common;
+    using System.Web;
+
+    #endregion
+
+    public class WebAppBindings : NinjectModule
+    {
+        public override void Load()
+        {
+            Kernel.Bind<IAuthenticationManager>().ToMethod(c => HttpContext.Current.GetOwinContext().Authentication).InRequestScope();
+        }
+    }
 }

@@ -1,4 +1,4 @@
-﻿namespace WebChat.Services.Common
+﻿namespace WebChat.Services.Common.Settings
 {
     
     #region Using

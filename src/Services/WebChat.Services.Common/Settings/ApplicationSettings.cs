@@ -28,14 +28,14 @@
             }
         }
 
-        public Uri AppUrl
+        public Uri ServiceUrl
         {
             get
             {
                 if(appUrl == null)
                 {
                     string appUrlString = ConfigurationManager.AppSettings["BaseUrlPath"].ToString();
-                    Uri appUrl = new Uri(appUrlString);
+                    appUrl = new Uri(appUrlString);
                 }
 
                 return appUrl;

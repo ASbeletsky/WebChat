@@ -14,7 +14,7 @@
             get;
         }
 
-        Uri AppUrl
+        Uri ServiceUrl
         {
             get;
         }

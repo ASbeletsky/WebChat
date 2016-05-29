@@ -1,5 +1,5 @@
-﻿namespace WebChat.Services.Common
-{ 
+﻿namespace WebChat.Services.Common.Settings
+{
     #region Using
 
     using System.Configuration;
@@ -10,7 +10,7 @@
     public class AuthServices : ConfigurationSection, IAuthSettings
     {
         [ConfigurationProperty("FacebookService", IsRequired = true)]
-        public IFacebookServiceSettings FacebookSettings
+        public FacebookServiceElement FacebookService
         {
             get
             {
@@ -23,7 +23,7 @@
         }
 
         [ConfigurationProperty("TwitterService", IsRequired = true)]
-        public ITwitterServiceSettings TwitterSettings
+        public TwitterServiceElement TwitterService
         {
             get
             {
@@ -32,6 +32,22 @@
             set
             {
                 this["TwitterService"] = value;
+            }
+        }
+
+        IFacebookServiceSettings IAuthSettings.FacebookSettings
+        {
+            get
+            {
+                return this.FacebookService;
+            }
+        }
+
+        ITwitterServiceSettings IAuthSettings.TwitterSettings
+        {
+            get
+            {
+                return this.TwitterService;
             }
         }
     }
