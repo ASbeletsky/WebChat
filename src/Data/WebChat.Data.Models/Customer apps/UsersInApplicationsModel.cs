@@ -1,4 +1,6 @@
-﻿namespace WebChat.Data.Models.Application
+﻿using WebChat.Data.Storage.Identity;
+
+namespace WebChat.Data.Models.Application
 {
     #region Using
 
@@ -19,6 +21,18 @@
         }  
 
         public int AppId
+        {
+            get;
+            set;
+        }
+
+        public virtual UserModel User
+        {
+            get;
+            set;
+        }
+
+        public virtual ApplicationModel App
         {
             get;
             set;

@@ -8,7 +8,7 @@
 
     #endregion
 
-    public interface IUnitOfWork : IDisposable
+    public interface IDataStorage : IDisposable
     {
         IUserRepository Users { get; }
         ICustomerAppRepository Applications { get; }

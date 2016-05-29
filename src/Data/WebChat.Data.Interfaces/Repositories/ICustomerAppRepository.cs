@@ -8,11 +8,11 @@
 
     #endregion
 
-    public interface ICustomerAppRepository : IRepository<CustomerApplicationModel, int>
+    public interface ICustomerAppRepository : IRepository<ApplicationModel, int>
     {
-        IEnumerable<CustomerApplicationModel> GetCustomerApplications(long customerId);
-        IEnumerable<CustomerApplicationModel> GetAgents(long appId);
-        IEnumerable<CustomerApplicationModel> GetClients(long appId);
+        IEnumerable<ApplicationModel> GetCustomerApplications(long customerId);
+        IEnumerable<ApplicationModel> GetAgents(long appId);
+        IEnumerable<ApplicationModel> GetClients(long appId);
         void AddUserToApplication(long userId, int appId);
         IEnumerable<DialogModel> GetDialogs(int id);
 

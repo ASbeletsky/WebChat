@@ -50,13 +50,11 @@
         public void Create(DialogModel item)
         {
             _context.Dialogs.Add(item);
-            _context.SaveChanges();
         }
 
         public void Update(DialogModel item)
         {
             _context.Entry(item).State = EntityState.Modified;
-            _context.SaveChanges();
         }
 
         public void Delete(int id)
@@ -65,7 +63,6 @@
             if (recordForDelete != null)
             {
                 _context.Dialogs.Remove(recordForDelete);
-                _context.SaveChanges();
             }
         }
 

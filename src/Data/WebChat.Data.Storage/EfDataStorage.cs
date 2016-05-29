@@ -1,54 +1,42 @@
 ﻿namespace WebChat.Data.Storage
 {
-    using Repositories;
     #region Using
 
+    using Repositories;
     using System;
     using WebChat.Domain.Interfaces;
     using WebChat.Domain.Interfaces.Repositories;
 
     #endregion
-    public class EfUnitOfWork : IUnitOfWork
+
+    public class EfDataStorage : IDataStorage
     {
         #region Private Members
 
-        private WebChatDbContext _context;
-        private IMessageRepository _messages;
-        private IDialogRepository _dialogs;
-        private ICustomerAppRepository _customerApplications;
-        private IUserRepository _users;
+        private WebChatDbContext context;
+        private IMessageRepository messages;
+        private IDialogRepository dialogs;
+        private ICustomerAppRepository customerApplications;
+        private IUserRepository users;
         private IUsersInAppsRepository usersInApplication;
 
-        private EfUnitOfWork()
-        {
-            _context = WebChatDbContext.GetInstance();
-        }
-
         #endregion
 
-        #region Static Members
-
-        private static EfUnitOfWork _instance;
-        static EfUnitOfWork()
+        public EfDataStorage(WebChatDbContext context)
         {
-            _instance = new EfUnitOfWork();
-        }
-        public static IUnitOfWork GetInstance()
-        {
-            return _instance;
+            this.context = context;
         }
 
-        #endregion
-
-        #region IUnitOfWork Members
+        
+        #region IDataStorage Members
 
         public ICustomerAppRepository Applications
         {
             get
             {
-                if (_customerApplications == null)
-                    _customerApplications = new CustomerAppRepository(_context);
-                return _customerApplications;
+                if (customerApplications == null)
+                    customerApplications = new CustomerAppRepository(context);
+                return customerApplications;
             }
         }
 
@@ -56,9 +44,9 @@
         {
             get
             {
-                if (_dialogs == null)
-                    _dialogs = new DialogRepository(_context);
-                return _dialogs;
+                if (dialogs == null)
+                    dialogs = new DialogRepository(context);
+                return dialogs;
             }
         }
 
@@ -66,9 +54,9 @@
         {
             get
             {
-                if (_messages == null)
-                    _messages = new MessageRepository(_context);
-                return _messages;
+                if (messages == null)
+                    messages = new MessageRepository(context);
+                return messages;
             }
         }
 
@@ -76,9 +64,9 @@
         {
             get
             {
-                if (_users == null)
-                    _users = new UserRepository(_context);
-                return _users;
+                if (users == null)
+                    users = new UserRepository(context);
+                return users;
             }
         }
 
@@ -87,14 +75,14 @@
             get
             {
                 if (usersInApplication == null)
-                    usersInApplication = new UsersInAppsRepository(_context);
+                    usersInApplication = new UsersInAppsRepository(context);
                 return usersInApplication;
             }
         }
 
         public void Save()
         {
-            _context.SaveChanges();
+            context.SaveChanges();
         }
 
         #endregion
@@ -109,7 +97,7 @@
             {
                 if (disposing)
                 {
-                    _context.Dispose();
+                    context.Dispose();
                 }
                 this.disposed = true;
             }

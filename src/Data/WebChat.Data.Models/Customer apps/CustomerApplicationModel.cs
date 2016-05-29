@@ -7,20 +7,21 @@
 
     #endregion
 
-    public class CustomerApplicationModel
+    public class ApplicationModel
     {
         public int Id { get; set; }
-            
-        public long OwnerId { get; set; }
+        public string Name { get; set; }
+
+        public long CustomerId { get; set; }
 
         public string WebsiteUrl { get; set; }
 
-        public string SubjectScope { get; set; }
+        public string Occupation { get; set; }
 
         public string ContactEmail { get; set; }
 
-        public virtual UserModel Owner { get; set; }
+        public virtual UserModel Customer { get; set; }
 
-        public virtual ICollection<UserModel> RelatedUsers { get; set; }
+        public virtual ICollection<UsersInAppsModel> RelatedUsers { get; set; }
     }
 }

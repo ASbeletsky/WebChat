@@ -50,13 +50,11 @@
         public void Create(UsersInAppsModel item)
         {
             _context.UsersInApplications.Add(item);
-            _context.SaveChanges();
         }
 
         public void Update(UsersInAppsModel item)
         {
             _context.Entry(item).State = EntityState.Modified;
-            _context.SaveChanges();
         }
 
         public void Delete(IComplexKey<long, int> id)
@@ -65,7 +63,6 @@
             if (recordToDelete != null)
             {
                 _context.UsersInApplications.Remove(recordToDelete);
-                _context.SaveChanges();
             }
         }
 
@@ -79,7 +76,6 @@
             if(appsWithCurrentUser.Any())
             {
                 _context.UsersInApplications.RemoveRange(appsWithCurrentUser);
-                _context.SaveChanges();
             }
         }
 

@@ -31,17 +31,17 @@
 
         #region IRepository Members
 
-        public CustomerApplicationModel GetById(int id)
+        public ApplicationModel GetById(int id)
         {
             return _context.CustomerApplications.Find(id);
         }
 
-        public CustomerApplicationModel Find(Func<CustomerApplicationModel, bool> predicate)
+        public ApplicationModel Find(Func<ApplicationModel, bool> predicate)
         {
             return _context.CustomerApplications.FirstOrDefault(predicate);
         }
 
-        public IEnumerable<CustomerApplicationModel> All
+        public IEnumerable<ApplicationModel> All
         {
             get
             {
@@ -49,16 +49,14 @@
             }
         }
 
-        public void Create(CustomerApplicationModel item)
+        public void Create(ApplicationModel item)
         {
             _context.CustomerApplications.Add(item);
-            _context.SaveChanges();
         }
 
-        public void Update(CustomerApplicationModel item)
+        public void Update(ApplicationModel item)
         {
             _context.Entry(item).State = EntityState.Modified;
-            _context.SaveChanges();
         }
 
         public void Delete(int id)
@@ -67,7 +65,6 @@
             if(appForDelete != null)
             {
                 _context.CustomerApplications.Remove(appForDelete);
-                _context.SaveChanges();
             }
         }
 
@@ -75,9 +72,9 @@
 
         #region ICustomerAppRepository Members
 
-        public IEnumerable<CustomerApplicationModel> GetCustomerApplications(long ownerId)
+        public IEnumerable<ApplicationModel> GetCustomerApplications(long customerId)
         {
-            return _context.CustomerApplications.Where(a => a.OwnerId == ownerId);
+            return _context.CustomerApplications.Where(a => a.CustomerId == customerId);
         }
 
         public void AddUserToApplication(long userId, int appId)
@@ -85,12 +82,12 @@
             _context.UsersInApplications.Add(new UsersInAppsModel(userId, appId));
         }
 
-        public IEnumerable<CustomerApplicationModel> GetAgents(long appId)
+        public IEnumerable<ApplicationModel> GetAgents(long appId)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<CustomerApplicationModel> GetClients(long appId)
+        public IEnumerable<ApplicationModel> GetClients(long appId)
         {
             throw new NotImplementedException();
         }

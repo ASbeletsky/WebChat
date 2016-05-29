@@ -6,10 +6,10 @@
     using Microsoft.AspNet.Identity.EntityFramework;
     using Models.Application;
     using Models.Chat;
+    using Ninject;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations.Schema;
-    using System.Data.Common;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     using System.Data.Entity.Infrastructure.Annotations;
@@ -19,7 +19,7 @@
 
     #endregion
 
-    public class WebChatDbContext : IdentityDbContext<UserModel, UserRoleModel, long, UserLoginModel, UsersInRolesModel,  UserClaimModel>
+    public class WebChatDbContext : IdentityDbContext<UserModel, UserRoleModel, long, UserLoginModel, UsersInRolesModel, UserClaimModel>
     {
         #region Private Members
 
@@ -43,12 +43,11 @@
 
         #region Constructors
 
-        private WebChatDbContext() : base("WebChatDbContext")
+        [Inject]
+        public WebChatDbContext() : base("WebChatDbContext")
         {
         }
-        private WebChatDbContext(DbConnection dbConnection) : base(dbConnection, contextOwnsConnection: true)
-        {
-        }
+
         private WebChatDbContext(string connectionString) : base(connectionString)
         {
         }
@@ -57,6 +56,7 @@
 
         #region Static Members
 
+        [Inject]
         public static WebChatDbContext GetInstance()
         {
             return new WebChatDbContext();
@@ -67,23 +67,17 @@
             return new WebChatDbContext(connectionString);
         }
 
-        public static WebChatDbContext GetInstance(DbConnection dbConnection)
-        {
-            return new WebChatDbContext(dbConnection);
-        }
-
         #endregion
 
         #region Tables
 
-        public virtual DbSet<CustomerApplicationModel> CustomerApplications { get; set; }
+        public virtual DbSet<ApplicationModel> CustomerApplications { get; set; }
         public virtual DbSet<UsersInAppsModel> UsersInApplications { get; set; }
-        public virtual DbSet<UserRoleModel> UserRoles { get; set; }
         public virtual DbSet<UsersInRolesModel> UsersInRoles { get; set; }
         public virtual DbSet<DialogModel> Dialogs { get; set; }
         public virtual DbSet<MessageModel> Messages { get; set; }
 
-                    #endregion
+        #endregion
 
         #region Table Mappings
 
@@ -98,6 +92,7 @@
             this.MapUserLoginTable();
             this.MapUserClaimTable();
             this.MapCustomerAppTable();
+            this.MapUsersInAppTable();
             this.MapDialogTable();
             this.MapMessageTable();
         }
@@ -118,16 +113,13 @@
                          ud.MapLeftKey("User_Id");
                          ud.MapRightKey("Dialog_Id");
                      });
+
             userTable.Property(user => user.RegistrationDate).IsOptional();
 
             userTable.HasMany(user => user.RelatedApplications)
-                     .WithMany(app => app.RelatedUsers)
-                     .Map(user_app =>
-                     {
-                         user_app.ToTable("UserApp");
-                         user_app.MapLeftKey("UserId");
-                         user_app.MapRightKey("AppId");
-                     });
+                     .WithRequired(userApp => userApp.User)
+                     .HasForeignKey(userApp => userApp.UserId)
+                     .WillCascadeOnDelete(true);
         }
 
         private void MapAppRoleTable()
@@ -149,31 +141,31 @@
         {
             ModelBuilder.Entity<UserClaimModel>().ToTable("UserClaim");
         }
-        
+
+        private void MapUsersInAppTable()
+        {
+            var usersInApps = ModelBuilder.Entity<UsersInAppsModel>().ToTable("UserApp");
+            usersInApps.HasKey(table => new { table.AppId, table.UserId });
+
+        }
+
         private void MapCustomerAppTable()
         {
-            ModelBuilder.Entity<CustomerApplicationModel>().ToTable("CustomerApplication")
-                .HasKey<int>(app => app.Id)
-                .HasMany(app => app.RelatedUsers)
-                     .WithMany(user => user.RelatedApplications)
-                     .Map(user_app =>
-                     {
-                         user_app.ToTable("UserApp");
-                         user_app.MapLeftKey("AppId");
-                         user_app.MapRightKey("UserId");
-                     });
+            var customerTable = ModelBuilder.Entity<ApplicationModel>().ToTable("CustomerApplication");
+            customerTable.HasKey<int>(app => app.Id);
 
-            ModelBuilder.Entity<CustomerApplicationModel>()
-                .HasRequired(app => app.Owner)
-                    .WithMany(user => user.myOwnApplications)
-                    .HasForeignKey(app => app.OwnerId);
+            customerTable.HasRequired(app => app.Customer)
+                         .WithMany(user => user.myOwnApplications)
+                         .HasForeignKey(app => app.CustomerId);
 
-            ModelBuilder.Entity<CustomerApplicationModel>()
-                .Property(app => app.ContactEmail).IsRequired();
+            customerTable.Property(app => app.ContactEmail).IsRequired();
 
-            ModelBuilder.Entity<CustomerApplicationModel>()
-                .Property(app => app.WebsiteUrl).IsRequired();
+            customerTable.Property(app => app.WebsiteUrl).IsRequired();
 
+            customerTable.HasMany(app => app.RelatedUsers)
+                         .WithRequired(userApp => userApp.App)
+                         .HasForeignKey(userApp => userApp.AppId)
+                         .WillCascadeOnDelete(true);
         }
 
         private void MapDialogTable()

@@ -50,13 +50,11 @@
         public void Create(MessageModel item)
         {
             _context.Messages.Add(item);
-            _context.SaveChanges();
         }
 
         public void Update(MessageModel item)
         {
             _context.Entry(item).State = EntityState.Modified;
-            _context.SaveChanges();
         }
 
         public void Delete(long id)
@@ -65,7 +63,6 @@
             if (recordForDelete != null)
             {
                 _context.Messages.Remove(recordForDelete);
-                _context.SaveChanges();
             }
         }
 
