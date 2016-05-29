@@ -7,8 +7,10 @@
     using System;
     using System.Threading.Tasks;
     using Business.DomainModels;
+    using Data.Models.Identity;
     #endregion
 
+    [Authorize(Roles = "Customer")]
     public class CustomerController : MvcBaseController
     {
         private readonly ApplicationDomainModel application;
@@ -36,7 +38,7 @@
             return View(model: script);
         }
 
-        public ActionResult OwnerInfo()
+        public ActionResult CustomerHome()
         {
             var model = customer.GetApplicationsInfo(customerId);
             ViewBag.Title = "Сводка данных по чатам";

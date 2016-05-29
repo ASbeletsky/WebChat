@@ -253,3 +253,8 @@ label {
     float: none;
     margin: 0 auto;
 }
+
+.validation-summary-valid
+{
+	display: none;
+}

@@ -9,19 +9,19 @@
 
     public abstract class BaseDomainModel
     {
-        private IUnitOfWork storage;
+        private IDataStorage storage;
         private IApplicationSettings settings;
 
         public BaseDomainModel()
         {
-            storage = DependencyContainer.Current.GetService<IUnitOfWork>();
+            storage = DependencyContainer.Current.GetService<IDataStorage>();
         }
-        public BaseDomainModel(IUnitOfWork storage)
+        public BaseDomainModel(IDataStorage storage)
         {
             this.storage = storage;
         }
 
-        protected IUnitOfWork Storage
+        protected IDataStorage Storage
         {
             get
             {

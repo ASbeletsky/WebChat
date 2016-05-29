@@ -12,7 +12,7 @@
     {
         public RegisterOperatorViewModel()
         {
-            this.CustomerApps = new List<CustomerApplicationModel>();
+            this.CustomerApps = new List<ApplicationModel>();
             this.SelectedApps = new List<int>();
         }
 
@@ -43,6 +43,6 @@
 
         [Required]
         public IEnumerable<int> SelectedApps { get; set; }
-        public IEnumerable<CustomerApplicationModel> CustomerApps { get; set; }
+        public IEnumerable<ApplicationModel> CustomerApps { get; set; }
     }
 }

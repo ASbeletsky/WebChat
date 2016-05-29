@@ -1,0 +1,34 @@
+﻿@model WebChat.WebUI.ViewModels.Customer.CustomerAndAppViewModel
+@using WebChat.WebUI.WebApp.Extentions
+@{
+    ViewBag.Title = "Register";
+}
+
+@using (Html.BeginForm("RegisterCustomerAndFirstApp", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+
+    @Html.AntiForgeryToken()
+
+    <div class="col-sm-6 col-xs-12">
+        <h4 class="text-center">Ваши персональные данные</h4>
+        <br />
+        @Html.PartialFor(m => m.Customer, "~/Views/Account/_Register.cshtml")
+    </div>
+
+    <div class="col-sm-6 col-xs-12">
+        <h4 class="text-center">Первое приложение</h4>
+        <br />
+        @Html.PartialFor(m => m.App, "~/Views/Application/_Application.cshtml")
+    </div>
+    <br />
+    <div class="form-group">
+        <div class="col-md-offset-10 col-sm-offset-9 col-sx-offset-5">
+            <input type="submit" class="btn btn-primary" value="Продолжить" />
+        </div>
+    </div>
+
+    <div class="col-sm-offset-2">
+        @Html.ValidationSummary("Устраните следующие ошибки, что бы продолжить", new { @class = "text-danger" })
+    </div>
+    
+}

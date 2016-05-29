@@ -1,64 +1,50 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Web;
-using System.Web.Mvc;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin.Security;
-using System.Security.Claims;
-using System.Collections.Generic;
-using WebChat.Domain.Data.Managers;
-using WebChat.Data.Storage.Identity;
-using WebChat.Domain.Interfaces;
-using WebChat.WebUI.ViewModels.Shared;
-using WebChat.Data.Models.Application;
-using WebChat.WebUI.ViewModels.Customer;
-using WebChat.WebUI.ViewModels.Operator;
-using WebChat.Data.Models.Identity;
-using WebChat.Data.Storage;
-using WebChat.WebUI.WebApp.AppStart;
-
-namespace WebChat.WebUI.Controllers
+﻿namespace WebChat.WebUI.Controllers
 {
+    #region Using
+
+    using System;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using System.Web;
+    using System.Web.Mvc;
+    using Microsoft.AspNet.Identity;
+    using Microsoft.AspNet.Identity.Owin;
+    using Microsoft.Owin.Security;
+    using WebChat.Domain.Data.Managers;
+    using WebChat.Data.Storage.Identity;
+    using WebChat.Domain.Interfaces;
+    using WebChat.WebUI.ViewModels.Shared;
+    using WebChat.Data.Models.Application;
+    using WebChat.WebUI.ViewModels.Customer;
+    using WebChat.WebUI.ViewModels.Operator;
+    using WebChat.Data.Models.Identity;
+    using WebChat.WebUI.WebApp.AppStart;
+    using ViewModels.Application;
+    using Business.DomainModels;
+    #endregion
+
     [Authorize]
     public class AccountController : Controller
     {
-        private AppSignInManager _signInManager;
-        private AppUserManager _userManager;
-
-        private IUnitOfWork _unitOfWork;
-        private IUnitOfWork UnitOfWork
-        {
-            get
-            {
-                if (_unitOfWork == null)
-                    _unitOfWork = this.HttpContext.GetOwinContext().Get<IUnitOfWork>();
-                return _unitOfWork;
-            }
-        }
-
-        public AccountController()
-        {
-        }
+        private AppSignInManager signInManager;
+        private AppUserManager userManager;
+        private IDataStorage unitOfWork;
 
         public AccountController(AppUserManager userManager, AppSignInManager signInManager)
         {
-            UserManager = userManager;
-            SignInManager = signInManager;
+            this.userManager = userManager;
+            this.signInManager = signInManager;
         }
 
-        #region Managers
+        #region Managers And Storage
 
         public AppSignInManager SignInManager
         {
             get
             {
-                return _signInManager ?? HttpContext.GetOwinContext().Get<AppSignInManager>();
-            }
-            private set
-            {
-                _signInManager = value;
+                if (signInManager == null)
+                    signInManager = DependencyResolver.Current.GetService<AppSignInManager>();
+                return signInManager;
             }
         }
 
@@ -66,28 +52,34 @@ namespace WebChat.WebUI.Controllers
         {
             get
             {
-                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<AppUserManager>();
-            }
-            private set
-            {
-                _userManager = value;
+                if (userManager == null)
+                    userManager = DependencyResolver.Current.GetService<AppUserManager>();
+                return userManager;
             }
         }
 
-        //
-        // GET: /Account/Login
+        private IDataStorage UnitOfWork
+        {
+            get
+            {
+                if (unitOfWork == null)
+                    unitOfWork = DependencyResolver.Current.GetService<IDataStorage>();
+                return unitOfWork;
+            }
+        }
+
+        #endregion Managers And Storage
+
+        #region Shared
+
         [AllowAnonymous]
+        [HttpGet]
         public ActionResult Login(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
 
-        #endregion
-
-        #region Shared
-
-        // POST: /Account/Login
         [HttpPost]
         [AllowAnonymous]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
@@ -111,13 +103,6 @@ namespace WebChat.WebUI.Controllers
                     ModelState.AddModelError("", "Неудачная попытка входа.");
                     return View(model);
             }
-        }
-
-        // GET: /Account/Register
-        [AllowAnonymous]
-        public ActionResult Register(string email)
-        {
-            return View(new RegisterViewModel() { Email = email });
         }
 
         private async Task<IdentityResult> Register(UserModel user, string password, params Roles[] roles)
@@ -146,9 +131,8 @@ namespace WebChat.WebUI.Controllers
 
         #endregion
 
-        #region Owner
+        #region Customer
 
-        // POST: /Account/Register
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -169,11 +153,31 @@ namespace WebChat.WebUI.Controllers
                 if (registerResult.Succeeded)
                 {
                     await SignInManager.SignInAsync(customer, isPersistent: false, rememberBrowser: false);
+                    //TODO app domain model create app
                     return RedirectToAction("OwnerInfo", "Owner");
                 }
 
                 AddErrors(registerResult);
             }
+
+            return View(model);
+        }
+
+        [AllowAnonymous]
+        [HttpGet]
+        public ActionResult RegisterCustomerAndFirstApp(string email)
+        {
+            var model = new CustomerAndAppViewModel()
+            {
+                Customer = new RegisterViewModel
+                {
+                    Email = email
+                },
+                App = new ApplicationViewModel
+                {
+                    ContactEmail = email
+                }
+            };
 
             return View(model);
         }
@@ -196,17 +200,10 @@ namespace WebChat.WebUI.Controllers
                 var registerResult = await this.Register(customer, model.Customer.Password, Roles.Customer);
                 if (registerResult.Succeeded)
                 {
-
                     await SignInManager.SignInAsync(customer, isPersistent: false, rememberBrowser: false);
-                    var newApp = new CustomerApplicationModel
-                    {
-                        OwnerId = customer.Id,
-                        WebsiteUrl = model.App.WebsiteUrl,
-                        ContactEmail = model.App.ContactEmail,
-                        SubjectScope = model.App.SubjectScope
-                    };
-                    UnitOfWork.Applications.Create(newApp);
-                    return RedirectToAction("OwnerInfo", "Owner");
+                    var applicationDomainModel = DependencyResolver.Current.GetService<ApplicationDomainModel>();
+                    applicationDomainModel.CreateApplication(model.App, customer.Id);
+                    return RedirectToAction("CustomerHome", "Customer");
                 }
                 AddErrors(registerResult);
             }
@@ -216,7 +213,7 @@ namespace WebChat.WebUI.Controllers
 
         #endregion
 
-        #region Operator
+        #region Agent
 
         [HttpGet]
         [ValidateAntiForgeryToken]
@@ -273,33 +270,12 @@ namespace WebChat.WebUI.Controllers
 
         #endregion
 
-        public ActionResult RegisterOperatorSuccess()
-        {
-            return View();
-        }
-
-        // POST: /Account/RegisterOperator
-        [HttpPost]
-        [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public ActionResult RegisterOperatorSuccess(RegisterOperatorViewModel model)
-        {
-            if (ModelState.IsValid)
-                return RedirectToAction("RegisterOperatorSuccess", "Account");
-
-            return View(model);
-        }
-
-
-
-
         // GET: /Account/ForgotPassword
         [AllowAnonymous]
         public ActionResult ForgotPassword()
         {
             return View();
         }
-
 
         // POST: /Account/ExternalLogin
         [AllowAnonymous]
@@ -424,16 +400,16 @@ namespace WebChat.WebUI.Controllers
         {
             if (disposing)
             {
-                if (_userManager != null)
+                if (userManager != null)
                 {
-                    _userManager.Dispose();
-                    _userManager = null;
+                    userManager.Dispose();
+                    userManager = null;
                 }
 
-                if (_signInManager != null)
+                if (signInManager != null)
                 {
-                    _signInManager.Dispose();
-                    _signInManager = null;
+                    signInManager.Dispose();
+                    signInManager = null;
                 }
             }
 

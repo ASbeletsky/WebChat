@@ -12,7 +12,7 @@
     {     
         public override void Load()
         {
-            Kernel.Bind<ApplicationDomainModel>().ToMethod(context => new ApplicationDomainModel());
+            Kernel.Bind<ApplicationDomainModel>().ToConstructor(context => new ApplicationDomainModel());
         }
     }
 }

@@ -2,13 +2,14 @@
 {
     #region Using
 
-    using WebChat.WebUI.ViewModels.Shared;
+    using Application;
+    using Shared;
 
     #endregion
 
     public class CustomerAndAppViewModel
     {
         public RegisterViewModel Customer { get; set; }
-        public RegisterApplicationViewModel App { get; set; }
+        public ApplicationViewModel App { get; set; }
     }
 }

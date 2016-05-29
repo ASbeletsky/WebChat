@@ -55,7 +55,7 @@
     <h2 style="padding-top:20px; padding-bottom:40px;">Начните использовать Apriorit Web Chat!</h2> 
     <h4 style="padding-bottom:30px;">5-минтная настройка и чат будет на вашем сайте</h4>
     <div id="sign_up">
-        @using (Html.BeginForm("RegisterCustomer", "Customer", FormMethod.Get, new {@id="sing-up-form", @class = "form-inline" }))
+        @using (Html.BeginForm("RegisterCustomerAndFirstApp", "Account", FormMethod.Get, new {@id="sing-up-form", @class = "form-inline" }))
         {
         <div>
             <input type="email" id="new_email" class="form-control input-lg" name="email" required="required" placeholder="адрес эл. почты">
