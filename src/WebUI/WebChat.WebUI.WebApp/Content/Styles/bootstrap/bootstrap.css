@@ -286,7 +286,7 @@ table {
     border-top-color: #000 !important;
   }
   .label {
-    border: 1px solid #000;
+    
   }
   .table {
     border-collapse: collapse !important;
@@ -1654,7 +1654,6 @@ legend {
 label {
   display: inline-block;
   margin-bottom: 5px;
-  font-weight: bold;
 }
 
 input[type="search"] {
@@ -4812,7 +4811,6 @@ textarea.input-group-sm > .input-group-btn > .btn {
   display: inline;
   padding: .2em .6em .3em;
   font-size: 75%;
-  font-weight: bold;
   line-height: 1;
   color: #ffffff;
   text-align: center;

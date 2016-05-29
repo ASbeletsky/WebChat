@@ -9,7 +9,7 @@ height: 100%;
 }
 
 #wrap {
-    min-height: 100%;
+    min-height: 97%;
 }
 
 #main {
@@ -41,6 +41,10 @@ input,
 select,
 textarea {
     max-width: 280px;
+}
+
+label {
+    font-weight: normal !important;
 }
 
 .agentsPage input[type="text"] {
@@ -243,4 +247,9 @@ textarea {
     -moz-border-radius: 50%;
     -webkit-border-radius: 50%;
     border-radius: 50%;
+}
+
+.col-centered{
+    float: none;
+    margin: 0 auto;
 }

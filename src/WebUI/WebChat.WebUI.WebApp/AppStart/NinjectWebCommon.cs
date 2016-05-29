@@ -69,6 +69,5 @@ namespace WebChat.WebUI.WebApp.AppStart
             DependencyContainer.SetContainer(container);
             DependencyResolver.SetResolver(container);
         }
-
     }
 }

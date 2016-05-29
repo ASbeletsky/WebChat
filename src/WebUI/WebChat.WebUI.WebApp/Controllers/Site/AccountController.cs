@@ -17,13 +17,14 @@ using WebChat.WebUI.ViewModels.Customer;
 using WebChat.WebUI.ViewModels.Operator;
 using WebChat.Data.Models.Identity;
 using WebChat.Data.Storage;
+using WebChat.WebUI.WebApp.AppStart;
 
 namespace WebChat.WebUI.Controllers
 {
     [Authorize]
     public class AccountController : Controller
     {
-        private SignInManager<UserModel, long> _signInManager;
+        private AppSignInManager _signInManager;
         private AppUserManager _userManager;
 
         private IUnitOfWork _unitOfWork;
@@ -41,7 +42,7 @@ namespace WebChat.WebUI.Controllers
         {
         }
 
-        public AccountController(AppUserManager userManager, SignInManager<UserModel, long> signInManager)
+        public AccountController(AppUserManager userManager, AppSignInManager signInManager)
         {
             UserManager = userManager;
             SignInManager = signInManager;
@@ -49,11 +50,11 @@ namespace WebChat.WebUI.Controllers
 
         #region Managers
 
-        public SignInManager<UserModel, long> SignInManager
+        public AppSignInManager SignInManager
         {
             get
             {
-                return _signInManager ?? HttpContext.GetOwinContext().Get<SignInManager<UserModel, long>>();
+                return _signInManager ?? HttpContext.GetOwinContext().Get<AppSignInManager>();
             }
             private set
             {

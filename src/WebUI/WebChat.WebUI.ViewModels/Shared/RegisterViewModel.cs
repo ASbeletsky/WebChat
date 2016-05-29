@@ -15,19 +15,17 @@
 
          [Required]
          [EmailAddress]
-         [RegularExpression(@"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}", ErrorMessage = "Invalid e-mail.Please try again.")]
          [Display(Name = "Адрес эл. почты")]
          public string Email { get; set; }
 
          [Required]
-         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
          [DataType(DataType.Password)]
          [Display(Name = "Пароль")]
          public string Password { get; set; }
 
          [DataType(DataType.Password)]
-         [Display(Name = "Подтверждение пароля")]
-         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+         [Display(Name = "Подтверждение")]
+         [Compare("Password", ErrorMessage = "Пароли не совпадают")]
          public string ConfirmPassword { get; set; }
         
     }

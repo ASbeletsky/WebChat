@@ -287,6 +287,10 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\RegisterСustomerAndApp.cshtml" />
+    <Content Include="Views\Account\RegisterOperator.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -348,6 +352,7 @@
     <Compile Include="AppStart\Startup.Auth.cs" />
     <Compile Include="AppStart\WebApiConfig.cs" />
     <Compile Include="AppStart\NinjectWebCommon.cs" />
+    <Compile Include="WebAppBindings.cs" />
     <Compile Include="Controllers\Site\AccountController.cs" />
     <Compile Include="Controllers\Site\HomeController.cs" />
     <Compile Include="Extentions\JsonpResult.cs" />

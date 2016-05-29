@@ -10,17 +10,16 @@
 
     #endregion
 
-    // Настройка диспетчера входа для приложения.
-    public class ApplicationSignInManager : SignInManager<UserModel, long>
+    public class AppSignInManager : SignInManager<UserModel, long>
     {
-        public ApplicationSignInManager(AppUserManager userManager, IAuthenticationManager authenticationManager)
+        public AppSignInManager(AppUserManager userManager, IAuthenticationManager authenticationManager)
             : base(userManager, authenticationManager)
         {
         }
 
-        public static ApplicationSignInManager Create(IdentityFactoryOptions<ApplicationSignInManager> options, IOwinContext context)
+        public static AppSignInManager Create(IdentityFactoryOptions<AppSignInManager> options, IOwinContext context)
         {
-            return new ApplicationSignInManager(context.GetUserManager<AppUserManager>(), context.Authentication);
+            return new AppSignInManager(context.GetUserManager<AppUserManager>(), context.Authentication);
         }
     }
 }

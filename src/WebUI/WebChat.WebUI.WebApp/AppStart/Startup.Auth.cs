@@ -17,6 +17,7 @@
     using Domain.Data.Managers;
     using Data.Storage.Identity;
     using Data.Storage;
+    using AppStart;
 
     #endregion
 
@@ -25,6 +26,7 @@
         private AuthServices config = ConfigurationManager.GetSection("authorizationServices") as AuthServices;
         public void ConfigureAuth(IAppBuilder app)
         {
+            app.CreatePerOwinContext<AppSignInManager>(AppSignInManager.Create);
             app.SetDefaultSignInAsAuthenticationType(DefaultAuthenticationTypes.ApplicationCookie);
             ConfigureCookieAuth(app);
             ConfigureFaceBookAuth(app);
