@@ -11,22 +11,20 @@
     using Microsoft.Owin.Security;
     using System.Threading.Tasks;
     using Microsoft.Owin.Security.Facebook;
-    using System.Configuration;
     using Services.Common;
     using Microsoft.Owin.Security.Twitter;
     using Domain.Data.Managers;
     using Data.Storage.Identity;
     using Data.Storage;
-    using AppStart;
-
+    using Services.Interfaces;
+    using Services.Interfaces.Settings;
     #endregion
 
     public partial class Startup
     {
-        private AuthServices config = ConfigurationManager.GetSection("authorizationServices") as AuthServices;
+        private IAuthSettings config = DependencyContainer.Current.GetService< IAuthSettings>();
         public void ConfigureAuth(IAppBuilder app)
         {
-            app.CreatePerOwinContext<AppSignInManager>(AppSignInManager.Create);
             app.SetDefaultSignInAsAuthenticationType(DefaultAuthenticationTypes.ApplicationCookie);
             ConfigureCookieAuth(app);
             ConfigureFaceBookAuth(app);
@@ -55,8 +53,8 @@
         {
             app.UseFacebookAuthentication(new FacebookAuthenticationOptions
             {
-                AppId = config.FacebookService.AppId,
-                AppSecret = config.FacebookService.AppId,
+                AppId = config.FacebookSettings.AppId,
+                AppSecret = config.FacebookSettings.AppId,
                 Provider = new FacebookAuthenticationProvider
                 {
                     OnAuthenticated = (context) =>
@@ -72,8 +70,8 @@
         {
             app.UseTwitterAuthentication(new TwitterAuthenticationOptions
             {
-                ConsumerKey = config.TwitterService.AppId,
-                ConsumerSecret = config.TwitterService.AppSecret,
+                ConsumerKey = config.TwitterSettings.AppId,
+                ConsumerSecret = config.TwitterSettings.AppSecret,
                 BackchannelCertificateValidator = this.GetTwitterCertificateValidator(),
                 Provider = new TwitterAuthenticationProvider()
                 {

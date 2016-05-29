@@ -8,6 +8,7 @@
     using System.Data.Entity;
     using System.Linq;
     using WebChat.Domain.Interfaces.Repositories;
+    using Models.Chat;
 
     #endregion
 
@@ -82,6 +83,21 @@
         public void AddUserToApplication(long userId, int appId)
         {
             _context.UsersInApplications.Add(new UsersInAppsModel(userId, appId));
+        }
+
+        public IEnumerable<CustomerApplicationModel> GetAgents(long appId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<CustomerApplicationModel> GetClients(long appId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<DialogModel> GetDialogs(int id)
+        {
+            throw new NotImplementedException();
         }
 
         #endregion

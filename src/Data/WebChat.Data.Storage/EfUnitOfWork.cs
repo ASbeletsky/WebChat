@@ -42,7 +42,7 @@
 
         #region IUnitOfWork Members
 
-        public ICustomerAppRepository CustomerApplications
+        public ICustomerAppRepository Applications
         {
             get
             {

@@ -10,6 +10,7 @@
     public abstract class BaseDomainModel
     {
         private IUnitOfWork storage;
+        private IApplicationSettings settings;
 
         public BaseDomainModel()
         {
@@ -27,5 +28,18 @@
                 return storage;
             }
         }
+
+        protected IApplicationSettings Settings
+        {
+            get
+            {
+                if(settings == null)
+                {
+                    settings = DependencyContainer.Current.GetService<IApplicationSettings>();
+                }
+
+                return settings;
+            }
+        }                    
     }
 }

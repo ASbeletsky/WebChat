@@ -3,11 +3,12 @@
     #region Using
 
     using System.Configuration;
+    using Interfaces.Settings;
 
     #endregion
 
-    public class TwitterServiceElement : ConfigurationElement
-        {
+    public class TwitterServiceElement : ConfigurationElement, ITwitterServiceSettings
+    {
             [ConfigurationProperty("appId", IsRequired = true)]
             public string AppId
             {
