@@ -76,6 +76,8 @@
     <Compile Include="Repositories\UsersInAppsRepository.cs" />
     <Compile Include="Repositories\MessageRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
+    <Compile Include="Repositories\UsersInDialogsRepository.cs" />
+    <Compile Include="Repositories\UsersInRolesRepository.cs" />
     <Compile Include="WebChatDbContext.cs" />
   </ItemGroup>
   <ItemGroup>

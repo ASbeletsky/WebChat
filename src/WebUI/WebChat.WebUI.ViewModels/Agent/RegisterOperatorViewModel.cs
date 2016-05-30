@@ -1,4 +1,4 @@
-﻿namespace WebChat.WebUI.ViewModels.Operator
+﻿namespace WebChat.WebUI.ViewModels.Agent
 {
     #region Using
 

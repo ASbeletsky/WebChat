@@ -4,6 +4,7 @@
 
     using System.Collections.Generic;
     using Storage.Identity;
+    using System.Linq;
 
     #endregion
 
@@ -22,6 +23,14 @@
 
         public virtual UserModel Customer { get; set; }
 
-        public virtual ICollection<UsersInAppsModel> RelatedUsers { get; set; }
+        public virtual ICollection<UsersInAppsModel> UsersShortInfo { get; set; }
+
+        public IEnumerable<UserModel> Users
+        {
+            get
+            {
+                return this.UsersShortInfo.Select(userInfo => userInfo.User);
+            }
+        }
     }
 }

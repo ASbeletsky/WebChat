@@ -1,9 +1,10 @@
-﻿namespace WebChat.Domain.Interfaces.Repositories
+﻿namespace WebChat.Data.Interfaces.Repositories
 {
-    using Data.Models.Chat;
-    using System.Collections.Generic;
     #region Using
 
+    using Data.Models.Chat;
+    using Data.Storage.Identity;
+    using System.Collections.Generic;
     using WebChat.Data.Models.Application;
 
     #endregion
@@ -11,8 +12,8 @@
     public interface ICustomerAppRepository : IRepository<ApplicationModel, int>
     {
         IEnumerable<ApplicationModel> GetCustomerApplications(long customerId);
-        IEnumerable<ApplicationModel> GetAgents(long appId);
-        IEnumerable<ApplicationModel> GetClients(long appId);
+        IEnumerable<UserModel> GetAgents(int appId);
+        IEnumerable<UserModel> GetClients(int appId);
         void AddUserToApplication(long userId, int appId);
         IEnumerable<DialogModel> GetDialogs(int id);
 

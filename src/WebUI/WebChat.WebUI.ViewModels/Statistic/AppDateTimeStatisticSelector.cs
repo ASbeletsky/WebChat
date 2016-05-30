@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WebChat.WebUI.Models.Statistic
+namespace WebChat.WebUI.ViewModels.Statistic
 {
     public class AppDateTimeStatisticSelector
     {

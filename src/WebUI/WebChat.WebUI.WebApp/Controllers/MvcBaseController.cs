@@ -3,18 +3,30 @@
     #region Using
 
     using System.Web.Mvc;
+    using System.Web.Routing;
     using Microsoft.AspNet.Identity;
 
     #endregion
 
     public class MvcBaseController : Controller
     {
-        protected long CurrentUserId
+        protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            get
+            base.OnActionExecuting(filterContext);
+            if (!CurrentUserId.HasValue)
             {
-                return long.Parse(User.Identity.GetUserId());
+                var user = filterContext.HttpContext.User;
+                if (user != null && user.Identity.IsAuthenticated)
+                {
+                    CurrentUserId = user.Identity.GetUserId<long>();
+                }
             }
+        }
+
+        protected long? CurrentUserId
+        {
+            get;
+            private set;
         }
     }
 }

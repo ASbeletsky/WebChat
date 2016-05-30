@@ -49,6 +49,8 @@
     <Compile Include="Repositories\IUserRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\IUsersInAppsRepository.cs" />
+    <Compile Include="Repositories\IUsersInDialogsRepository.cs" />
+    <Compile Include="Repositories\IUsersInRolesRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\WebChat.Data.Models\WebChat.Data.Models.csproj">

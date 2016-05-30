@@ -1,10 +1,10 @@
-﻿namespace WebChat.Domain.Interfaces
+﻿namespace WebChat.Data.Interfaces
 {
+   
     #region Using
 
     using System;
-    using System.Threading.Tasks;
-    using WebChat.Domain.Interfaces.Repositories;
+    using Data.Interfaces.Repositories;
 
     #endregion
 
@@ -15,6 +15,8 @@
         IUsersInAppsRepository UsersInApplication { get; }       
         IMessageRepository Messages { get; }
         IDialogRepository Dialogs { get; }
+        IUsersInDialogsRepository UsersInDialogs { get; }
+        IUsersInRolesRepository UsersInRoles { get; }
         void Save();
     }
 }

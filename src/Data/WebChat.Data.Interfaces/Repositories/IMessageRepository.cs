@@ -1,10 +1,10 @@
-﻿namespace WebChat.Domain.Interfaces.Repositories
+﻿namespace WebChat.Data.Interfaces.Repositories
 {
 
     #region Using
 
     using Data.Models.Chat;
-    using WebChat.Domain.Interfaces;
+    using WebChat.Data.Interfaces;
 
     #endregion
 

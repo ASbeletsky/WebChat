@@ -2,7 +2,7 @@
 {
      #region Using
 
-    using WebChat.Domain.Interfaces;
+    using WebChat.Data.Interfaces;
     using Services.Interfaces;
 
     #endregion

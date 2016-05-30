@@ -74,6 +74,7 @@
         public virtual DbSet<ApplicationModel> CustomerApplications { get; set; }
         public virtual DbSet<UsersInAppsModel> UsersInApplications { get; set; }
         public virtual DbSet<UsersInRolesModel> UsersInRoles { get; set; }
+        public virtual DbSet<UsersInDialogsModel> UsersInDialogs { get; set; }
         public virtual DbSet<DialogModel> Dialogs { get; set; }
         public virtual DbSet<MessageModel> Messages { get; set; }
 
@@ -93,6 +94,7 @@
             this.MapUserClaimTable();
             this.MapCustomerAppTable();
             this.MapUsersInAppTable();
+            this.MapUsersInDialogs();
             this.MapDialogTable();
             this.MapMessageTable();
         }
@@ -105,20 +107,16 @@
                      .IsOptional()
                      .HasColumnAnnotation("Index", new IndexAnnotation(new IndexAttribute("EmailUniqueIndex") { IsUnique = true }));
 
-            userTable.HasMany(user => user.Dialogs)
-                     .WithMany(dialog => dialog.Users)
-                     .Map(ud =>
-                     {
-                         ud.ToTable("UserDialog");
-                         ud.MapLeftKey("User_Id");
-                         ud.MapRightKey("Dialog_Id");
-                     });
-
             userTable.Property(user => user.RegistrationDate).IsOptional();
 
-            userTable.HasMany(user => user.RelatedApplications)
+            userTable.HasMany(user => user.ApplicationsShortInfo)
                      .WithRequired(userApp => userApp.User)
                      .HasForeignKey(userApp => userApp.UserId)
+                     .WillCascadeOnDelete(true);
+
+            userTable.HasMany(user => user.DialogsShortInfo)
+                     .WithRequired(dialogInfo => dialogInfo.User)
+                     .HasForeignKey(dialogInfo => dialogInfo.UserId)
                      .WillCascadeOnDelete(true);
         }
 
@@ -146,7 +144,6 @@
         {
             var usersInApps = ModelBuilder.Entity<UsersInAppsModel>().ToTable("UserApp");
             usersInApps.HasKey(table => new { table.AppId, table.UserId });
-
         }
 
         private void MapCustomerAppTable()
@@ -162,37 +159,35 @@
 
             customerTable.Property(app => app.WebsiteUrl).IsRequired();
 
-            customerTable.HasMany(app => app.RelatedUsers)
+            customerTable.HasMany(app => app.UsersShortInfo)
                          .WithRequired(userApp => userApp.App)
                          .HasForeignKey(userApp => userApp.AppId)
                          .WillCascadeOnDelete(true);
         }
 
+        private void MapUsersInDialogs()
+        {
+            var usersInDialogs = ModelBuilder.Entity<UsersInDialogsModel>().ToTable("UserDialog");
+            usersInDialogs.HasKey(table => new { table.DialogId, table.UserId });
+        }
+
         private void MapDialogTable()
         {
-            ModelBuilder.Entity<DialogModel>().ToTable("Dialog");
-            ModelBuilder.Entity<DialogModel>()
-                .HasKey<int>(dialog => dialog.Id)
-                .HasMany(dialog => dialog.Messages)
-                    .WithRequired(message => message.Dialog)
-                    .HasForeignKey(message => message.DialogId);
+            var dialogTable = ModelBuilder.Entity<DialogModel>().ToTable("Dialog");
 
+            dialogTable.HasKey<int>(dialog => dialog.Id)
+                       .HasMany(dialog => dialog.Messages)
+                       .WithRequired(message => message.Dialog)
+                       .HasForeignKey(message => message.DialogId);
 
-            ModelBuilder.Entity<DialogModel>()
-                .HasMany(dialog => dialog.Users)
-                .WithMany(user => user.Dialogs)
-                .Map(ud =>
-                {
-                    ud.ToTable("UserDialog");
-                    ud.MapLeftKey("Dialog_Id");
-                    ud.MapRightKey("User_Id");
-                });
+            dialogTable.HasMany(dialog => dialog.UsersShortInfo)
+                         .WithRequired(userInDialog => userInDialog.Dialog)
+                         .HasForeignKey(userApp => userApp.DialogId)
+                         .WillCascadeOnDelete(true);
 
-            ModelBuilder.Entity<DialogModel>()
-                .Property(dialog => dialog.StartedAt).IsRequired();
+            dialogTable.Property(dialog => dialog.StartedAt).IsRequired();
 
-            ModelBuilder.Entity<DialogModel>()
-                .Property(dialog => dialog.ClosedAt).IsRequired();
+            dialogTable.Property(dialog => dialog.ClosedAt).IsRequired();
         }
 
         private void MapMessageTable()

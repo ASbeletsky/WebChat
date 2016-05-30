@@ -7,9 +7,10 @@
     using System.Collections.Generic;
     using System.Data.Entity;
     using System.Linq;
-    using WebChat.Domain.Interfaces.Repositories;
+    using WebChat.Data.Interfaces.Repositories;
     using Models.Chat;
-
+    using Identity;
+    using Models.Identity;
     #endregion
 
     public class CustomerAppRepository : ICustomerAppRepository
@@ -62,7 +63,7 @@
         public void Delete(int id)
         {
             var appForDelete = _context.CustomerApplications.Find(id);
-            if(appForDelete != null)
+            if (appForDelete != null)
             {
                 _context.CustomerApplications.Remove(appForDelete);
             }
@@ -82,22 +83,34 @@
             _context.UsersInApplications.Add(new UsersInAppsModel(userId, appId));
         }
 
-        public IEnumerable<ApplicationModel> GetAgents(long appId)
+        public IEnumerable<UserModel> GetAgents(int appId)
         {
-            throw new NotImplementedException();
+            var agents = GetAppUserByRole(appId, Roles.Agent);
+            return agents;
         }
 
-        public IEnumerable<ApplicationModel> GetClients(long appId)
+        public IEnumerable<UserModel> GetClients(int appId)
         {
-            throw new NotImplementedException();
+            var clients = GetAppUserByRole(appId, Roles.Client);
+            return clients;
         }
 
-        public IEnumerable<DialogModel> GetDialogs(int id)
+        public IEnumerable<DialogModel> GetDialogs(int appId)
         {
-            throw new NotImplementedException();
+            return _context.Dialogs.Where(dialog => dialog.AppId == appId);
         }
 
         #endregion
+
+        private IEnumerable<UserModel> GetAppUserByRole(int appId, Roles role)
+        {
+            var usersInApp = _context.UsersInApplications.Where(usersInApps => usersInApps.AppId == appId).AsEnumerable();
+            return from usersInRole in _context.UsersInRoles
+                   join userInApp in usersInApp
+                      on usersInRole.UserId equals userInApp.UserId
+                   where usersInRole.RoleId == (long)role
+                   select userInApp.User;
+        }
 
         /*------------------------------------- Функции ---------------------------------------------*/
         //public IEnumerable<ResponceTimePerHour> AverageChatResponceTimeByHours(int AppId)

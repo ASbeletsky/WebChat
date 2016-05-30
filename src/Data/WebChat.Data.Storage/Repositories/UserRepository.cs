@@ -7,7 +7,7 @@
     using System.Collections.Generic;
     using System.Data.Entity;
     using System.Linq;
-    using WebChat.Domain.Interfaces.Repositories;
+    using WebChat.Data.Interfaces.Repositories;
 
     #endregion
 

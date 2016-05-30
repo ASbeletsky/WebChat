@@ -4,8 +4,8 @@
 
     using Repositories;
     using System;
-    using WebChat.Domain.Interfaces;
-    using WebChat.Domain.Interfaces.Repositories;
+    using Interfaces.Repositories;
+    using WebChat.Data.Interfaces;
 
     #endregion
 
@@ -15,10 +15,12 @@
 
         private WebChatDbContext context;
         private IMessageRepository messages;
-        private IDialogRepository dialogs;
+        private IDialogRepository dialogs; 
         private ICustomerAppRepository customerApplications;
         private IUserRepository users;
         private IUsersInAppsRepository usersInApplication;
+        private IUsersInDialogsRepository usersInDialogs;
+        private IUsersInRolesRepository usersInRoles; 
 
         #endregion
 
@@ -47,6 +49,26 @@
                 if (dialogs == null)
                     dialogs = new DialogRepository(context);
                 return dialogs;
+            }
+        }
+
+        public IUsersInDialogsRepository UsersInDialogs
+        {
+            get
+            {
+                if (usersInDialogs == null)
+                    usersInDialogs = new UsersInDialogsRepository(context);
+                return usersInDialogs;
+            }
+        }
+
+        public IUsersInRolesRepository UsersInRoles
+        {
+            get
+            {
+                if (usersInRoles == null)
+                    usersInRoles = new UsersInRolesRepository(context);
+                return usersInRoles;
             }
         }
 

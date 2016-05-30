@@ -10,13 +10,13 @@
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.Owin;
     using Microsoft.Owin.Security;
-    using WebChat.Domain.Data.Managers;
+    using WebChat.Data.Data.Managers;
     using WebChat.Data.Storage.Identity;
-    using WebChat.Domain.Interfaces;
+    using WebChat.Data.Interfaces;
     using WebChat.WebUI.ViewModels.Shared;
     using WebChat.Data.Models.Application;
     using WebChat.WebUI.ViewModels.Customer;
-    using WebChat.WebUI.ViewModels.Operator;
+    using WebChat.WebUI.ViewModels.Agent;
     using WebChat.Data.Models.Identity;
     using WebChat.WebUI.WebApp.AppStart;
     using ViewModels.Application;
@@ -74,9 +74,9 @@
 
         [AllowAnonymous]
         [HttpGet]
-        public ActionResult Login(string returnUrl)
+        public ActionResult Login()
         {
-            ViewBag.ReturnUrl = returnUrl;
+            ViewBag.ReturnUrl = Url.Action("MyApplications", "Customer");
             return View();
         }
 
@@ -100,7 +100,7 @@
                     return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
                 case SignInStatus.Failure:
                 default:
-                    ModelState.AddModelError("", "Неудачная попытка входа.");
+                    ModelState.AddModelError("", "Не верный адресс эл. почты или пароль.");
                     return View(model);
             }
         }

@@ -3,25 +3,19 @@
     #region Using
 
     using System.Web.Mvc;
-    using WebChat.WebUI.ViewModels.Shared;
-    using System;
-    using System.Threading.Tasks;
     using Business.DomainModels;
-    using Data.Models.Identity;
     #endregion
 
     [Authorize(Roles = "Customer")]
     public class CustomerController : MvcBaseController
     {
-        private readonly ApplicationDomainModel application;
-        private readonly CustomerDomainModel customer;
-        private long customerId;
+        private readonly ApplicationDomainModel applications;
+        private readonly CustomerDomainModel customers;
 
         public CustomerController()
         {
-            this.application = DependencyResolver.Current.GetService<ApplicationDomainModel>();
-            this.customer = DependencyResolver.Current.GetService<CustomerDomainModel>();
-            this.customerId = base.CurrentUserId;
+            this.applications = DependencyResolver.Current.GetService<ApplicationDomainModel>();
+            this.customers = DependencyResolver.Current.GetService<CustomerDomainModel>();
         }
 
         //private List<AppUser> GetRelatedAgents(int appId)
@@ -34,15 +28,16 @@
 
         public ActionResult AppScript(int appId)
         {
-            string script = application.GenerateScript(appId);
+            string script = applications.GenerateScript(appId);
             return View(model: script);
         }
 
-        public ActionResult CustomerHome()
+        public ActionResult MyApplications()
         {
-            var model = customer.GetApplicationsInfo(customerId);
-            ViewBag.Title = "Сводка данных по чатам";
-            return View();
+            long customerId = CurrentUserId.Value;
+            var apps = customers.GetApplicationsInfo(customerId);
+            ViewBag.Title = "Мои приложения";
+            return View(apps);
         }
 
         //        public ActionResult OwnerAgents()

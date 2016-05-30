@@ -5,7 +5,7 @@
     using Microsoft.AspNet.Identity.Owin;
     using Microsoft.Owin;
     using Microsoft.Owin.Security;
-    using Domain.Data.Managers;
+    using Data.Data.Managers;
     using Data.Storage.Identity;
 
     #endregion

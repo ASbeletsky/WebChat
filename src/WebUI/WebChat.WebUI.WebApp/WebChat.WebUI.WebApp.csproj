@@ -290,6 +290,16 @@
     <Content Include="Views\Account\_Register.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Application\_Application.cshtml" />
+    <Content Include="Views\Shared\_Header.cshtml" />
+    <Content Include="Views\Customer\AddApplication.cshtml" />
+    <Content Include="Views\Customer\AppScript.cshtml" />
+    <Content Include="Views\Customer\EditAgent.cshtml" />
+    <Content Include="Views\Customer\EditApplication.cshtml" />
+    <Content Include="Views\Customer\MainPage.cshtml" />
+    <Content Include="Views\Customer\OwnerAgents.cshtml" />
+    <Content Include="Views\Customer\OwnerControlPage.cshtml" />
+    <Content Include="Views\Customer\MyApplications.cshtml" />
+    <Content Include="Views\Customer\RegisterAgent.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -5,51 +5,51 @@
     using System;
     using System.Collections.Generic;
     using Storage.Identity;
-
+    using System.Linq;
     #endregion
 
     public class DialogModel
     {
-        public DialogModel()
-        {
-            this.Messages = new HashSet<MessageModel>();
-            this.Users = new HashSet<UserModel>();
-        }
-
-        public DialogModel(DateTime startedAt, ICollection<long> userIds) : this()
-        {
-            this.StartedAt = startedAt;
-            //TODO: Add Users Initialization
-        }
-
         public int Id
         {
             get;
-            private set;
+            set;
         }
         public DateTime StartedAt
         {
             get;
-            private set;
+            set;
         }
 
         public DateTime ClosedAt
         {
             get;
-            private set;
+            set;
         }
 
         public virtual ICollection<MessageModel> Messages
         {
             get;
-            private set;
+            set;
         }
-
-        public virtual ICollection<UserModel> Users
+        public int AppId
         {
             get;
-            private set;
+            set;
         }
 
+        public virtual ICollection<UsersInDialogsModel> UsersShortInfo
+        {
+            get;
+            set;
+        }
+
+        public IEnumerable<UserModel> Users
+        {
+            get
+            {
+                return this.UsersShortInfo.Select(userInDialog => userInDialog.User);
+            }
+        }
     }
 }

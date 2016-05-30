@@ -13,36 +13,7 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-  <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Главная", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-                @{
-                    bool IsAuthenticated = User.Identity.IsAuthenticated;
-                    if (IsAuthenticated)
-                    {
-                        if (User.IsInRole("SupportAgent"))
-                        {
-                                @Html.ActionLink("Чаты", "Index", "Agent", null, new { @class = "navbar-brand" });
-                        }
-                        if (User.IsInRole("Owner"))
-                        {
-                            @Html.ActionLink("Мои приложения", "OwnerInfo", "Owner", null, new { @class = "navbar-brand" });
-                        }
-                    }
-                }
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav"></ul>
-                @Html.Partial("_LoginPartial")
-            </div>
-        </div>
-    </div>
+    @Html.Partial("_Header")
     <div id="wrap" class="container body-content">
         <div id="main">
             @RenderBody()

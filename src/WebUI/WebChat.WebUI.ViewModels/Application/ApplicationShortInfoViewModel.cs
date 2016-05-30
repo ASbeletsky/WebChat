@@ -1,13 +1,18 @@
-﻿namespace WebChat.WebUI.Models
+﻿namespace WebChat.WebUI.ViewModels.Application
 {
     #region Using
 
-    using WebChat.WebUI.ViewModels.Operator;
+    using WebChat.WebUI.ViewModels.Agent;
 
     #endregion
 
     public class ApplicationShortInfoViewModel
     {
+        public string Name
+        {
+            get;
+            set;
+        }
         public int AppId
         {
             get;

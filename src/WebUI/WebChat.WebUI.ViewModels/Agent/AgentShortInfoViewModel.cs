@@ -1,7 +1,12 @@
-﻿namespace WebChat.WebUI.ViewModels.Operator
+﻿namespace WebChat.WebUI.ViewModels.Agent
 {
     public class AgentShortInfoViewModel
     {
+        public long UserId
+        {
+            get;
+            set;
+        }
         public string Name
         {
             get;

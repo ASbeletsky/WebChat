@@ -1,4 +1,4 @@
-﻿namespace WebChat.Domain.Interfaces
+﻿namespace WebChat.Data.Interfaces
 {
     #region Using
 

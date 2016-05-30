@@ -13,7 +13,7 @@
     using Microsoft.Owin.Security.Facebook;
     using Services.Common;
     using Microsoft.Owin.Security.Twitter;
-    using Domain.Data.Managers;
+    using Data.Data.Managers;
     using Data.Storage.Identity;
     using Data.Storage;
     using Services.Interfaces;

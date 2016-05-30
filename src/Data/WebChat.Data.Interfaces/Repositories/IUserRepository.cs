@@ -1,4 +1,4 @@
-﻿namespace WebChat.Domain.Interfaces.Repositories
+﻿namespace WebChat.Data.Interfaces.Repositories
 {
 
     #region Using

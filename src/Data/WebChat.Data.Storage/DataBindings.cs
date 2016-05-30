@@ -2,15 +2,15 @@
 {
     #region Using
 
-    using Domain.Interfaces;
+
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.EntityFramework;
     using Ninject.Modules;
     using Ninject.Web.Common;
     using System.Data.Entity;
     using WebChat.Data.Storage.Identity;
-    using WebChat.Domain.Data.Managers;
-
+    using WebChat.Data.Data.Managers;
+    using Interfaces;
     #endregion
 
     public class DataBindings : NinjectModule

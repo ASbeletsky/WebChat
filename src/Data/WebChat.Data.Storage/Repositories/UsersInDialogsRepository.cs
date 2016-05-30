@@ -6,11 +6,12 @@
     using System.Collections.Generic;
     using System.Data.Entity;
     using System.Linq;
-    using WebChat.Data.Interfaces.Repositories;
-    using Models.Application;
+    using Models.Chat;
+    using Interfaces.Repositories;
     using Interfaces;
     #endregion
-    public class UsersInAppsRepository : IUsersInAppsRepository
+
+    public class UsersInDialogsRepository : IUsersInDialogsRepository
     {
         #region Private Memebers
 
@@ -19,7 +20,7 @@
         #endregion
 
         #region Constructors
-        public UsersInAppsRepository(WebChatDbContext context)
+        public UsersInDialogsRepository(WebChatDbContext context)
         {
             _context = context;
         }
@@ -28,40 +29,40 @@
 
         #region IRepository Members
 
-        public UsersInAppsModel GetById(IComplexKey<long, int> id)
+        public UsersInDialogsModel GetById(IComplexKey<long, int> id)
         {
-            return _context.UsersInApplications.Find(id);
+            return _context.UsersInDialogs.Find(id);
         }
 
-        public UsersInAppsModel Find(Func<UsersInAppsModel, bool> predicate)
+        public UsersInDialogsModel Find(Func<UsersInDialogsModel, bool> predicate)
         {
-            return _context.UsersInApplications.FirstOrDefault(predicate);
+            return _context.UsersInDialogs.FirstOrDefault(predicate);
         }
 
-        public IEnumerable<UsersInAppsModel> All
+        public IEnumerable<UsersInDialogsModel> All
         {
             get
             {
-                return _context.UsersInApplications;
+                return _context.UsersInDialogs;
             }
         }
 
-        public void Create(UsersInAppsModel item)
+        public void Create(UsersInDialogsModel item)
         {
-            _context.UsersInApplications.Add(item);
+            _context.UsersInDialogs.Add(item);
         }
 
-        public void Update(UsersInAppsModel item)
+        public void Update(UsersInDialogsModel item)
         {
             _context.Entry(item).State = EntityState.Modified;
         }
 
         public void Delete(IComplexKey<long, int> id)
         {
-            var recordToDelete = _context.UsersInApplications.Find(id.Key1, id.Key2);
+            var recordToDelete = _context.UsersInDialogs.Find(id.Key1, id.Key2);
             if (recordToDelete != null)
             {
-                _context.UsersInApplications.Remove(recordToDelete);
+                _context.UsersInDialogs.Remove(recordToDelete);
             }
         }
 
@@ -72,7 +73,7 @@
         public void DeleteUserFromAllApps(long userId)
         {
             var appsWithCurrentUser = _context.UsersInApplications.Where(x => x.UserId == userId);
-            if(appsWithCurrentUser.Any())
+            if (appsWithCurrentUser.Any())
             {
                 _context.UsersInApplications.RemoveRange(appsWithCurrentUser);
             }

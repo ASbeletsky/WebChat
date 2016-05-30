@@ -1,17 +1,20 @@
 ﻿namespace WebChat.Business.DomainModels
 {
+    using Data.Models.Identity;
+    using Data.Storage;
+    using System.Linq;
     #region Using
 
     using System.Text;
     using WebChat.Data.Models.Application;
     using WebChat.WebUI.ViewModels.Application;
-
+    using WebUI.ViewModels.Agent;
     #endregion
 
     public class ApplicationDomainModel : BaseDomainModel
     {
         public void CreateApplication(ApplicationViewModel app, long customerId)
-        {         
+        {
             var newApp = new ApplicationModel
             {
                 Name = app.Name,
@@ -25,11 +28,37 @@
             Storage.Save();
         }
 
+        public AgentShortInfoViewModel GetBestAgent(int appId)
+        {
+            var bestAgentInfo = (from dialog in Storage.Dialogs.All
+                                 join dialogInfo in Storage.UsersInDialogs.All on dialog.Id equals dialogInfo.DialogId
+                                 join userInRole in Storage.UsersInRoles.All on dialogInfo.UserId equals userInRole.UserId
+                                 where dialog.AppId == appId && userInRole.RoleId == (long)Roles.Agent
+                                 group dialogInfo by dialogInfo.UserId into userAndDialogsGroup
+                                 let dialagsCount = userAndDialogsGroup.Count()
+                                 let bestAgentId = userAndDialogsGroup.Key
+                                 orderby dialagsCount descending
+                                 select new AgentShortInfoViewModel
+                                 {
+                                     DialogsCount = dialagsCount,
+                                     UserId = bestAgentId
+                                 }).FirstOrDefault();
+            //TODO: check if bestAgentInfo not null
+            bestAgentInfo = Storage.Users.All.Where(user => user.Id == bestAgentInfo.UserId).Select(user =>
+            {
+                bestAgentInfo.Name = user.Name;
+                bestAgentInfo.PhotoSource = user.Claims.FirstOrDefault(claim => claim.ClaimType == AppClaimTypes.PhotoSource).ClaimValue;
+                return bestAgentInfo;
+            }).FirstOrDefault();
+
+            return bestAgentInfo;
+        }
+
         public string GenerateScript(int appId)
         {
             string applicationSiteUrl = Storage.Applications.GetById(appId).WebsiteUrl;
             string mainChatScriptUrl = base.Settings.ServiceUrl.Host + "chat-script";
-            
+
             StringBuilder scriptBuilder = new StringBuilder();
             scriptBuilder.AppendLine(@"<script type='text/javascript'>")
                          .AppendLine(@"      var __chat = { };")
