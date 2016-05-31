@@ -7,8 +7,8 @@
     #endregion
 
     public class BundleConfig
-    {     
-        static BundleConfig ()
+    {
+        static BundleConfig()
         {
             BundleTable.EnableOptimizations = true;
         }
@@ -32,6 +32,13 @@
             bundles.Add(new ScriptBundle("~/bundles/CRUDhandler").Include(
                       "~/Scripts/OwnerBackend/*.js"
                       ));
+
+            bundles.Add(new StyleBundle("~/Content/CustomerManagmentStyles")
+                   .Include("~/Content/Styles/accordion-menu/*.css"));
+
+            bundles.Add(new ScriptBundle("~/bundles/CustomerManagmentScripts")
+                   .Include("~/Scripts/accordion-menu/*.js"));
+
 
         }
     }

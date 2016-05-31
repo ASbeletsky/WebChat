@@ -46,6 +46,7 @@
     <Compile Include="Customer\CustomerAndAppViewModel.cs" />
     <Compile Include="Agent\AgentShortInfoViewModel.cs" />
     <Compile Include="Agent\RegisterOperatorViewModel.cs" />
+    <Compile Include="MenuItem.cs" />
     <Compile Include="Shared\LoginViewModel.cs" />
     <Compile Include="Shared\RegisterViewModel.cs" />
     <Compile Include="ManageViewModels.cs" />

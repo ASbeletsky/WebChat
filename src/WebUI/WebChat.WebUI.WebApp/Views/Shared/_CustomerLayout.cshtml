@@ -6,26 +6,35 @@
     <base href="@System.Configuration.ConfigurationManager.AppSettings["BaseUrlPath"].ToString()" />
     <title>@ViewBag.Title - WebChat Application</title>
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-    <link href="~/Content/Styles/font-icons/font-awesome.css" rel="stylesheet"/>
+    <link href="~/Content/Styles/font-icons/font-awesome.css" rel="stylesheet" />
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    @Styles.Render("~/Content/CustomerManagmentStyles")
 </head>
 <body>
     @Html.Partial("_Header")
-    <div id="wrap" class="container body-content">
-        <div id="main">
-            @RenderBody()
+
+
+    <div class="col-sm-3 col-lg-2 hidden-xs" style="height:100%; padding:0px;">
+        @Html.Partial("_Menu", model: (IEnumerable<WebChat.WebUI.ViewModels.MenuItem>)ViewBag.Menu)
+    </div>
+    <div id="wrap">
+        <div class="col-sm-9 col-lg-10" style="padding-left:0px;" id="main">
+            <div id="AjaxContainer">
+                @RenderBody()
+            </div>
+            @Html.Partial("_Footer")
             <br />
         </div>
     </div>
 
-    
+
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/CustomerManagmentScripts")
     @RenderSection("scripts", required: false)
 
-    @Html.Partial("_Footer")
-    </body>
+</body>
 </html>
 
 

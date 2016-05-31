@@ -1,26 +1,30 @@
 ﻿body {
     padding-top: 50px;
-    padding-bottom: 20px;
     height: 100%;
 }
 
 html {
-height: 100%;
+    height: 100%;
 }
 
 #wrap {
-    min-height: 97%;
+    min-height: 100%;
+    height: 100%;
 }
 
 #main {
-  padding-bottom: 0px; /* must be same height as the footer */
+    padding-bottom: 0px; /* must be same height as the footer */
+    height: 100%;
 }
 
 #main-footer {
-  position: relative;
-  margin-top: -40px; /* negative value of footer height */
-  height: 40px;
-  clear:both;
+    position: fixed;
+    bottom: 0;
+    width:100%;
+    height:40px;
+    border: 1px solid #e5e5e5;
+    border-width: 0 1px 0 0;
+    background-color: #F2F2F2;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -51,13 +55,14 @@ label {
     border: 1px solid #333;
     border-radius: 3px;
     padding: 3px;
-    box-sizing: border-box;    
+    box-sizing: border-box;
 }
+
 .agentsPage input[type="password"] {
     border: 1px solid #333;
     border-radius: 3px;
     padding: 3px;
-    box-sizing: border-box;    
+    box-sizing: border-box;
 }
 
 /*OWNER PAGE STYLES*/
@@ -77,7 +82,7 @@ label {
     color: whitesmoke;
     padding: 5px;
     border-radius: 3px;
-    margin-bottom: 5px;   
+    margin-bottom: 5px;
 }
 
 .appShortInfoFields {
@@ -103,7 +108,7 @@ label {
     border-radius: 6px;
 }
 
-.agentName{
+.agentName {
     *width: 60%;
     float: right;
     text-align: center;
@@ -119,13 +124,13 @@ label {
     margin: 20px 0px;
 }
 
-.editableData .fieldTitle {
-    padding-top: 3px;
-}
+    .editableData .fieldTitle {
+        padding-top: 3px;
+    }
 
-.editableData > div {
-    margin: 3px 0px;
-}
+    .editableData > div {
+        margin: 3px 0px;
+    }
 
 .editableDataInput:disabled {
     border: 1px solid transparent !important;
@@ -143,35 +148,35 @@ label {
     padding: 0px 20px;
 }
 
-.agentsSites a {
-    color: gray;
-}
+    .agentsSites a {
+        color: gray;
+    }
 
-.agentsSites a > span {
-    content: ' ';
-    display: inline-block;
-    vertical-align: bottom;
-    width: 20px;
-    height: 20px;
-    margin-left: 10px;
-    background: url('http://www.iconsearch.ru/uploads/icons/sweetiev3/16x16/16-em-cross.png');
-    background-size: cover;
-}
+        .agentsSites a > span {
+            content: ' ';
+            display: inline-block;
+            vertical-align: bottom;
+            width: 20px;
+            height: 20px;
+            margin-left: 10px;
+            background: url('http://www.iconsearch.ru/uploads/icons/sweetiev3/16x16/16-em-cross.png');
+            background-size: cover;
+        }
 
-.agentsSites .active {
-    color: #428bca;
-}
+    .agentsSites .active {
+        color: #428bca;
+    }
 
-.agentsSites .active .statusPic {
-    content: ' ';
-    display: inline-block;
-    vertical-align: bottom;
-    width: 20px;
-    height: 20px;
-    margin-left: 10px;
-    background: url('http://www.iconsearch.ru/uploads/icons/crystalclear/24x24/button_ok.png');
-    background-size: cover;
-}
+        .agentsSites .active .statusPic {
+            content: ' ';
+            display: inline-block;
+            vertical-align: bottom;
+            width: 20px;
+            height: 20px;
+            margin-left: 10px;
+            background: url('http://www.iconsearch.ru/uploads/icons/crystalclear/24x24/button_ok.png');
+            background-size: cover;
+        }
 
 
 .graph {
@@ -202,44 +207,42 @@ label {
 }
 
 /*login page*/
-.form-signin
-{
+.form-signin {
     max-width: 330px;
     padding: 15px;
     margin: 0 auto;
 }
-.form-signin .form-signin-heading, .form-signin .checkbox
-{
-    margin-bottom: 10px;
-}
-.form-signin .checkbox
-{
-    font-weight: normal;
-}
-.form-signin .form-control
-{
-    position: relative;
-    font-size: 16px;
-    height: auto;
-    padding: 10px;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-}
-.form-signin .form-control:focus
-{
-    z-index: 2;
-}
 
-.login-title
-{
+    .form-signin .form-signin-heading, .form-signin .checkbox {
+        margin-bottom: 10px;
+    }
+
+    .form-signin .checkbox {
+        font-weight: normal;
+    }
+
+    .form-signin .form-control {
+        position: relative;
+        font-size: 16px;
+        height: auto;
+        padding: 10px;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+
+        .form-signin .form-control:focus {
+            z-index: 2;
+        }
+
+.login-title {
     color: #555;
     font-size: 18px;
     font-weight: 400;
     display: block;
 }
-.profile-img
-{
+
+.profile-img {
     width: 96px;
     height: 96px;
     margin: 0 auto 10px;
@@ -249,12 +252,29 @@ label {
     border-radius: 50%;
 }
 
-.col-centered{
+.col-centered {
     float: none;
     margin: 0 auto;
 }
 
-.validation-summary-valid
-{
-	display: none;
+.validation-summary-valid {
+    display: none;
 }
+
+.menu-items {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+    .menu-items li a {
+        display: block;
+        height: 40px;
+        line-height: 40px;
+        border-bottom: 1px solid #e7ebee;
+        padding: 0 20px;
+        font-size: .875em;
+        -webkit-transition: background-color .15s ease-in-out 0;
+        transition: background-color .15s ease-in-out 0;
+        color: #344644;
+    }

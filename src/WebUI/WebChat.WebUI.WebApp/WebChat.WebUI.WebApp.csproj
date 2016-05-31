@@ -242,6 +242,7 @@
     <Content Include="app\ClientChat\Views\ChatView.html" />
     <Content Include="app\ClientChat\Views\EndChatView.html" />
     <Content Include="Content\Images\default-user-image.png" />
+    <Content Include="Content\Styles\accordion-menu\bs_leftnavi.css" />
     <Content Include="Content\Styles\bootstrap\bootstrap-social.css" />
     <Content Include="Content\Styles\bootstrap\bootstrap.chosen.css" />
     <Content Include="Content\Styles\bootstrap\bootstrap.css" />
@@ -276,10 +277,12 @@
     <Content Include="Content\Styles\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\Styles\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Content\Styles\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Scripts\accordion-menu\bs_leftnavi.js" />
     <Content Include="Scripts\angular\angular-resource.min.js.map" />
     <Content Include="Scripts\angular\angular-route.min.js.map" />
     <Content Include="Scripts\angular\angular.min.js.map" />
     <Content Include="Scripts\jquery\jquery-1.10.2.min.map" />
+    <Content Include="Scripts\notify.js" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
@@ -291,15 +294,22 @@
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Application\_Application.cshtml" />
     <Content Include="Views\Shared\_Header.cshtml" />
-    <Content Include="Views\Customer\AddApplication.cshtml" />
-    <Content Include="Views\Customer\AppScript.cshtml" />
-    <Content Include="Views\Customer\EditAgent.cshtml" />
-    <Content Include="Views\Customer\EditApplication.cshtml" />
-    <Content Include="Views\Customer\MainPage.cshtml" />
-    <Content Include="Views\Customer\OwnerAgents.cshtml" />
-    <Content Include="Views\Customer\OwnerControlPage.cshtml" />
-    <Content Include="Views\Customer\MyApplications.cshtml" />
-    <Content Include="Views\Customer\RegisterAgent.cshtml" />
+    <Content Include="Views\CustomerAppManagement\AddApplication.cshtml" />
+    <Content Include="Views\CustomerAppManagement\AppScript.cshtml" />
+    <Content Include="Views\CustomerAppManagement\EditAgent.cshtml" />
+    <Content Include="Views\CustomerAppManagement\EditApplication.cshtml" />
+    <Content Include="Views\CustomerAppManagement\MainPage.cshtml" />
+    <Content Include="Views\CustomerAppManagement\OwnerAgents.cshtml" />
+    <Content Include="Views\CustomerAppManagement\OwnerControlPage.cshtml" />
+    <Content Include="Views\CustomerAppManagement\_AppsInfo.cshtml" />
+    <Content Include="Views\CustomerAppManagement\RegisterAgent.cshtml" />
+    <Content Include="Views\CustomerAppManagement\Index.cshtml" />
+    <Content Include="Views\CustomerAppManagement\Agents.cshtml" />
+    <Content Include="Views\CustomerAgentManagement\Index.cshtml" />
+    <Content Include="Views\Shared\_Menu.cshtml" />
+    <Content Include="Views\CustomerAgentManagement\_AgentsList.cshtml" />
+    <Content Include="Views\Shared\_CustomerLayout.cshtml" />
+    <Content Include="Views\Shared\_Footer.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -361,14 +371,14 @@
     <Compile Include="AppStart\Startup.Auth.cs" />
     <Compile Include="AppStart\WebApiConfig.cs" />
     <Compile Include="AppStart\NinjectWebCommon.cs" />
+    <Compile Include="Controllers\Site\CustomerAgentManagementController.cs" />
     <Compile Include="Extentions\HtmlHelperExtentions.cs" />
     <Compile Include="WebAppBindings.cs" />
     <Compile Include="Controllers\Site\AccountController.cs" />
-    <Compile Include="Controllers\Site\CustomerController.cs" />
+    <Compile Include="Controllers\Site\CustomerAppManagementController.cs" />
     <Compile Include="Controllers\Site\HomeController.cs" />
     <Compile Include="Controllers\MvcBaseController.cs" />
     <Compile Include="Extentions\JsonpResult.cs" />
-    <Compile Include="Extentions\RenderHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>

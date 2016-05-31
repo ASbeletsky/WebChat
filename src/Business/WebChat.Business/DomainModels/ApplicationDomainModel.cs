@@ -43,14 +43,16 @@
                                      DialogsCount = dialagsCount,
                                      UserId = bestAgentId
                                  }).FirstOrDefault();
-            //TODO: check if bestAgentInfo not null
-            bestAgentInfo = Storage.Users.All.Where(user => user.Id == bestAgentInfo.UserId).Select(user =>
-            {
-                bestAgentInfo.Name = user.Name;
-                bestAgentInfo.PhotoSource = user.Claims.FirstOrDefault(claim => claim.ClaimType == AppClaimTypes.PhotoSource).ClaimValue;
-                return bestAgentInfo;
-            }).FirstOrDefault();
 
+            if (bestAgentInfo != null)
+            {
+                bestAgentInfo = Storage.Users.All.Where(user => user.Id == bestAgentInfo.UserId).Select(user =>
+                {
+                    bestAgentInfo.Name = user.Name;
+                    bestAgentInfo.PhotoSource = user.Claims.FirstOrDefault(claim => claim.ClaimType == AppClaimTypes.PhotoSource).ClaimValue;
+                    return bestAgentInfo;
+                }).FirstOrDefault();
+            }
             return bestAgentInfo;
         }
 

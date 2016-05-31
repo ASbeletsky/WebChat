@@ -2,21 +2,47 @@
 {
     #region Using
 
+    using WebChat.WebUI.WebApp.Extentions;
     using System.Web.Mvc;
     using Business.DomainModels;
+    using ViewModels;
+    using System.Collections.Generic;
+
     #endregion
 
     [Authorize(Roles = "Customer")]
-    public class CustomerController : MvcBaseController
+    public class CustomerAppManagementController : MvcBaseController
     {
         private readonly ApplicationDomainModel applications;
         private readonly CustomerDomainModel customers;
 
-        public CustomerController()
+        public CustomerAppManagementController()
         {
             this.applications = DependencyResolver.Current.GetService<ApplicationDomainModel>();
             this.customers = DependencyResolver.Current.GetService<CustomerDomainModel>();
         }
+
+        public ActionResult Index()
+        {
+            ViewBag.Menu = this.Menu;
+            return View();
+        }
+
+        #region private members
+
+        private IEnumerable<MenuItem> Menu
+        {
+            get
+            {
+                return new List<MenuItem>()
+                    {
+                        new MenuItem {Labor = "Мои чаты", Link = Url.Action("MyApplications")  },
+                        new MenuItem {Labor = "Окно чата" }
+                    };
+            }
+        }
+
+        #endregion
 
         //private List<AppUser> GetRelatedAgents(int appId)
         //{
@@ -32,12 +58,12 @@
             return View(model: script);
         }
 
-        public ActionResult MyApplications()
+        public JsonResult MyApplications()
         {
             long customerId = CurrentUserId.Value;
             var apps = customers.GetApplicationsInfo(customerId);
             ViewBag.Title = "Мои приложения";
-            return View(apps);
+            return JsonData(true, data: RenderPartialToString("_AppsInfo" , apps), behavior: JsonRequestBehavior.AllowGet);
         }
 
         //        public ActionResult OwnerAgents()
