@@ -34,9 +34,9 @@
             base.OnException(filterContext);
             if(filterContext.Result is JsonResult)
             {
-                string errorMessage = string.Format("Error: {0}", filterContext.Exception.Message);
+                string errorMessage = string.Format("Ошибка: {0}", filterContext.Exception.Message);
                 filterContext.Result = JsonData(false, errorMessage, null, JsonRequestBehavior.AllowGet);
-            }
+            }          
         }
 
         protected JsonResult JsonData(bool isSuccess, object data, JsonRequestBehavior behavior)
@@ -48,7 +48,7 @@
         {
             return Json(new
             {
-                isSuccess = isSuccess,
+                IsSuccess = isSuccess,
                 Data = data,
                 Мessage = message
             }, behavior);

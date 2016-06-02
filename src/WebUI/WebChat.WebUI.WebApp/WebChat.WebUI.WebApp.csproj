@@ -242,7 +242,6 @@
     <Content Include="app\ClientChat\Views\ChatView.html" />
     <Content Include="app\ClientChat\Views\EndChatView.html" />
     <Content Include="Content\Images\default-user-image.png" />
-    <Content Include="Content\Styles\accordion-menu\bs_leftnavi.css" />
     <Content Include="Content\Styles\bootstrap\bootstrap-social.css" />
     <Content Include="Content\Styles\bootstrap\bootstrap.chosen.css" />
     <Content Include="Content\Styles\bootstrap\bootstrap.css" />
@@ -257,10 +256,12 @@
     <Content Include="Content\Styles\chat\Client\CompactPage.css" />
     <Content Include="Content\Styles\chat\Client\Layout.css" />
     <Content Include="Content\Styles\chat\Client\PageStyles.css" />
+    <Content Include="Content\Styles\Customer\AppUsersAndChatsInfo.css" />
     <Content Include="Content\Styles\font-icons\font-awesome.css" />
     <Content Include="Content\Styles\font-icons\font-awesome.min.css" />
     <Content Include="Content\Styles\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\Styles\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\Styles\jquery-ui\jquery-jvectormap-2.0.3.css" />
     <Content Include="Content\Styles\jquery-ui\jquery-ui.css" />
     <Content Include="Content\Styles\jquery-ui\jquery-ui.min.css" />
     <Content Include="Content\Styles\jquery-ui\jquery-ui.structure.css" />
@@ -277,11 +278,15 @@
     <Content Include="Content\Styles\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\Styles\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Content\Styles\fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="Scripts\accordion-menu\bs_leftnavi.js" />
     <Content Include="Scripts\angular\angular-resource.min.js.map" />
     <Content Include="Scripts\angular\angular-route.min.js.map" />
     <Content Include="Scripts\angular\angular.min.js.map" />
+    <Content Include="Scripts\CustomerManagement\Agent.js" />
+    <Content Include="Scripts\CustomerManagement\Application.js" />
     <Content Include="Scripts\jquery\jquery-1.10.2.min.map" />
+    <Content Include="Scripts\jquery\map\jquery-jvectormap-2.0.3.min.js" />
+    <Content Include="Scripts\jquery\map\jquery-jvectormap-world-mill.js" />
+    <Content Include="Scripts\jquery\map\jquery-jvectormap.js" />
     <Content Include="Scripts\notify.js" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
@@ -294,22 +299,14 @@
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Application\_Application.cshtml" />
     <Content Include="Views\Shared\_Header.cshtml" />
-    <Content Include="Views\CustomerAppManagement\AddApplication.cshtml" />
-    <Content Include="Views\CustomerAppManagement\AppScript.cshtml" />
-    <Content Include="Views\CustomerAppManagement\EditAgent.cshtml" />
-    <Content Include="Views\CustomerAppManagement\EditApplication.cshtml" />
-    <Content Include="Views\CustomerAppManagement\MainPage.cshtml" />
-    <Content Include="Views\CustomerAppManagement\OwnerAgents.cshtml" />
-    <Content Include="Views\CustomerAppManagement\OwnerControlPage.cshtml" />
-    <Content Include="Views\CustomerAppManagement\_AppsInfo.cshtml" />
-    <Content Include="Views\CustomerAppManagement\RegisterAgent.cshtml" />
     <Content Include="Views\CustomerAppManagement\Index.cshtml" />
-    <Content Include="Views\CustomerAppManagement\Agents.cshtml" />
-    <Content Include="Views\CustomerAgentManagement\Index.cshtml" />
     <Content Include="Views\Shared\_Menu.cshtml" />
     <Content Include="Views\CustomerAgentManagement\_AgentsList.cshtml" />
-    <Content Include="Views\Shared\_CustomerLayout.cshtml" />
     <Content Include="Views\Shared\_Footer.cshtml" />
+    <Content Include="Views\CustomerAgentManagement\Index.cshtml" />
+    <Content Include="Views\CustomerAgentManagement\_AgentsActivity.cshtml" />
+    <Content Include="Views\CustomerAppManagement\_AppUsersAndChatsInfo.cshtml" />
+    <Content Include="Views\CustomerAppManagement\_UsersOnMap.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

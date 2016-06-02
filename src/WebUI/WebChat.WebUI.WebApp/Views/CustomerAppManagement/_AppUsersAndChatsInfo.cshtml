@@ -1,0 +1,60 @@
+﻿@model WebChat.WebUI.ViewModels.Application.AppUsersAndChatsInfoViewModel
+
+<div class="well">
+    <div class="row clearfix">
+        <div class="col-lg-3 col-sm-6 col-md-6 col-xs-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="col-xs-4">
+                        <div class="counter-icon bg-success"> <i class="fa fa-users"></i> </div>
+                    </div>
+                    <div class="col-xs-8 text-right">
+                        <h3>@Model.ClientsCount</h3>
+                        <p class="text-muted nm">@Html.LabelFor(model => model.ClientsCount)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-sm-6 col-md-6 col-xs-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="col-xs-4">
+                        <div class="counter-icon bg-info"> <i class="fa fa-user-secret"></i> </div>
+                    </div>
+                    <div class="col-xs-8 text-right">
+                        <h3>@Model.AgentsCount</h3>
+                        <p class="text-muted nm">@Html.LabelFor(model => model.AgentsCount)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-sm-6 col-md-6 col-xs-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="col-xs-4">
+                        <div class="counter-icon bg-warning"> <i class="fa fa-comments"></i> </div>
+                    </div>
+                    <div class="col-xs-8 text-right">
+                        <h3>@Model.DialogsCount</h3>
+                        <p class="text-muted nm">@Html.LabelFor(model => model.DialogsCount)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-sm-6 col-md-6 col-xs-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="col-xs-4">
+                        <div class="counter-icon bg-danger"> <i class="fa fa-envelope"></i> </div>
+                    </div>
+                    <div class="col-xs-8 text-right">
+                        <h3>@Model.MessagesCount</h3>
+                        <p class="text-muted nm">@Html.LabelFor(model => model.MessagesCount)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

@@ -7,33 +7,26 @@
     using WebChat.WebUI.ViewModels;
 
     #endregion
-    public class CustomerAgentManagementController : Controller
+    public class CustomerAgentManagementController : MvcBaseController
     {
 
         public ActionResult Index()
         {
-            ViewBag.Menu = this.Menu;
             return View();
         }
 
-        public ActionResult AgentsList()
+        public JsonResult AgentsList()
         {
-            return View();
+            return JsonData(true, RenderPartialToString("_AgentsList", null), JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult AgentsActivity()
+        {
+            return JsonData(true, RenderPartialToString("_AgentsActivity", null), JsonRequestBehavior.AllowGet);
         }
 
         #region private members
-
-        private IEnumerable<MenuItem> Menu
-        {
-            get
-            {
-                return new List<MenuItem>()
-                    {
-                        new MenuItem {Labor = "Все операторы", Link = Url.Action("AgentsList")  },
-                        new MenuItem {Labor = "Активности операторов" }
-                    };
-            }
-        }
+        
 
         #endregion
     }

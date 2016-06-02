@@ -16,6 +16,7 @@
         IEnumerable<UserModel> GetClients(int appId);
         void AddUserToApplication(long userId, int appId);
         IEnumerable<DialogModel> GetDialogs(int id);
+        IEnumerable<MessageModel> GetMessages(int appId);
 
         //IEnumerable<AgentAndMessageCount> MostActiveAgentOnDay(int AppId, DateTime Day);
         //IEnumerable<MessagesByMonth> MessageCountInCurrentAndPreviosMonth(int AppId);

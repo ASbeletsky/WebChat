@@ -1,0 +1,45 @@
+﻿.counter-icon {
+    float: left;
+    position: relative;
+    display: block;
+    z-index: 1;
+    font-size: 2em;
+    color: #fff;
+    width: 60px;
+    height: 60px;
+    line-height: 60px;
+    text-align: center;
+    margin-right: 15px;
+    border-radius: 100px 100px 0;
+    -webkit-border-radius: 100px 100px 0;
+    -moz-border-radius: 100px 100px 0;
+    -o-border-radius: 100px 100px 0;
+    transition: all .4s ease-in-out;
+    -moz-transition: all .4s ease-in-out;
+    -webkit-transition: all .4s ease-in-out;
+    -o-transition: all .4s ease-in-out;
+}
+
+.text-muted {
+    color: #777;
+}
+
+.bg-warning {
+    background-color: #FAC552!important;
+    color: #fff;
+}
+
+.bg-info {
+    background-color: #00d5e6!important;
+    color: #fff;
+}
+
+.bg-success {
+    background-color: #3CBC8D!important;
+    color: #fff;
+}
+
+.bg-danger {
+    background-color: #E9422E!important;
+    color: #fff;
+}

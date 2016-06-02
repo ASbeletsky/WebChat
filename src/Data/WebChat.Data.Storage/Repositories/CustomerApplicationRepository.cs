@@ -100,6 +100,15 @@
             return _context.Dialogs.Where(dialog => dialog.AppId == appId);
         }
 
+        public IEnumerable<MessageModel> GetMessages(int appId)
+        {
+            return from dialog in _context.Dialogs
+                    join message in _context.Messages
+                    on dialog.Id equals message.DialogId
+                    where dialog.AppId == appId
+                    select message;
+        }
+
         #endregion
 
         private IEnumerable<UserModel> GetAppUserByRole(int appId, Roles role)
@@ -111,6 +120,7 @@
                    where usersInRole.RoleId == (long)role
                    select userInApp.User;
         }
+
 
         /*------------------------------------- Функции ---------------------------------------------*/
         //public IEnumerable<ResponceTimePerHour> AverageChatResponceTimeByHours(int AppId)

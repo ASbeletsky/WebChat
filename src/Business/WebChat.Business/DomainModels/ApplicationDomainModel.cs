@@ -13,7 +13,7 @@
 
     public class ApplicationDomainModel : BaseDomainModel
     {
-        public void CreateApplication(ApplicationViewModel app, long customerId)
+        public void CreateApplication(ApplicationFieldsViewModel app, long customerId)
         {
             var newApp = new ApplicationModel
             {
@@ -27,6 +27,24 @@
             Storage.Applications.Create(newApp);
             Storage.Save();
         }
+
+        #region Application Dashboard
+
+        public AppUsersAndChatsInfoViewModel GetUsersAndChatsInfo(int appId)
+        {
+            var appInfo = new AppUsersAndChatsInfoViewModel
+            {
+                AgentsCount = Storage.Applications.GetAgents(appId).Count(),
+                ClientsCount = Storage.Applications.GetClients(appId).Count(),
+                DialogsCount = Storage.Applications.GetDialogs(appId).Count(),
+                MessagesCount = Storage.Applications.GetMessages(appId).Count(),
+            };
+
+            return appInfo;
+        }
+
+        #endregion
+
 
         public AgentShortInfoViewModel GetBestAgent(int appId)
         {

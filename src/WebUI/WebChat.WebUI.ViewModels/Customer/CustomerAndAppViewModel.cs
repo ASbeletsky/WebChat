@@ -10,6 +10,6 @@
     public class CustomerAndAppViewModel
     {
         public RegisterViewModel Customer { get; set; }
-        public ApplicationViewModel App { get; set; }
+        public ApplicationFieldsViewModel App { get; set; }
     }
 }

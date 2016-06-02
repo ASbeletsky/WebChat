@@ -2,7 +2,7 @@
 
 namespace WebChat.WebUI.ViewModels.Application
 {
-    public class ApplicationViewModel
+    public class ApplicationFieldsViewModel
     {
         [Display(Name = "Имя приложения")]
         public string Name { get; set; }

@@ -1,5 +1,6 @@
 ﻿namespace WebChat.Business.DomainModels
 {
+    using Data.Models.Application;
     using Services.Interfaces;
     #region Using
 
@@ -16,22 +17,11 @@
         {
             this.applications = DependencyContainer.Current.GetService<ApplicationDomainModel>();
         }
-        public IEnumerable<ApplicationShortInfoViewModel> GetApplicationsInfo(long customerId)
+
+        public IEnumerable<ApplicationModel> GetCustomerApps(long customerId)
         {
-            var customerAppsInfo = Storage.Applications.GetCustomerApplications(customerId).Select(app => new ApplicationShortInfoViewModel
-            {
-                AppId = app.Id,
-                SiteUrl = app.WebsiteUrl,
-            }).ToList();
-
-            foreach(var app in customerAppsInfo)
-            {
-                app.AgentsCount = Storage.Applications.GetAgents(app.AppId).Count();
-                app.DialogsCount = Storage.Applications.GetDialogs(app.AppId).Count();
-                app.BestAgent = applications.GetBestAgent(app.AppId);
-            }
-
-            return customerAppsInfo;
+            return Storage.Applications.GetCustomerApplications(customerId);
         }
+
     }
 }

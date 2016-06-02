@@ -173,7 +173,7 @@
                 {
                     Email = email
                 },
-                App = new ApplicationViewModel
+                App = new ApplicationFieldsViewModel
                 {
                     ContactEmail = email
                 }

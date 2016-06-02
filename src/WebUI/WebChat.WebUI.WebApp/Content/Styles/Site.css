@@ -20,8 +20,8 @@ html {
 #main-footer {
     position: fixed;
     bottom: 0;
-    width:100%;
-    height:40px;
+    width: 100%;
+    height: 40px;
     border: 1px solid #e5e5e5;
     border-width: 0 1px 0 0;
     background-color: #F2F2F2;
@@ -29,8 +29,7 @@ html {
 
 /* Set padding to keep content from hitting the edges */
 .body-content {
-    padding-left: 15px;
-    padding-right: 15px;
+    padding: 15px;
 }
 
 /* Override the default bootstrap behavior where horizontal description lists 
@@ -50,144 +49,6 @@ textarea {
 label {
     font-weight: normal !important;
 }
-
-.agentsPage input[type="text"] {
-    border: 1px solid #333;
-    border-radius: 3px;
-    padding: 3px;
-    box-sizing: border-box;
-}
-
-.agentsPage input[type="password"] {
-    border: 1px solid #333;
-    border-radius: 3px;
-    padding: 3px;
-    box-sizing: border-box;
-}
-
-/*OWNER PAGE STYLES*/
-.appCard {
-    padding: 10px 20px;
-    border: 2px solid #333;
-    border-radius: 8px;
-    margin-bottom: 20px;
-    margin-left: 5%;
-    width: 45%;
-}
-
-.appUrl {
-    text-align: center;
-    font-size: 18px;
-    background: #333;
-    color: whitesmoke;
-    padding: 5px;
-    border-radius: 3px;
-    margin-bottom: 5px;
-}
-
-.appShortInfoFields {
-    margin: 20px 0px;
-}
-
-.addAgentBlock {
-    margin: 20px;
-}
-
-.agentCard {
-    padding: 10px 20px;
-    border: 2px solid #333;
-    border-radius: 8px;
-    margin-bottom: 20px;
-    margin-left: 5%;
-}
-
-.agentPhoto {
-    width: 30%;
-    float: left;
-    border: 2px solid #333;
-    border-radius: 6px;
-}
-
-.agentName {
-    *width: 60%;
-    float: right;
-    text-align: center;
-    font-size: 18px;
-    background: #333;
-    color: whitesmoke;
-    padding: 5px;
-    border-radius: 3px;
-    margin-bottom: 5px;
-}
-
-.editableData {
-    margin: 20px 0px;
-}
-
-    .editableData .fieldTitle {
-        padding-top: 3px;
-    }
-
-    .editableData > div {
-        margin: 3px 0px;
-    }
-
-.editableDataInput:disabled {
-    border: 1px solid transparent !important;
-    background: transparent;
-    color: #333;
-}
-
-.fieldTitle {
-    color: gray;
-    text-align: right;
-}
-
-
-.agentsSites {
-    padding: 0px 20px;
-}
-
-    .agentsSites a {
-        color: gray;
-    }
-
-        .agentsSites a > span {
-            content: ' ';
-            display: inline-block;
-            vertical-align: bottom;
-            width: 20px;
-            height: 20px;
-            margin-left: 10px;
-            background: url('http://www.iconsearch.ru/uploads/icons/sweetiev3/16x16/16-em-cross.png');
-            background-size: cover;
-        }
-
-    .agentsSites .active {
-        color: #428bca;
-    }
-
-        .agentsSites .active .statusPic {
-            content: ' ';
-            display: inline-block;
-            vertical-align: bottom;
-            width: 20px;
-            height: 20px;
-            margin-left: 10px;
-            background: url('http://www.iconsearch.ru/uploads/icons/crystalclear/24x24/button_ok.png');
-            background-size: cover;
-        }
-
-
-.graph {
-    margin-top: 20px;
-    border: 4px solid black;
-    padding: 20px;
-    border-color: #FF6600;
-    Background: #FFFF99;
-}
-
-/*OWNER PAGE STYLES*/
 
 /*main page*/
 .number {
@@ -260,21 +121,3 @@ label {
 .validation-summary-valid {
     display: none;
 }
-
-.menu-items {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-}
-
-    .menu-items li a {
-        display: block;
-        height: 40px;
-        line-height: 40px;
-        border-bottom: 1px solid #e7ebee;
-        padding: 0 20px;
-        font-size: .875em;
-        -webkit-transition: background-color .15s ease-in-out 0;
-        transition: background-color .15s ease-in-out 0;
-        color: #344644;
-    }
