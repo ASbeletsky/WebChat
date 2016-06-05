@@ -1,0 +1,16 @@
+.legendLabel {
+    font-size: 15px !important;
+    text-align: left;
+}
+
+    .legendLabel .label-facebook i {
+        color: #335397;
+    }
+
+    .legendLabel .label-twitter i {
+        color: #00c7f7;
+    }
+
+    .legendLabel .label-email i {
+        color: #E9422E;
+    }
