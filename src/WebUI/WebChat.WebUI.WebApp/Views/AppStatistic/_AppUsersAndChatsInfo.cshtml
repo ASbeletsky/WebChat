@@ -1,6 +1,5 @@
 ﻿@model WebChat.WebUI.ViewModels.Application.AppUsersAndChatsInfoViewModel
 
-<div class="well">
     <div class="row clearfix">
         <div class="col-lg-3 col-sm-6 col-md-6 col-xs-12">
             <div class="panel panel-default">
@@ -10,7 +9,7 @@
                     </div>
                     <div class="col-xs-8 text-right">
                         <h3>@Model.ClientsCount</h3>
-                        <p class="text-muted nm">@Html.LabelFor(model => model.ClientsCount)</p>
+                        <p class="text-muted nm np">@Html.LabelFor(model => model.ClientsCount)</p>
                     </div>
                 </div>
             </div>
@@ -23,7 +22,7 @@
                     </div>
                     <div class="col-xs-8 text-right">
                         <h3>@Model.AgentsCount</h3>
-                        <p class="text-muted nm">@Html.LabelFor(model => model.AgentsCount)</p>
+                        <p class="text-muted nm np">@Html.LabelFor(model => model.AgentsCount)</p>
                     </div>
                 </div>
             </div>
@@ -36,7 +35,7 @@
                     </div>
                     <div class="col-xs-8 text-right">
                         <h3>@Model.DialogsCount</h3>
-                        <p class="text-muted nm">@Html.LabelFor(model => model.DialogsCount)</p>
+                        <p class="text-muted nm np">@Html.LabelFor(model => model.DialogsCount)</p>
                     </div>
                 </div>
             </div>
@@ -49,12 +48,10 @@
                     </div>
                     <div class="col-xs-8 text-right">
                         <h3>@Model.MessagesCount</h3>
-                        <p class="text-muted nm">@Html.LabelFor(model => model.MessagesCount)</p>
+                        <p class="text-muted nm np">@Html.LabelFor(model => model.MessagesCount)</p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-
 

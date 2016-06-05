@@ -1,0 +1,29 @@
+﻿@model WebChat.WebUI.ViewModels.Application.ApplicationFieldsViewModel
+
+<div id="add-app-modal-dialog" class="modal fade" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Создать новый чат для сайта</h4>
+            </div>
+            @using (Ajax.BeginForm("CreateApplication", new AjaxOptions
+            {
+                HttpMethod = "POST",
+                OnSuccess = "app.onApplicationCreateSuccess",
+
+            }))
+            {
+                <div class="modal-body">
+                    <div class="form-horizontal">
+                        @Html.Partial("~/Views/Application/_Application.cshtml", Model)
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="save-btn" type="submit" class="btn btn-primary">Сохранить</button>
+                    <button id="close-btn" type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>

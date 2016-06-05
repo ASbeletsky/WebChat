@@ -8,9 +8,10 @@
    
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
     @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
+    @RenderSection("styles", required: false)
+
     @Html.Partial("_Header")
     <div id="wrap" class="container body-content">
         <div id="main">
@@ -23,7 +24,10 @@
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 
-    @Html.Partial("_Footer")
+    @Html.Partial("_Footer")   
+    <div id="modal-container">
+        @RenderSection("modal", required: false)
+    </div>
     </body>
 </html>
 

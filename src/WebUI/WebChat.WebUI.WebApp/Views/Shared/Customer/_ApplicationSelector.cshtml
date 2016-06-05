@@ -1,0 +1,10 @@
+﻿@model WebChat.WebUI.ViewModels.Application.ApplicationFieldsViewModel
+
+<div class="col-md-offset-8 col-sm-offset-6">
+    <div class="form-group">
+        <label class="col-xs-4 col-sm-5 col-md-5 dropdown-label">Чат для сайта:</label>
+        <div class="col-xs-8 col-sm-7">
+                @Html.DropDownListFor(m => m.Id, (IEnumerable<SelectListItem>)ViewBag.CustomerApps, new { id = "customerApps", name = "customerApps", @class = "form-control input-sm" })
+            </div>
+    </div>
+</div>

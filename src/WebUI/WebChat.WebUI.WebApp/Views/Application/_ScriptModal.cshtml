@@ -1,0 +1,27 @@
+﻿@model string
+
+<div id="app-script-modal-dialog" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Скрипт чата</h4>
+            </div>
+            <div class="modal-body">
+                <p>Вставьте этот скрипт на страницы сайта где необходим функционал чата</p>
+                <div>
+                    <textarea id="app-script" class="form-control script-area" cols="80" rows="13" readonly>
+                        @{@Model}
+                    </textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="copy-btn" class="btn btn-default" title="Скопировано" data-clipboard-target="#app-script" ><i class="fa fa-clipboard"></i> Копировать</button> 
+                <button id="close-btn" type="button" class="btn btn-default" data-dismiss="modal">Ок</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/Plugins/clipboard.min.js"></script>
+

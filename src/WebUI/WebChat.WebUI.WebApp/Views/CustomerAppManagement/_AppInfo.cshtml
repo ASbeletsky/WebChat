@@ -1,0 +1,58 @@
+﻿@model WebChat.WebUI.ViewModels.Application.ApplicationFieldsViewModel
+
+<div class="panel">
+    <div class="panel-heading mv-15">
+        <h4 class="col-xs-12 col-sm-8"><i class="fa fa-info-circle ph-10"></i> Информация о сайте</h4>
+        <div class="col-xs-12 col-sm-4">
+            <div class="btn-group  pull-right">
+                <a id="app-add-btn" title="Создать чат для другого сайта"  class="btn btn-success" onclick="javascript:app.getCreateAppPage()">
+                    <i class="fa fa-plus-square-o"></i>
+                </a>
+                <a id="app-edit-btn" title="Редактировать" class="btn btn-warning" onclick="javascript:app.getEditAppPage()">
+                    <i class="fa fa-edit"></i>
+                </a>
+                <a id="show-script-btn" title="Показать скрипт" class="btn btn-default" onclick="javascript:app.getAppScript()">
+                    <i class="fa fa-code"></i>
+                </a>
+                <a id="show-script-btn" href="/CustomerAppManagement/DeleteApplication/?appId=@Model.Id" 
+                   data-ajax-success="app.onApplicationDelete"
+                   title="Удалить чат с сайта" 
+                   class="btn btn-danger" data-ajax="true"
+                   data-ajax-method="GET"
+                   data-ajax-confirm="Вы уверены что хотите удалить чат с сайта @Model.WebsiteUrl ?">
+                    <i class="fa fa-trash-o"></i>
+                </a>               
+            </div>
+        </div>
+        <br />
+    </div>
+    <div class="panel-body">
+        <div>
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td class="hidden-xs"><i class="fa fa-external-link ph-10"></i></td>
+                        <td> @Html.LabelFor(m => m.WebsiteUrl)  </td>
+                        <td> @Model.WebsiteUrl</td>
+                    </tr>
+                    <tr>
+                        <td class="hidden-xs"><i class="fa fa-tags ph-10"></i></td>
+                        <td> @Html.LabelFor(m => m.Occupation)  </td>
+                        <td> @Model.Occupation</td>
+                    </tr>
+                    <tr>
+                        <td class="hidden-xs"><i class="fa fa-envelope-o ph-10"></i></td>
+                        <td> @Html.LabelFor(m => m.ContactEmail)  </td>
+                        <td> @Model.ContactEmail</td>
+                    </tr>
+                    <tr>
+                        <td class="hidden-xs"><i class="fa fa-phone ph-10"></i></td>
+                        <td> @Html.LabelFor(m => m.ContactPhone)  </td>
+                        <td> @Model.ContactPhone</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+

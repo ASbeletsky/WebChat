@@ -1,32 +1,51 @@
 ﻿namespace WebChat.Business.DomainModels
 {
-    using Data.Models.Identity;
-    using Data.Storage;
-    using System.Linq;
+
     #region Using
 
     using System.Text;
     using WebChat.Data.Models.Application;
     using WebChat.WebUI.ViewModels.Application;
     using WebUI.ViewModels.Agent;
+    using Data.Models.Identity;
+    using Data.Storage;
+    using System.Linq;
+
     #endregion
 
     public class ApplicationDomainModel : BaseDomainModel
     {
-        public void CreateApplication(ApplicationFieldsViewModel app, long customerId)
+        public ApplicationFieldsViewModel GetAppInfo(int appId)
         {
-            var newApp = new ApplicationModel
-            {
-                Name = app.Name,
-                CustomerId = customerId,
-                WebsiteUrl = app.WebsiteUrl,
-                ContactEmail = app.ContactEmail,
-                Occupation = app.Occupation
-            };
+            var appModel = Storage.Applications.GetById(appId);
+            return Converter.Convert<ApplicationModel, ApplicationFieldsViewModel>(appModel);  
+        }
 
-            Storage.Applications.Create(newApp);
+        public void CreateApplication(ApplicationFieldsViewModel app)
+        {
+            var appModel = Converter.Convert<ApplicationFieldsViewModel, ApplicationModel>(app);
+            appModel.Script = this.GenerateScript(appModel);
+
+            Storage.Applications.Create(appModel);
             Storage.Save();
         }
+
+        public void EditApplication(ApplicationFieldsViewModel app)
+        {
+            var appModel = Storage.Applications.GetById(app.Id);
+            appModel = Converter.ConvertToExisting<ApplicationFieldsViewModel, ApplicationModel>(app, appModel);
+            appModel.Script = this.GenerateScript(appModel);
+
+            Storage.Applications.Update(appModel);
+            Storage.Save();
+        }
+
+        public void DeleteApplication(int appId)
+        {
+            Storage.Applications.Delete(appId);
+            Storage.Save();
+        }
+
 
         #region Application Dashboard
 
@@ -44,7 +63,6 @@
         }
 
         #endregion
-
 
         public AgentShortInfoViewModel GetBestAgent(int appId)
         {
@@ -74,15 +92,20 @@
             return bestAgentInfo;
         }
 
-        public string GenerateScript(int appId)
+        public string GetAppScript(int appId)
         {
-            string applicationSiteUrl = Storage.Applications.GetById(appId).WebsiteUrl;
+            return Storage.Applications.GetById(appId).Script;
+        }
+
+        private string GenerateScript(ApplicationModel app)
+        {
+            string applicationSiteUrl = app.WebsiteUrl;
             string mainChatScriptUrl = base.Settings.ServiceUrl.Host + "chat-script";
 
             StringBuilder scriptBuilder = new StringBuilder();
             scriptBuilder.AppendLine(@"<script type='text/javascript'>")
                          .AppendLine(@"      var __chat = { };")
-                         .AppendFormat("       __chat.license = {0};", appId).AppendLine()
+                         .AppendFormat("       __chat.license = {0};", app.Id).AppendLine()
                          .AppendFormat("       __chat.targetUrl = '{0}';", applicationSiteUrl)
                          .AppendLine(@"      localStorage.setItem('webChatAppId', __chat.license);")
                          .AppendLine(@"      localStorage.setItem('webChatTargetUrl', __chat.targetUrl);")

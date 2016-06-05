@@ -11,7 +11,7 @@
     public class ApplicationModel
     {
         public int Id { get; set; }
-        public string Name { get; set; }
+        public string ContactPhone { get; set; }
 
         public long CustomerId { get; set; }
 
@@ -20,6 +20,7 @@
         public string Occupation { get; set; }
 
         public string ContactEmail { get; set; }
+        public string Script { get; set; }
 
         public virtual UserModel Customer { get; set; }
 

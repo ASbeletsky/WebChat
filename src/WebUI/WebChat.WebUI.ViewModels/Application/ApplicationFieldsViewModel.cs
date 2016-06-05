@@ -4,8 +4,8 @@ namespace WebChat.WebUI.ViewModels.Application
 {
     public class ApplicationFieldsViewModel
     {
-        [Display(Name = "Имя приложения")]
-        public string Name { get; set; }
+        public int Id { get; set; }
+        public long CustomerId { get; set; }
 
         [Required]
         [Display(Name = "URL сайта")]
@@ -19,5 +19,8 @@ namespace WebChat.WebUI.ViewModels.Application
         [DataType(DataType.EmailAddress)]
         [Display(Name = "Контактный email")]
         public string ContactEmail { get; set; }
+
+        [Display(Name = "Контактный телефон")]
+        public string ContactPhone { get; set; }
     }
 }

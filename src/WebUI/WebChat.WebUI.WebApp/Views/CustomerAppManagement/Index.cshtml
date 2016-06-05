@@ -1,33 +1,50 @@
-﻿@{
+﻿@model WebChat.WebUI.ViewModels.Application.ApplicationFieldsViewModel
+@{
     ViewBag.Title = "Настройка чата";
 }
 
-@Styles.Render(WebChat.WebUI.WebApp.AppStart.BundleConfig.CustomerStyles)
+@section styles
+    {
+    @Styles.Render(WebChat.WebUI.WebApp.AppStart.BundleConfig.ChartStyles)
+    @Styles.Render(WebChat.WebUI.WebApp.AppStart.BundleConfig.CustomerStyles)
+}
 
-<div class="row body-content">
-    <div class="col-md-offset-8 col-sm-offset-6">
-        <div class="form-group">
-            <label class="col-xs-4 col-sm-5 col-md-5 dropdown-label">Чат для сайта:</label>
-            <div class="col-xs-8 col-sm-7">
-                @Html.DropDownList("customerApps", (IEnumerable<SelectListItem>)ViewBag.CustomerApps, new { id = "customerApps", name = "customerApps", @class = "form-control input-sm" })
-            </div>
-        </div>
+
+<div id="app-selector" class="row body-content">
+    @Html.Partial("~/Views/Shared/Customer/_ApplicationSelector.cshtml", Model)
+</div>
+
+<div class="well">
+    <div id="usersAndChatsInfo" class="row">
+
+    </div>
+
+    <div id="appInfo">
+        @Html.Partial("_AppInfo", Model)
+    </div>
+
+    <div id="usersOnMap" class="row">
+
+    </div>
+
+    <div id="usersStatistic" class="row">
+
+    </div>
+
+    <div id="appCharts" class="row">
+
     </div>
 </div>
 
 
-<div id="usersAndChatsInfo" class="row">
 
-</div>
-
-<div id="usersOnMap" class="row">
-
-</div>
 
 
 
 @section scripts
 {
+    @Scripts.Render(WebChat.WebUI.WebApp.AppStart.BundleConfig.MapsScripts)
+    @Scripts.Render(WebChat.WebUI.WebApp.AppStart.BundleConfig.StatisticScripts)
     @Scripts.Render(WebChat.WebUI.WebApp.AppStart.BundleConfig.CustomerAppScripts)
 }
 

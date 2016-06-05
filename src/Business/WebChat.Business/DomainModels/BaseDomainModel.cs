@@ -10,15 +10,30 @@
     public abstract class BaseDomainModel
     {
         private IDataStorage storage;
+        private IEntityConverter converter;
         private IApplicationSettings settings;
 
         public BaseDomainModel()
         {
             storage = DependencyContainer.Current.GetService<IDataStorage>();
+            converter = DependencyContainer.Current.GetService<IEntityConverter>();
         }
         public BaseDomainModel(IDataStorage storage)
         {
             this.storage = storage;
+        }
+
+        public BaseDomainModel(IDataStorage storage, IEntityConverter converter) : this(storage)
+        {
+            this.converter = converter;
+        }
+
+        protected IEntityConverter Converter
+        {
+            get
+            {
+                return converter;
+            }
         }
 
         protected IDataStorage Storage

@@ -76,7 +76,6 @@
         [HttpGet]
         public ActionResult Login()
         {
-            ViewBag.ReturnUrl = Url.Action("MyApplications", "Customer");
             return View();
         }
 
@@ -93,7 +92,11 @@
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
+                    {
+                        if (User.IsInRole("Customer"))
+                            returnUrl = Url.Action("Index", "CustomerAppManagement");
+                        return RedirectToLocal(returnUrl);
+                    }
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
@@ -202,8 +205,9 @@
                 {
                     await SignInManager.SignInAsync(customer, isPersistent: false, rememberBrowser: false);
                     var applicationDomainModel = DependencyResolver.Current.GetService<ApplicationDomainModel>();
-                    applicationDomainModel.CreateApplication(model.App, customer.Id);
-                    return RedirectToAction("CustomerHome", "Customer");
+                    model.App.CustomerId = customer.Id;                
+                    applicationDomainModel.CreateApplication(model.App);
+                    return RedirectToAction("Index", "CustomerAppManagement");
                 }
                 AddErrors(registerResult);
             }
