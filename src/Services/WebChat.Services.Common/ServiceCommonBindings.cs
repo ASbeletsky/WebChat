@@ -4,8 +4,8 @@
 
     using Interfaces;
     using Ninject.Modules;
+    using Ninject.Web.Common;
     using Settings;
-    using WebChat.Services.Interfaces.Settings;
 
     #endregion
 
@@ -14,8 +14,8 @@
         public override void Load()
         {
             Kernel.Bind<IApplicationSettings>().To<ApplicationSettings>().InSingletonScope();
-            Kernel.Bind<IDependencyContainer>().To<NinjectDependencyContainer>();
-            Kernel.Bind<IEntityConverter>().To<EntityConverter>();
+            Kernel.Bind<IDependencyContainer>().To<NinjectDependencyContainer>().InRequestScope();
+            Kernel.Bind<IEntityConverter>().To<EntityConverter>().InRequestScope();
         }
     }
 }

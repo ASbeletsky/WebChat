@@ -5,7 +5,9 @@
     using Newtonsoft.Json;
     using AutoMapper;
     using Services.Interfaces;
-
+    using WebUI.ViewModels.Application;
+    using Data.Models.Application;
+    using System;
     #endregion
 
     public class EntityConverter : IEntityConverter
@@ -16,30 +18,10 @@
 
         #endregion
 
-        #region Static Members
-
-        private static readonly EntityConverter _instance;
-        static EntityConverter()
-        {
-            _instance = new EntityConverter();
-        }
-
-        public static EntityConverter Instance
-        {
-            get
-            {
-                return _instance;
-            }
-        }
-
-        #endregion
-
-
-        private EntityConverter()
+        public EntityConverter()
         {
             InitializeMappings();
         }
-
 
         public T ConvertFromJson<T>(string jsonString)
         {
@@ -56,11 +38,16 @@
             return mapper.Map<TIn, TOut>(value);
         }
 
+        public TOut ConvertToExisting<TIn, TOut>(TIn value, TOut existing)
+        {
+            return mapper.Map<TIn, TOut>(value, existing);
+        }
+
         private void InitializeMappings()
         {
             var config = new MapperConfiguration(mapper =>
             {
-
+                mapper.CreateMap<ApplicationFieldsViewModel, ApplicationModel>().ReverseMap();
             });
 
            mapper = config.CreateMapper();
