@@ -87,6 +87,14 @@
       <HintPath>..\..\..\packages\Microsoft.AspNet.Identity.Owin.2.2.1\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.Core, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Microsoft.AspNet.SignalR.Core.2.2.0\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.SystemWeb, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Microsoft.AspNet.SignalR.SystemWeb.2.2.0\lib\net45\Microsoft.AspNet.SignalR.SystemWeb.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
       <Private>True</Private>
@@ -241,8 +249,9 @@
     <Content Include="app\ClientChat\Views\AuthView.html" />
     <Content Include="app\ClientChat\Views\ChatView.html" />
     <Content Include="app\ClientChat\Views\EndChatView.html" />
-    <Content Include="Content\font-awesome.css" />
-    <Content Include="Content\font-awesome.min.css" />
+    <Content Include="Content\Styles\Chat\chat-layout.css" />
+    <Content Include="Content\Styles\Chat\compact-start-page.css" />
+    <Content Include="Content\Styles\Chat\start-page.css" />
     <Content Include="Content\Styles\Plugins\bootstrap\bootstrap-theme.css" />
     <Content Include="Content\Styles\Plugins\bootstrap\bootstrap-theme.min.css" />
     <Content Include="Content\Styles\Plugins\bootstrap\bootstrap.css" />
@@ -262,6 +271,8 @@
     <Content Include="Content\Styles\Plugins\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\Styles\Plugins\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="packages.config" />
+    <Content Include="Scripts\Plugins\signalr\jquery.signalR-2.2.0.js" />
+    <Content Include="Scripts\Plugins\signalr\jquery.signalR-2.2.0.min.js" />
     <Content Include="Scripts\Plugins\bootstrap\bootstrap.js" />
     <Content Include="Scripts\Plugins\bootstrap\bootstrap.min.js" />
     <Content Include="Scripts\CustomerManagement\users-statistic.js" />
@@ -284,9 +295,6 @@
     <Content Include="Scripts\Plugins\jquery\jquery-2.2.2.min.js" />
     <Content Include="Scripts\Plugins\jquery\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\Plugins\jquery\jquery.unobtrusive-ajax.min.js" />
-    <Content Include="Scripts\Plugins\angular\angular-resource.min.js.map" />
-    <Content Include="Scripts\Plugins\angular\angular-route.min.js.map" />
-    <Content Include="Scripts\Plugins\angular\angular.min.js.map" />
     <Content Include="Scripts\CustomerManagement\agent.js" />
     <Content Include="Scripts\CustomerManagement\application.js" />
     <Content Include="Scripts\CustomerManagement\Maps\vector-map.js" />
@@ -328,6 +336,9 @@
     <Content Include="Views\Shared\Customer\_ApplicationSelector.cshtml" />
     <Content Include="Views\Application\_ScriptModal.cshtml" />
     <Content Include="Scripts\Plugins\jquery\jquery-2.2.2.min.map" />
+    <Content Include="Views\Chat\Compact.cshtml" />
+    <Content Include="Views\Chat\ClientIndex.cshtml" />
+    <Content Include="Views\Shared\_ChatClientLayout.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -336,21 +347,16 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Scripts\Plugins\angular\angular-mocks.js" />
-    <Content Include="Scripts\Plugins\angular\angular-resource.js" />
-    <Content Include="Scripts\Plugins\angular\angular-resource.min.js" />
     <Content Include="Scripts\Plugins\angular\angular-route.js" />
-    <Content Include="Scripts\Plugins\angular\angular-route.min.js" />
     <Content Include="Scripts\Plugins\angular\angular.js" />
-    <Content Include="Scripts\Plugins\angular\angular.min.js" />
     <Content Include="Scripts\Plugins\angular\uploader.js" />
     <Content Include="Scripts\Plugins\bootstrap\chosen.jquery.js" />
     <Content Include="Scripts\Plugins\bootstrap\chosen.jquery.min.js" />
     <Content Include="Scripts\Plugins\bootstrap\chosen.proto.js" />
     <Content Include="Scripts\Plugins\bootstrap\chosen.proto.min.js" />
-    <Content Include="Scripts\Plugins\Chat\agent.js" />
-    <Content Include="Scripts\Plugins\Chat\client.js" />
-    <Content Include="Scripts\Plugins\Chat\main.js" />
+    <Content Include="Scripts\Chat\agent.js" />
+    <Content Include="Scripts\Chat\client.js" />
+    <Content Include="Scripts\Chat\main.js" />
     <Content Include="Scripts\Plugins\jquery\jquery-ui.css" />
     <Content Include="Scripts\Plugins\jquery\jquery-ui.js" />
     <Content Include="Scripts\Plugins\jquery\jquery-ui.min.js" />
@@ -364,8 +370,6 @@
     <Content Include="Scripts\Plugins\respond.min.js" />
     <Content Include="Scripts\Plugins\signalr\angular-signalr-hub.js" />
     <Content Include="Scripts\Plugins\signalr\angular-signalr-hub.min.js" />
-    <Content Include="Scripts\Plugins\signalr\jquery.signalR-2.2.0.js" />
-    <Content Include="Scripts\Plugins\signalr\jquery.signalR-2.2.0.min.js" />
     <None Include="Scripts\Plugins\_references.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -379,6 +383,8 @@
     <Compile Include="AppStart\Startup.Auth.cs" />
     <Compile Include="AppStart\WebApiConfig.cs" />
     <Compile Include="AppStart\NinjectWebCommon.cs" />
+    <Compile Include="Controllers\Chat\ChatController.cs" />
+    <Compile Include="Controllers\Chat\ChatHub.cs" />
     <Compile Include="Controllers\Site\AppStatisticController.cs" />
     <Compile Include="Controllers\Site\CustomerAgentManagementController.cs" />
     <Compile Include="Extentions\HtmlHelperExtentions.cs" />
@@ -424,9 +430,7 @@
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Controllers\Chat\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

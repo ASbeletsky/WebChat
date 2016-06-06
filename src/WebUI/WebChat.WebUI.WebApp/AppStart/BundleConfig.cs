@@ -18,6 +18,9 @@
         public static string MapsScripts = "~/bundles/jvectormaps";
         public static string StatisticScripts = "~/bundles/user-statistic";
         public static string CustomerAppScripts = "~/bundles/CustomerAppManagmentScripts";
+        public static string ChatStyles = "~/Content/ChatStyles";
+        public static string ChatScripts = "~/bundles/ChatScripts";
+        public static string ClientChatApp = "~/bundles/ClientChatApp";     
 
         public static void RegisterBundles(BundleCollection bundles)
         {
@@ -60,6 +63,36 @@
             bundles.Add(new ScriptBundle("~/bundles/CustomerAppManagmentScripts")
                                .Include("~/Scripts/CustomerManagement/application.js"));
 
+            #endregion
+
+            #region Chat
+
+            bundles.Add(new StyleBundle("~/Content/ChatStyles")
+               .Include("~/Content/Styles/Plugins/bootstrap/*.css")
+               .Include("~/Content/Styles/Plugins/font-icons/font-awesome.css")
+               .Include("~/Content/Styles/Chat/*.css"));
+
+            bundles.Add(new ScriptBundle("~/bundles/ChatScripts")
+                .Include("~/Scripts/Plugins/jquery/*.js")
+                .Include("~/Scripts/Plugins/bootstrap/*.js")
+                .Include("~/Scripts/Plugins/angular/angular.js", "~/Scripts/Plugins/angular/angular-route.js")
+                .Include("~/Scripts/Plugins/signalr/*.js")
+                .Include("~/signalr/hubs")              
+                .Include("~/Scripts/Chat/client.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/ClientChatApp")
+               .Include("~/app/ClientChat/app.js")
+               .Include("~/app/ClientChat/Controllers/authController.js")
+               .Include("~/app/ClientChat/Controllers/chatController.js")
+               .Include("~/app/ClientChat/Controllers/waitAgentController.js")
+               .Include("~/app/ClientChat/Controllers/endChatController.js")
+               .Include("~/app/ClientChat/Services/authService.js")
+               .Include("~/app/ClientChat/Services/dataService.js")
+               .Include("~/app/ClientChat/Services/chatService.js")
+              
+            );
+
+ 
             #endregion
         }
     }

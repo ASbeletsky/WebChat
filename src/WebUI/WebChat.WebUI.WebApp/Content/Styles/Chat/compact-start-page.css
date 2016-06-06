@@ -1,0 +1,217 @@
+﻿
+#content-container {
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 6;
+	line-height: 22px;
+}
+
+#content {
+	border-radius: 10px;
+	border-bottom-left-radius: 0;
+	border-bottom-right-radius: 0;
+	box-shadow: inset 1px 1px 1px rgba(255, 255, 255, 0.2);
+}
+
+#content #full-view-button {
+	display: block;
+	position: relative;
+	padding: 0;
+	outline: 0;
+	color: #fff;
+	font-size: 14px;
+	text-decoration: none;
+	font-weight: bold;
+}
+#content #open-label {
+	display: block;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+#content #open-label {
+	padding: 6px 15px;
+}
+
+.lc2 #content #open-icon {
+	float: right;
+	position: relative;
+}
+
+#mobile_invitation_container {
+  position: absolute;
+  left: 0;
+  right: 0;
+  width: 100%;
+}
+
+.invitation_message {
+  float: right;
+  background: #E8E8E8;
+  padding: .5em;
+  border-radius: .3em;
+  font-size: 1em;
+  margin-top: 0.4em;
+  margin-right: 1em;
+  max-width: 60%;
+  line-height: 1.1em;
+  max-height: 3em;
+  overflow: hidden;
+  min-height: 3em;
+}
+
+.invitation_message:after {
+  border: .5em solid rgba(0, 0, 0, 0);
+  border-color: rgba(0, 0, 0, 0) rgba(0, 0, 0, 0) rgba(0, 0, 0, 0) #E8E8E8;
+  display: block;
+  position: absolute;
+  content: "";
+  margin-top: .5em;
+  right: 5.6em;
+  top: 1.5em;
+}
+
+#operator_avatar {
+  float: right;
+  background-color: #D1D1D1;
+  background-image: url("https://cdn.livechatinc.com/chat-window/chat.png");
+  background-size: cover;
+  border-radius: 50%;
+  overflow: hidden;
+  width: 4.5em;
+  height: 4.5em;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  border: .3em solid #fff;
+  box-sizing: content-box;
+  overflow: hidden;
+}
+
+#operator_avatar img {
+  width: 4.5em;
+  height: 4.5em;
+  border-radius: 50%;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+#content-container.new-mobile #content, #extra.new-mobile {
+  margin-top: 1.5em!important;
+  border-radius: .5em!important;
+}
+
+#extra.new-mobile {
+  left: .5em!important;
+  right: .5em!important;
+  width: auto!important;
+}
+
+/* common font-size for all webfont icons */
+#content [class^="icon-"],
+#content [class*=" icon-"] {
+	-webkit-font-smoothing: none;
+}
+@font-face {
+	font-family: 'livechat-modern';
+	src:url('http://cdn.livechatinc.com/fonts/modern/livechat-modern-9c9b70d143677806772972ab53ffd017.eot?-zbydp9');
+	src:url('http://cdn.livechatinc.com/fonts/modern/livechat-modern-9c9b70d143677806772972ab53ffd017.eot?#iefix-zbydp9') format('embedded-opentype'),
+		url('http://cdn.livechatinc.com/fonts/modern/livechat-modern-3b25a3b1eca2b7498bdf66a68006766a.woff?-zbydp9') format('woff'),
+		url('http://cdn.livechatinc.com/fonts/modern/livechat-modern-9f4b27836bdb3fa3f2b07f7d62d89163.ttf?-zbydp9') format('truetype'),
+		url('http://cdn.livechatinc.com/fonts/modern/livechat-modern-1778a38c1a97a54e1d48e3d41c586993.svg?-zbydp9#livechat-modern') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+	font-family: 'livechat-modern';
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+
+	/* Better Font Rendering =========== */
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+.icon-clip:before {
+	content: "\e600";
+}
+
+.icon-close:before {
+	content: "\e601";
+}
+
+.icon-email:before {
+	content: "\e602";
+}
+
+.icon-maximize:before {
+	content: "\e603";
+}
+
+.icon-minimize:before {
+	content: "\e604";
+}
+
+.icon-mobile:before {
+	content: "\e605";
+}
+
+.icon-thumbs-down:before {
+	content: "\e606";
+}
+
+.icon-thumbs-up:before {
+	content: "\e607";
+}
+
+ @font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Lato Regular'), local('Lato-Regular'), url(https://themes.googleusercontent.com/static/fonts/lato/v6/9k-RPmcnxYEPm8CNFsH2gg.woff) format('woff');
+}
+body {
+	font-family: 'Lato', sans-serif !important;
+}
+
+#content {
+	padding: 0;
+	background: #FFF;
+	border-radius: 4px 4px 0 0 !important;
+	box-shadow: none;
+	background-clip: padding-box !important;
+	border: 0 !important;
+	height: 100%;
+}
+
+#content #open-icon {
+	top: 8px;
+	right: 8px;
+}
+.icon-maximize {
+	font-size: 18px;
+}
+
+.lc2 #content #full-view-button {
+	white-space: nowrap;
+	font-size: 16px;
+	font-weight: 400;
+}
+
+#full-view-button span:nth-child(2) {
+  width: 100%!important;
+  box-sizing: border-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-right: 38px !important;
+  display: inline-block!important;
+}
+#content { background-color: #f0ad4e; }

@@ -1,0 +1,32 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.div-container{
+    padding-top:10px;
+    padding-bottom:10px;
+}
+
+.chat-header {
+    background-color: #f0ad4e;
+}
+
+.chat-footer {
+    position:fixed;
+    bottom:0px;
+    right: 0;
+    left: 0;
+    border:medium;
+    border-top-width: 1px;
+    border-right-width: 0px;
+    border-bottom-width: 0px;
+    border-left-width: 0px; 
+    background-color: silver;
+    border-color: black;
+}

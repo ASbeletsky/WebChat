@@ -100,14 +100,14 @@
         private string GenerateScript(ApplicationModel app)
         {
             string applicationSiteUrl = app.WebsiteUrl;
-            string mainChatScriptUrl = base.Settings.ServiceUrl.Host + "chat-script";
+            string mainChatScriptUrl = base.Settings.ServiceUrl.Host + ":" + base.Settings.ServiceUrl.Port + "/chat-script";
 
             StringBuilder scriptBuilder = new StringBuilder();
             scriptBuilder.AppendLine(@"<script type='text/javascript'>")
                          .AppendLine(@"      var __chat = { };")
-                         .AppendFormat("       __chat.license = {0};", app.Id).AppendLine()
+                         .AppendFormat("       __chat.appId = {0};", app.Id).AppendLine()
                          .AppendFormat("       __chat.targetUrl = '{0}';", applicationSiteUrl)
-                         .AppendLine(@"      localStorage.setItem('webChatAppId', __chat.license);")
+                         .AppendLine(@"      localStorage.setItem('webChatAppId', __chat.appId);")
                          .AppendLine(@"      localStorage.setItem('webChatTargetUrl', __chat.targetUrl);")
                          .AppendLine(@"      (function() {")
                          .AppendLine(@"           var lc = document.createElement('script');")

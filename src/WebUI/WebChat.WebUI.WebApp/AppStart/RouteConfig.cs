@@ -33,7 +33,7 @@
             routes.MapRoute(
                 name: "WebChatMainScript",
                 url: "chat-script",
-                defaults:  new { controller = "CustomerApp", action = "GetMainScript" }
+                defaults:  new { controller = "Chat", action = "GetMainScript" }
             );
 
             routes.MapRoute(
