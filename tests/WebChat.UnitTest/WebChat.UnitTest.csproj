@@ -83,6 +83,16 @@
   <ItemGroup>
     <Folder Include="Chat\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Business\WebChat.Business\WebChat.Business.csproj">
+      <Project>{7818d512-0834-49cd-8253-6320dc5543a9}</Project>
+      <Name>WebChat.Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Data\WebChat.Data.Models\WebChat.Data.Models.csproj">
+      <Project>{dbb555d6-a7c2-4b1f-8f57-87441426a187}</Project>
+      <Name>WebChat.Data.Models</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

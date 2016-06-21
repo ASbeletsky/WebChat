@@ -4,22 +4,22 @@
 
 <div class="row">
     <div class="text-center">
-        <h2 style="padding-top:20px;">Apriorit Web Chat!</h2>      
-    </div>   
+        <h2 style="padding-top:20px;">Apriorit Web Chat!</h2>
+    </div>
 </div>
 
 <div class="row">
-        <div class="col-xs-4">
-            <span class="number">1</span>
+    <div class="col-xs-4">
+        <span class="number">1</span>
+    </div>
+    <div class="col-xs-8">
+        <div class="row">
+            <h4 class="pull-left" style="font-size:x-large">Зарегиструйте свой сайт</h4>
         </div>
-        <div class="col-xs-8">
-            <div class="row">
-                <h4 class="pull-left" style="font-size:x-large">Зарегиструйте свой сайт</h4>
-            </div>
-            <p class="text-muted col-md-8">
-                Вам необходимо зерегистровоать один или несколько сайтов на которых вы хотите использовать Apriorit Web Chat
-            </p>
-         </div>   
+        <p class="text-muted col-md-8">
+            Вам необходимо зерегистровоать один или несколько сайтов на которых вы хотите использовать Apriorit Web Chat
+        </p>
+    </div>
 </div>
 <div class="row">
     <div class="col-xs-4">
@@ -31,7 +31,7 @@
         </div>
         <p class="text-muted col-md-8">
             Зарегистрируйте операторов, которые будут отвечать вашим клиентам.
-        </p>       
+        </p>
     </div>
 </div>
 <br />
@@ -52,18 +52,18 @@
 <hr />
 
 <div class="text-center">
-    <h2 style="padding-top:20px; padding-bottom:40px;">Начните использовать Apriorit Web Chat!</h2> 
+    <h2 style="padding-top:20px; padding-bottom:40px;">Начните использовать Apriorit Web Chat!</h2>
     <h4 style="padding-bottom:30px;">5-минтная настройка и чат будет на вашем сайте</h4>
     <div id="sign_up">
-        @using (Html.BeginForm("RegisterCustomerAndFirstApp", "Account", FormMethod.Get, new {@id="sing-up-form", @class = "form-inline" }))
+        @using (Html.BeginForm("RegisterCustomerAndFirstApp", "Account", FormMethod.Get, new { @id = "sing-up-form", @class = "form-inline" }))
         {
-        <div>
-            <input type="email" id="new_email" class="form-control input-lg" name="email" required="required" placeholder="адрес эл. почты">
-            <button type="submit" class="btn btn-lg btn-warning">
-                Начать
-            </button>
-        </div>
-    }
+            <div>
+                <input type="email" id="new_email" class="form-control input-lg" name="email" required="required" placeholder="адрес эл. почты">
+                <button type="submit" class="btn btn-lg btn-warning">
+                    Начать
+                </button>
+            </div>
+        }
     </div>
 </div>
 
@@ -96,8 +96,11 @@
     </div>
 </div>
 
-<script type="text/javascript">
-        $.ready(function () {
+@section scripts
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
             $('#sing-up-form').validate();
         });
-</script>
+    </script>
+}

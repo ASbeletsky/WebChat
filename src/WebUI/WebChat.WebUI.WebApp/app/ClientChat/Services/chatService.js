@@ -1,6 +1,6 @@
 ﻿chatApp.factory('ChatService',
-    ["$rootScope", "Hub", "customerAppData", '$location', 'DataService',
-    function ($rootScope, Hub, customerAppData, $location, DataService) {
+    ["$rootScope", "Hub", '$location', 'DataService',
+    function ($rootScope, Hub, $location, DataService) {
         var baseSiteUrlPath = $("base").first().attr("href");
 
         var ChatService = this;
@@ -10,9 +10,9 @@
 /*----------------------------------------------- Начало диалога ----------------------------------------*/
             ChatService.ConnectNewClient = function () {
                 hub.promise.done(function () {
-                    customerAppData.getAppKey().then(function (appKey) {
-                        hub.onNewClient(appKey);
-                    });
+                    var appId = DataService.getAppInfo.AppId;
+                    hub.onNewClient(appId);
+                    
                 });
             };
 /*------------------------------------------------ Все сообщения -----------------------------------------*/
@@ -36,14 +36,13 @@
             }
 
             ChatService.sendNewMessage = function (MessageText) {
-                customerAppData.getAppKey().then(function (appKey) {
+                var appId = DataService.getAppInfo.AppId;
                     var message = {
-                        AppKey: appKey,
+                        AppId: appId,
                         DialogId: ChatService.dialogId,
                         Text: MessageText
                     };
                     hub.onNewMessage(message);
-                });
             };
 /*---------------------------------------------- Настройки хаба ----------------------------------------*/
         var hub = new Hub("chatHub", {

@@ -1,143 +1,69 @@
-﻿using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin.Security;
-using System;
-using System.Linq;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using System.Web;
-using System.Web.Mvc;
-using WebChat.DataAccess.Abstract;
-using WebChat.DataAccess.Concrete.Entities.Identity;
-using WebChat.DataAccess.Managers;
-using WebChat.WebUI.Models.Сhat;
-using WebChat.WebUI.Extentions;
-
-namespace WebChat.WebUI.Controllers.Chat
+﻿namespace WebChat.WebUI.Controllers.Chat
 {
-    public class ClientController : Controller
+    #region Using
+
+    using Microsoft.Owin.Security;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using System.Web;
+    using WebChat.WebUI.WebApp.Controllers;
+    using WebChat.WebUI.WebApp.Extentions;
+    using System.Web.Mvc;
+    using WebChat.WebUI.ViewModels.Сhat;
+    using WebChat.Data.Storage.Identity;
+    using WebChat.Data.Models.Identity;
+    using Data.Interfaces;
+    #endregion
+
+    public class ClientController : MvcBaseController
     {
-        private AppSignInManager _signInManager;
-        private AppUserManager _userManager;
-        private IDataService _unitOfWork;
-
-        public ClientController(){  }
-        public ClientController(AppUserManager userManager, AppSignInManager signInManager)
+        private IDataStorage Storage
         {
-            UserManager = userManager;
-            SignInManager = signInManager;
-        }
-        public AppSignInManager SignInManager
-        {
-            get
-            {
-                return _signInManager ?? HttpContext.GetOwinContext().Get<AppSignInManager>();
-            }
-            private set
-            {
-                _signInManager = value;
-            }
-        }
-
-        public AppUserManager UserManager
-        {
-            get
-            {
-                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<AppUserManager>();
-            }
-            private set
-            {
-                _userManager = value;
-            }
-        }
-
-        private IDataService UnitOfWork
-        {
-            get
-            {
-                if (_unitOfWork == null)
-                    _unitOfWork = this.HttpContext.GetOwinContext().Get<IDataService>();
-                return _unitOfWork;
-            }
+            get { return DependencyResolver.Current.GetService<IDataStorage>(); }
         }
 
         public JsonpResult CompactView()
         {
-            string compactViewPath = "~/Views/Chat/Compact.cshtml";
-
-            var ViewInJsonp = new
-            {
-                view = RenderHelper.PartialView(this, compactViewPath, model: null)
-            };
-
-            return new JsonpResult(ViewInJsonp);
+            return new JsonpResult(RenderPartialToString("~/Views/Chat/Compact.cshtml", model: null));
         }
 
-        // GET: Chat/AuthPage
+
         [HttpGet]
         public ActionResult AuthPage()
         {
             var model = HttpContext.GetOwinContext().Authentication.GetExternalAuthenticationTypes()
                                    .Select(provider => new ExternalProviderViewModel()
                                    {
-                                       Provider = provider,
-                                       IconClass = "fa fa-" + provider.Caption.ToLower(),        
+                                       ProviderAuthenticationType = provider.AuthenticationType,
+                                       IconClass = "fa fa-" + provider.Caption.ToLower(),
                                        ReferenceClass = "btn-" + provider.Caption.ToLower()
-                                    });
-            
-            return PartialView("~/Views/Chat/AuthPage.cshtml", model);
+                                   });
+
+            return PartialView("~/Views/Chat/_AuthExternalLogin.cshtml", model);
         }
 
         public ActionResult ExternalLoginSuccess(string returnUrl)
         {
-             ViewBag.ReturnUrl = returnUrl;
-             return View("~/Views/Chat/ExternalLoginSuccess.cshtml");
+            ViewBag.ReturnUrl = returnUrl;
+            return View("~/Views/Chat/ExternalLoginSuccess.cshtml");
         }
 
         [HttpPost]
-        public async Task<ActionResult> EmailLogin(string appKey, string userName, string userEmail)
+        public async Task<ActionResult> EmailLogin(int appId, string userName, string userEmail)
         {
-            List<string> errors = new List<string>();
-            try
+            var registerDomainModel = DependencyResolver.Current.GetService<AccountController>();
+            var client = new UserModel { UserName = userEmail, Email = userEmail, Name = userName };
+            var result = await registerDomainModel.Register(client, password: null, roles: Roles.Client);
+            if (result.Succeeded)
             {
-                AppUser user = null;
-                user = await UserManager.FindByEmailAsync(userEmail);
-
-                if (user != null)
-                {
-                    return await SignInAndRedirect(user);
-                }                    
-                else
-                {
-                    var emailExist = UnitOfWork.Users.All.Any(u => u.Email == userEmail);
-                    if(emailExist)
-                    {
-                        errors.Add("Такая почта уже используется");
-                    }
-                    else
-                    {
-                        int appId = UnitOfWork.CustomerApplications.GetIdByAppKey(appKey);
-                        user = new AppUser { Name = userName, UserName = userEmail, Email = userEmail };
-                        var result = await UserManager.CreateAsync(user);
-                        if (result.Succeeded)
-                        {
-                            result = await UserManager.AddToRoleAsync(user.Id, "Client");
-                            UnitOfWork.CustomerApplications.AddUserToApplication(user.Id, appId);
-                            return await SignInAndRedirect(user);
-                        }
-                    }
-                }
+                Storage.Applications.AddUserToApplication(client.Id, appId);
+                await registerDomainModel.SignInManager.SignInAsync(client, isPersistent: false, rememberBrowser: false);
+                return Json(new { result = "Redirect", url = "/chat#/chat" });
             }
-            catch 
+            else
             {
-                errors.Add("Ошибка сервера");
+                return Json(new { result = "InvalidLogin", errors = result.Errors }, JsonRequestBehavior.AllowGet);
             }
-            return Json(new { result = "InvalidLogin", errors = errors }, JsonRequestBehavior.AllowGet);
-        }
-
-        private async Task<ActionResult> SignInAndRedirect(AppUser user)
-        {
-            await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-            return Json(new { result = "Redirect", url = "/chat#/chat" });
         }
     }
 }

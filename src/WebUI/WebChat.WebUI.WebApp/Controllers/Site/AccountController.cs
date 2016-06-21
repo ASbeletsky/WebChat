@@ -108,7 +108,7 @@
             }
         }
 
-        private async Task<IdentityResult> Register(UserModel user, string password, params Roles[] roles)
+        public async Task<IdentityResult> Register(UserModel user, string password = null, params Roles[] roles)
         {
             IdentityResult registerResult = null;
             bool emailExists = UserManager.Users.Any(o => o.Email == user.Email);
@@ -119,7 +119,11 @@
             }
             else
             {
-                registerResult = await UserManager.CreateAsync(user, password);
+                if(password == null)
+                    registerResult = await UserManager.CreateAsync(user);
+                else
+                    registerResult = await UserManager.CreateAsync(user, password);
+
                 if (registerResult.Succeeded)
                 {
                     foreach (var role in roles)

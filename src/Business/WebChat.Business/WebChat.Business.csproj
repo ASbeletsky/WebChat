@@ -53,20 +53,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AgentManager.cs" />
     <Compile Include="BusinessBindings.cs" />
+    <Compile Include="Chat\Balancer\Balancer.cs" />
+    <Compile Include="Chat\Balancer\BalancerByChatIntensity.cs" />
+    <Compile Include="Chat\Balancer\BalancerByWorkingTime.cs" />
+    <Compile Include="Chat\Balancer\BalancerType.cs" />
+    <Compile Include="Chat\Entities\ChatDialog.cs" />
+    <Compile Include="Chat\Stotages\AgentStorage.cs" />
+    <Compile Include="Chat\Stotages\DialogStorage.cs" />
+    <Compile Include="DomainModels\AgentDomainModel.cs" />
     <Compile Include="DomainModels\ApplicationDomainModel.cs" />
     <Compile Include="DomainModels\BaseDomainModel.cs" />
-    <Compile Include="ChatAgent.cs" />
-    <Compile Include="ChatClient.cs" />
-    <Compile Include="Dialog.cs" />
-    <Compile Include="ChatManager.cs" />
-    <Compile Include="BusinessBase.cs" />
-    <Compile Include="ChatMessage.cs" />
-    <Compile Include="CustomerAppManager.cs" />
-    <Compile Include="DialogManager.cs" />
+    <Compile Include="DomainModels\DialogDomainModel.cs" />
+    <Compile Include="Chat\Entities\ChatAgent.cs" />
+    <Compile Include="Chat\Entities\ChatClient.cs" />
     <Compile Include="DomainModels\CustomerDomainModel.cs" />
-    <Compile Include="MessageDTO.cs" />
+    <Compile Include="Chat\Entities\ChatMember.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -89,6 +91,10 @@
     <ProjectReference Include="..\..\WebUI\WebChat.WebUI.ViewModels\WebChat.WebUI.ViewModels.csproj">
       <Project>{4194cdfd-a790-46aa-a7f6-79b7371dee0b}</Project>
       <Name>WebChat.WebUI.ViewModels</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WebChat.Business.Interfaces\WebChat.Business.Interfaces.csproj">
+      <Project>{60ea94ac-0183-44cf-9d04-376172a194f1}</Project>
+      <Name>WebChat.Business.Interfaces</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

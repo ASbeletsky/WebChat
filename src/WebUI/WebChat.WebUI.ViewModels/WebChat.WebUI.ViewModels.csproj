@@ -57,6 +57,8 @@
     <Compile Include="SupportAgentViewModel.cs" />
     <Compile Include="Сhat\AuthViewModel.cs" />
     <Compile Include="Сhat\ExternalProviderViewModel.cs" />
+    <Compile Include="Сhat\MessageDTO.cs" />
+    <Compile Include="Сhat\MessageViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Data\WebChat.Data.Models\WebChat.Data.Models.csproj">

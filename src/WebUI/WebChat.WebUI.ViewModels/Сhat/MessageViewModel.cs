@@ -1,21 +1,11 @@
-﻿namespace WebChat.Data.Models.Chat
+﻿using System;
+
+
+namespace WebChat.WebUI.ViewModels.Сhat
 {
-    #region Using
-
-    using System;
-    using Storage.Identity;
-
-    #endregion
-
-    public class MessageModel
+    public class MessageViewModel
     {
         public long Id
-        {
-            get;
-            set;
-        }
-
-        public int DialogId
         {
             get;
             set;
@@ -33,23 +23,24 @@
             set;
         }
 
+        public string FormatedSendedAt
+        {
+            get
+            {
+                return this.SendedAt.ToShortTimeString();
+            }
+        }
+
         public long SenderId
         {
             get;
             set;
         }
 
-        public virtual DialogModel Dialog
+        public string SenderName
         {
             get;
             set;
         }
-
-        public virtual UserModel Sender
-        {
-            get;
-            set;
-        }
-
     }
 }

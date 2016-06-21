@@ -1,15 +1,35 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Microsoft.AspNet.SignalR;
-using System.Threading.Tasks;
-using Microsoft.AspNet.Identity;
-
-namespace WebChat.WebUI.WebApp.Controllers.Chat
+﻿namespace WebChat.WebUI.WebApp.Hubs
 {
+    #region Using
+
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using Microsoft.AspNet.SignalR;
+    using System.Threading.Tasks;
+    using Microsoft.AspNet.Identity;
+    using WebChat.Business.DomainModels;
+    using WebChat.Services.Interfaces;
+    using WebChat.Business.Chat.Entities;
+    using WebChat.WebUI.ViewModels.Сhat;
+    using WebChat.Data.Interfaces;
+
+    #endregion
     public class ChatHub : Hub
     {
+        private readonly DialogDomainModel dialogs;
+        private readonly AgentDomainModel agents;
+        private IDataStorage Stoage { get; set; }
+        private IEntityConverter Converter { get; set; }
+
+        public ChatHub()
+        {
+            this.dialogs = DependencyContainer.Current.GetService<DialogDomainModel>();
+            this.agents = DependencyContainer.Current.GetService<AgentDomainModel>();
+            this.Stoage = DependencyContainer.Current.GetService<IDataStorage>();
+            this.Converter = DependencyContainer.Current.GetService<IEntityConverter>();
+        }
+
         /*---------------------------------------- Вспомогательные метотоды ----------------------------------------*/
         private bool IsAuthenticated
         {
@@ -37,18 +57,18 @@ namespace WebChat.WebUI.WebApp.Controllers.Chat
                 string userId = Context.User.Identity.GetUserId<long>().ToString();
                 if (IsSupportAgent())
                 {
-                    if (AgentManager.IsOnline(userId))
+                    if (agents.IsOnline(userId))
                         SendAllAgentDialogs(userId);
                     else
                         base.Clients.Caller.RegisterAsAgent();
                 }
                 if (IsClient())
                 {
-                    ChatDialog dialog = DialogManager.FindByClientId(userId);
+                    ChatDialog dialog = dialogs.FindByClientId(userId);
                     if (dialog != null)
                     {
                         UpdateDialogOfClient(dialog);
-                        var messages = DialogManager.GetAllMessagesInDialog(dialog);
+                        var messages = dialogs.GetAllMessagesInDialog(dialog);
                         SendAllDialogMessagesToDialogMember(dialog.Id, messages);
                     }
                     else
@@ -66,16 +86,16 @@ namespace WebChat.WebUI.WebApp.Controllers.Chat
         }
 
         /*------------------------------------------ Появление учасников -----------------------------------------*/
-        public void OnNewClient(string appKey)
+        public void OnNewClient(int appId)
         {
             if (IsAuthenticated)
             {
-                ChatAgent agent = AgentManager.FreeAgent();
+                ChatAgent agent = agents.FreeAgent();
 
                 if (agent != null)
                 {
-                    ChatClient client = CreateChatClient();
-                    ChatDialog dialog = DialogManager.CreateDialog(client, agent, appKey);
+                    ChatClient client = CreateChatClient(appId);
+                    ChatDialog dialog = dialogs.CreateDialog(client, agent, appId);
 
                     UpdateDialogOfClient(dialog);
                     AddDialogToAgent(dialog);
@@ -91,57 +111,53 @@ namespace WebChat.WebUI.WebApp.Controllers.Chat
             }
         }
 
-        public void OnConnectAgent()
+        public void OnConnectAgent(int appId)
         {
             var userId = this.Context.User.Identity.GetUserId<long>();
-            if (!AgentManager.IsOnline(userId))
+            if (!agents.IsOnline(userId))
             {
-                var agent = new ChatAgent()
-                {
-                    HubConnectionId = Context.ConnectionId,
-                    AsUser = UnitOfWork.Users.GetById(userId)
-                };
-                AgentManager.ConnectAgent(agent);
+                var agent = new ChatAgent(userId, appId);
+                agents.ConnectAgent(agent);
             }
         }
 
         /*------------------------------------- Операции с чат сущностями ----------------------------------*/
-        private ChatClient CreateChatClient()
+        private ChatClient CreateChatClient(int appId)
         {
             var userId = Context.User.Identity.GetUserId<long>();
-            var user = UnitOfWork.Users.GetById(userId);
-            ChatClient newClient = new ChatClient(Context.ConnectionId, user);
+            var user = Stoage.Users.GetById(userId);
+            ChatClient newClient = new ChatClient(userId, appId);
 
             return newClient;
         }
 
         private void UpdateDialogOfClient(ChatDialog dialog)
         {
-            var ClientConfig = Json.Encode(new
+            var ClientConfig = Converter.ConvertToJson(new
             {
                 DialogId = dialog.Id,
                 Agent = new
                 {
-                    Name = dialog.Agent.AsUser.Name,
-                    Rank = "Support Agent",
-                    PhotoUrl = dialog.Agent.GetPhotoSource()
-                }
+                    Name = Stoage.Users.All.Where(u => u.Id == dialog.Agent.UserId).Select(u => u.Name).FirstOrDefault(),
+                    PhotoUrl = "/Content/Images/default-user-image.png"
+                },
+                AppId  = dialog.ApplicationId 
             });
             Clients.User(dialog.Client.HubUserId).receiveDialogConfig(ClientConfig);
         }
 
         private void AddDialogToAgent(ChatDialog dialog)
         {
-            var AgentConfig = Json.Encode(new
+            var AgentConfig = Converter.ConvertToJson(new
             {
                 DialogId = dialog.Id,
                 Client = new
                 {
-                    Id = dialog.Client.AsUser.Id,
-                    Name = dialog.Client.AsUser.Name,
-                    PhotoUrl = dialog.Client.GetPhotoSource()
+                    Id = dialog.Client.UserId,
+                    Name = Stoage.Users.All.Where(u => u.Id == dialog.Client.UserId).Select(u => u.Name).FirstOrDefault(),
+                    PhotoUrl = "/Content/Images/default-user-image.png"
                 },
-                AppKey = dialog.ApplicationKey
+                AppId = dialog.ApplicationId
             });
             Clients.User(dialog.Agent.HubUserId).addDialog(AgentConfig);
         }
@@ -157,11 +173,11 @@ namespace WebChat.WebUI.WebApp.Controllers.Chat
         {
             if (IsAuthenticated)
             {
-                ChatDialog dialog = DialogManager.GetById(message.DialogId);
+                ChatDialog dialog = dialogs.GetById(message.DialogId);
                 if (dialog != null)
                 {
                     long senderId = Context.User.Identity.GetUserId<long>();
-                    await DialogManager.SaveMessageToDatabaseAsync(dialog.StoredDialogId, senderId, message.Text);
+                    await dialogs.SaveMessageToDatabaseAsync(dialog.StoredDialogId, senderId, message.Text);
                     SendMessageToDialogMembers(message, dialog);
                 }
             }
@@ -175,11 +191,11 @@ namespace WebChat.WebUI.WebApp.Controllers.Chat
         {
             if (IsAuthenticated)
             {
-                ChatDialog dialog = DialogManager.GetById(dialogId);
+                ChatDialog dialog = dialogs.GetById(dialogId);
                 if (dialog != null)
                 {
                     long senderId = Context.User.Identity.GetUserId<long>();
-                    var messages = DialogManager.GetAllMessagesInDialog(dialog);
+                    var messages = dialogs.GetAllMessagesInDialog(dialog);
                     SendAllDialogMessagesToDialogMember(dialogId, messages);
                 }
             }
@@ -193,8 +209,8 @@ namespace WebChat.WebUI.WebApp.Controllers.Chat
         private void SendMessageToDialogMembers(MessageDTO message, ChatDialog dialog)
         {
             var userId = Context.User.Identity.GetUserId<int>();
-            string userName = UnitOfWork.Users.GetById(userId).Name;
-            var MessageInJson = Json.Encode(new
+            string userName = Stoage.Users.GetById(userId).Name;
+            var MessageInJson = Converter.ConvertToJson(new
             {
                 DialogId = dialog.Id,
                 UserName = userName,
@@ -204,7 +220,7 @@ namespace WebChat.WebUI.WebApp.Controllers.Chat
             Clients.Users(dialog.MembersHubUserIds).addNewMessageToPage(MessageInJson);
         }
 
-        private void SendAllDialogMessagesToDialogMember(int chatDialogId, IEnumerable<JObject> messages)
+        private void SendAllDialogMessagesToDialogMember(int chatDialogId, IEnumerable<MessageViewModel> messages)
         {
             var data = new
             {
@@ -216,20 +232,20 @@ namespace WebChat.WebUI.WebApp.Controllers.Chat
 
         private void SendAllAgentDialogs(string userId)
         {
-            var agentDialogs = AgentManager.GetByUserId(userId).Dialogs.ToList();
+            var agentDialogs = agents.GetByUserId(userId).Dialogs.ToList();
             var agentDialogsInJson = new List<string>();
             foreach (var dialog in agentDialogs)
             {
-                var dialogInJson = Json.Encode(new
+                var dialogInJson = Converter.ConvertToJson(new
                 {
                     DialogId = dialog.Id,
                     Client = new
                     {
-                        Id = dialog.Client.AsUser.Id,
-                        Name = dialog.Client.AsUser.Name,
-                        PhotoUrl = dialog.Client.GetPhotoSource()
+                        Id = dialog.Client.UserId,
+                        Name = Stoage.Users.All.Where(u => u.Id == dialog.Client.UserId).Select(u => u.Name).FirstOrDefault(),
+                        PhotoUrl = "/Content/Images/default-user-image.png"
                     },
-                    AppKey = dialog.ApplicationKey
+                    AppID = dialog.ApplicationId
                 });
                 agentDialogsInJson.Add(dialogInJson);
             }
@@ -241,10 +257,10 @@ namespace WebChat.WebUI.WebApp.Controllers.Chat
         public void onEndDialog()
         {
             var clientUserId = Context.User.Identity.GetUserId<long>().ToString();
-            ChatDialog dialog = DialogManager.FindByClientId(clientUserId);
-            DialogManager.CloseDialog(dialog);
+            ChatDialog dialog = dialogs.FindByClientId(clientUserId);
+            dialogs.CloseDialog(dialog);
             RemoveDilalogFromAgent(dialog);
-            DialogManager.DeleteDialog(dialog.Id);
+            dialogs.DeleteDialog(dialog.Id);
         }
     }
 }

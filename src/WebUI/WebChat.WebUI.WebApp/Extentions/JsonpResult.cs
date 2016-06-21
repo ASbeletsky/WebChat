@@ -27,9 +27,9 @@
         }
 
         [Ninject.Inject]
-        public IEntityConverter JsonSerializer
+        public IEntityConverter Converter
         {
-            get;
+            get { return DependencyContainer.Current.GetService<IEntityConverter>(); }
         }
 
         public override void ExecuteResult(ControllerContext context)
@@ -48,7 +48,7 @@
 
                 var callback = CallbackFunction ?? request.Params["callback"] ?? "callback";
 
-                response.Write(string.Format("{0}({1});", callback, JsonSerializer.ConvertToJson(Data)));
+                response.Write(string.Format("{0}({1});", callback, Converter.ConvertToJson(Data)));
 
             }
         }

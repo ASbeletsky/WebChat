@@ -5,6 +5,8 @@ namespace WebChat.WebUI.WebApp
     #region Using
 
     using Owin;
+    using System.Security.Claims;
+    using System.Web.Helpers;
     using System.Web.Mvc;
     using System.Web.Optimization;
     using System.Web.Routing;
@@ -22,6 +24,8 @@ namespace WebChat.WebUI.WebApp
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             ConfigureAuth(app);
             app.UseWebApi(WebApiConfig.Register());
+            app.MapSignalR();
+            AntiForgeryConfig.UniqueClaimTypeIdentifier = ClaimTypes.NameIdentifier;
         }
     }
 }

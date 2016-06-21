@@ -48,15 +48,24 @@
         $('#webchat-compact').attr('style', 'left: 0; width: 100%; border: 0; padding: 0; margin: 0; float: none;')
 
         $.ajax({
-            url: baseDomain + '/Chat/CompactView',
+            url: baseDomain + '/Client/CompactView',
             type: "GET",
-            jsonp: 'jsonp',
-            success: function (data) {
-                $('#webchat-compact').html(data);
-                $('#webchat-compact-container').show(null);
-                open_chat_window();
-            }
+            dataType: "jsonp",
+            callback: 'foo',
+            cache: true
+        }).done(function (data) {
+            $('#webchat-compact').html(data);
+            $('#webchat-compact-container').show(null);
+            open_chat_window();
+        }).fail(function (XHR, status, error) {
+            console.log(error);
         });
+
+        var foo = function () {
+            $('#webchat-compact').html(result.Data);
+            $('#webchat-compact-container').show(null);
+            open_chat_window();
+        }
     };
 
     function open_chat_window() {
@@ -84,7 +93,7 @@
             window.setTimeout(function () {
                 iframeWin.postMessage({ key: "targetUrl", value: targetUrl }, baseDomain);
                 iframeWin.postMessage({ key: "targetAppId", value: targetAppId }, baseDomain);
-            }, 1000)();
+            }, 1000);
 
         }
 

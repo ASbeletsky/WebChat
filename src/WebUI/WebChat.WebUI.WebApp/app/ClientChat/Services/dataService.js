@@ -23,29 +23,20 @@ chatApp.factory('DataService', ['$http', function ($http) {
             data: data
         });
     }
+
 /*---------------------------------------------------------------------------------*/
     DataService.postLocation = function (x, y) {
         var coordinates = { latitude: x, longitude: y };
         post('Client', 'SetLocation', coordinates);
     };
 
+    DataService.getAppInfo = function(){
+        return {
+            AppId : localStorage.getItem("webChatAppId")
+        }
+    };
+   
     return DataService;
 }]);
 
-chatApp.factory('customerAppData', function ($http, $q) {
-    var promise = null;
-    return {
-        getAppKey: function () {
-            if (promise) {
-                return promise;
-            }
-            var appId = localStorage.getItem("webChatAppId");
-            promise = $http({ method: 'GET', url: '/api/CustomerApp/Key/' + appId  })
-                .then(function (response) {
-                    return response.data;
-                });
-            return promise;
-        }
-    }
-});
 

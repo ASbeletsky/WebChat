@@ -8,6 +8,7 @@
     using System.Data.Entity;
     using System.Linq;
     using WebChat.Data.Interfaces.Repositories;
+    using WebUI.ViewModels.Сhat;
 
     #endregion
 
@@ -64,6 +65,27 @@
             {
                 _context.Dialogs.Remove(recordForDelete);
             }
+        }
+
+        #endregion
+
+        #region IDialogRepository Members
+        public IEnumerable<MessageViewModel> GetMessages(int dialogId)
+        {
+            return from dialog in _context.Dialogs
+                   join message in _context.Messages
+                       on dialog.Id equals message.DialogId
+                   join user in _context.Users
+                       on message.SenderId equals user.Id
+                   where dialog.Id == dialogId
+                   select new MessageViewModel
+                   {
+                       Id = message.Id,
+                       SenderId = message.SenderId,
+                       SendedAt = message.SendedAt,
+                       Text = message.Text,
+                       SenderName = user.Name
+                   };
         }
 
         #endregion

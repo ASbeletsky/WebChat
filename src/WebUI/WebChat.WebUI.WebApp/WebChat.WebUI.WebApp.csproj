@@ -252,6 +252,7 @@
     <Content Include="Content\Styles\Chat\chat-layout.css" />
     <Content Include="Content\Styles\Chat\compact-start-page.css" />
     <Content Include="Content\Styles\Chat\start-page.css" />
+    <Content Include="Content\Styles\Plugins\bootstrap\bootstrap-social.css" />
     <Content Include="Content\Styles\Plugins\bootstrap\bootstrap-theme.css" />
     <Content Include="Content\Styles\Plugins\bootstrap\bootstrap-theme.min.css" />
     <Content Include="Content\Styles\Plugins\bootstrap\bootstrap.css" />
@@ -339,6 +340,7 @@
     <Content Include="Views\Chat\Compact.cshtml" />
     <Content Include="Views\Chat\ClientIndex.cshtml" />
     <Content Include="Views\Shared\_ChatClientLayout.cshtml" />
+    <Content Include="Views\Chat\_AuthExternalLogin.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -384,10 +386,12 @@
     <Compile Include="AppStart\WebApiConfig.cs" />
     <Compile Include="AppStart\NinjectWebCommon.cs" />
     <Compile Include="Controllers\Chat\ChatController.cs" />
-    <Compile Include="Controllers\Chat\ChatHub.cs" />
+    <Compile Include="Controllers\Chat\ClientController.cs" />
+    <Compile Include="Hubs\ChatHub.cs" />
     <Compile Include="Controllers\Site\AppStatisticController.cs" />
     <Compile Include="Controllers\Site\CustomerAgentManagementController.cs" />
     <Compile Include="Extentions\HtmlHelperExtentions.cs" />
+    <Compile Include="Hubs\SignalrUserIdProvider.cs" />
     <Compile Include="WebAppBindings.cs" />
     <Compile Include="Controllers\Site\AccountController.cs" />
     <Compile Include="Controllers\Site\CustomerAppManagementController.cs" />
@@ -430,7 +434,9 @@
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Views\Dialog\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

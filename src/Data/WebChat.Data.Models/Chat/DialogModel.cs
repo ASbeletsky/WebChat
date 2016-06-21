@@ -51,5 +51,21 @@
                 return this.UsersShortInfo.Select(userInDialog => userInDialog.User);
             }
         }
+
+        public TimeSpan Duration
+        {
+            get
+            {
+                return this.ClosedAt - this.StartedAt;
+            }
+        }
+
+        public bool IsClosed
+        {
+            get
+            {
+                return this.ClosedAt != this.StartedAt;
+            }
+        }
     }
 }

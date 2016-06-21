@@ -25,12 +25,6 @@
             );
 
             routes.MapRoute(
-                name: "StatisticApp",
-                url: "statistic/{*.}",
-                defaults: new { controller = "Statistic", action = "Index" }
-            );
-
-            routes.MapRoute(
                 name: "WebChatMainScript",
                 url: "chat-script",
                 defaults:  new { controller = "Chat", action = "GetMainScript" }

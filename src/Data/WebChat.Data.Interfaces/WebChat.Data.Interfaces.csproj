@@ -53,6 +53,10 @@
     <Compile Include="Repositories\IUsersInRolesRepository.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\WebUI\WebChat.WebUI.ViewModels\WebChat.WebUI.ViewModels.csproj">
+      <Project>{4194cdfd-a790-46aa-a7f6-79b7371dee0b}</Project>
+      <Name>WebChat.WebUI.ViewModels</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WebChat.Data.Models\WebChat.Data.Models.csproj">
       <Project>{dbb555d6-a7c2-4b1f-8f57-87441426a187}</Project>
       <Name>WebChat.Data.Models</Name>
