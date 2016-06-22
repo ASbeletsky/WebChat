@@ -69,7 +69,7 @@
     <Compile Include="DataBindings.cs" />
     <Compile Include="EfDataStorage.cs" />
     <Compile Include="Managers\AppRoleManager.cs" />
-    <Compile Include="Managers\AppUserMenager.cs" />
+    <Compile Include="Managers\AppUserManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\CustomerApplicationRepository.cs" />
     <Compile Include="Repositories\DialogRepository.cs" />

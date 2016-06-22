@@ -30,7 +30,7 @@ if (window.addEventListener) {
 
     function authExternalProvider(provider) {
         var baseUrl = jQuery("base").first().attr("href");
-        var returnUrl = getParentUrl();
+        var returnUrl = getParentUrl() + '/Account/ExternalLoginCallback'
         var externalProviderUrl = baseUrl + "Account/ExternalLogin?provider=" + provider
                                                                     + "&returnUrl=" + returnUrl;
         var oauthWindow = popupWindow(externalProviderUrl, 700, 600);

@@ -48,6 +48,22 @@
       <HintPath>..\..\..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Facebook, Version=6.0.10.0, Culture=neutral, PublicKeyToken=58cb4f2111d1e6de, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Facebook.7.0.6\lib\net45\Facebook.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Hammock.ClientProfile, Version=1.0.0.0, Culture=neutral, PublicKeyToken=c148cfba29ed1a4d, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\TweetSharp.2.3.1\lib\4.0\Hammock.ClientProfile.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.AI.Agent.Intercept, Version=1.2.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Microsoft.ApplicationInsights.Agent.Intercept.1.2.1\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
       <Private>True</Private>
@@ -133,7 +149,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\..\packages\Newtonsoft.Json.8.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Ninject, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
@@ -213,6 +229,10 @@
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
     <Reference Include="System.Xml.Linq" />
+    <Reference Include="TweetSharp, Version=2.0.0.0, Culture=neutral, PublicKeyToken=c148cfba29ed1a4d, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\TweetSharp.2.3.1\lib\4.0\TweetSharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="WebActivatorEx, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\WebActivatorEx.2.0\lib\net40\WebActivatorEx.dll</HintPath>
       <Private>True</Private>
@@ -232,11 +252,6 @@
     <Content Include="app\AgentChat\Views\ChatView.html" />
     <Content Include="app\AgentChat\Views\ClientView.html" />
     <Content Include="app\AgentChat\Views\Layout.html" />
-    <Content Include="app\AppStatistic\app.js" />
-    <Content Include="app\AppStatistic\Controllers\AppStatisticController.js" />
-    <Content Include="app\AppStatistic\Services\chartService.js" />
-    <Content Include="app\AppStatistic\Services\dataService.js" />
-    <Content Include="app\AppStatistic\Views\AppStatisticView.html" />
     <Content Include="app\ClientChat\app.js" />
     <Content Include="app\ClientChat\Controllers\authController.js" />
     <Content Include="app\ClientChat\Controllers\chatController.js" />
@@ -341,6 +356,7 @@
     <Content Include="Views\Chat\ClientIndex.cshtml" />
     <Content Include="Views\Shared\_ChatClientLayout.cshtml" />
     <Content Include="Views\Chat\_AuthExternalLogin.cshtml" />
+    <Content Include="Views\Chat\ExternalLoginSuccess.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -387,13 +403,15 @@
     <Compile Include="AppStart\NinjectWebCommon.cs" />
     <Compile Include="Controllers\Chat\ChatController.cs" />
     <Compile Include="Controllers\Chat\ClientController.cs" />
+    <Compile Include="Controllers\Site\Account\ClientAccountController.cs" />
+    <Compile Include="Controllers\Site\Account\CustomerAccountController.cs" />
     <Compile Include="Hubs\ChatHub.cs" />
     <Compile Include="Controllers\Site\AppStatisticController.cs" />
     <Compile Include="Controllers\Site\CustomerAgentManagementController.cs" />
     <Compile Include="Extentions\HtmlHelperExtentions.cs" />
     <Compile Include="Hubs\SignalrUserIdProvider.cs" />
     <Compile Include="WebAppBindings.cs" />
-    <Compile Include="Controllers\Site\AccountController.cs" />
+    <Compile Include="Controllers\Site\Account\AccountController.cs" />
     <Compile Include="Controllers\Site\CustomerAppManagementController.cs" />
     <Compile Include="Controllers\Site\HomeController.cs" />
     <Compile Include="Controllers\MvcBaseController.cs" />
@@ -435,6 +453,8 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Views\ClientAccount\" />
+    <Folder Include="Views\CustomerAccount\" />
     <Folder Include="Views\Dialog\" />
   </ItemGroup>
   <PropertyGroup>

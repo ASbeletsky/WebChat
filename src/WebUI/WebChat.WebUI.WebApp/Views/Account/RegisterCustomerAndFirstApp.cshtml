@@ -4,7 +4,7 @@
     ViewBag.Title = "Register";
 }
 
-@using (Html.BeginForm("RegisterCustomerAndFirstApp", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+@using (Html.BeginForm("RegisterCustomerAndFirstApp", "CustomerAccount", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
 
     @Html.AntiForgeryToken()

@@ -1,4 +1,4 @@
-﻿namespace WebChat.Data.Data.Managers
+﻿namespace WebChat.Data.Storage.Managers
 {
     #region Using
 
@@ -18,7 +18,6 @@
         {
               
         }
-
         public static AppUserManager Create(WebChatDbContext context)
         {
             var manager = new AppUserManager(new UserStore<UserModel, UserRoleModel, long, UserLoginModel, UsersInRolesModel, UserClaimModel>(context));

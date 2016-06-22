@@ -1,4 +1,4 @@
-﻿namespace WebChat.Data.Data.Managers
+﻿namespace WebChat.Data.Storage.Managers
 {
     #region Using
 

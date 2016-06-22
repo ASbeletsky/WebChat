@@ -1,4 +1,4 @@
-﻿namespace WebChat.WebUI.Controllers
+﻿namespace WebChat.WebUI.WebApp.Controllers.Site.Account
 {
     #region Using
 
@@ -10,7 +10,7 @@
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.Owin;
     using Microsoft.Owin.Security;
-    using WebChat.Data.Data.Managers;
+    using WebChat.Data.Storage.Managers;
     using WebChat.Data.Storage.Identity;
     using WebChat.Data.Interfaces;
     using WebChat.WebUI.ViewModels.Shared;
@@ -21,6 +21,12 @@
     using WebChat.WebUI.WebApp.AppStart;
     using ViewModels.Application;
     using Business.DomainModels;
+    using Facebook;
+    using TweetSharp;
+    using Services.Common.Settings;
+    using Services.Interfaces;
+    using Services.Interfaces.Settings;
+    using System.Security.Claims;
     #endregion
 
     [Authorize]
@@ -38,7 +44,7 @@
 
         #region Managers And Storage
 
-        public AppSignInManager SignInManager
+        protected AppSignInManager SignInManager
         {
             get
             {
@@ -48,7 +54,7 @@
             }
         }
 
-        public AppUserManager UserManager
+        protected AppUserManager UserManager
         {
             get
             {
@@ -58,13 +64,21 @@
             }
         }
 
-        private IDataStorage UnitOfWork
+        protected IDataStorage Storage
         {
             get
             {
                 if (unitOfWork == null)
                     unitOfWork = DependencyResolver.Current.GetService<IDataStorage>();
                 return unitOfWork;
+            }
+        }
+
+        protected IAuthSettings AuthSettings
+        {
+            get
+            {
+                return DependencyResolver.Current.GetService<IAuthSettings>();
             }
         }
 
@@ -79,6 +93,12 @@
             return View();
         }
 
+        protected virtual ActionResult OnSuccessLogin(string returnUrl)
+        {
+            return RedirectToLocal(returnUrl);
+        }
+
+
         [HttpPost]
         [AllowAnonymous]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
@@ -92,11 +112,7 @@
             switch (result)
             {
                 case SignInStatus.Success:
-                    {
-                        if (User.IsInRole("Customer"))
-                            returnUrl = Url.Action("Index", "CustomerAppManagement");
-                        return RedirectToLocal(returnUrl);
-                    }
+                       return this.OnSuccessLogin(returnUrl);                    
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
@@ -108,7 +124,7 @@
             }
         }
 
-        public async Task<IdentityResult> Register(UserModel user, string password = null, params Roles[] roles)
+        protected async Task<IdentityResult> Register(UserModel user, string password = null, params Roles[] roles)
         {
             IdentityResult registerResult = null;
             bool emailExists = UserManager.Users.Any(o => o.Email == user.Email);
@@ -138,89 +154,6 @@
 
         #endregion
 
-        #region Customer
-
-        [HttpPost]
-        [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> RegisterCustomer(RegisterViewModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                var customer = new UserModel
-                {
-                    Name = model.Name,
-                    UserName = model.Email,
-                    Email = model.Email,
-                    RegistrationDate = DateTime.Today
-                };
-
-                var registerResult = await this.Register(customer, model.Password, Roles.Customer);
-
-                if (registerResult.Succeeded)
-                {
-                    await SignInManager.SignInAsync(customer, isPersistent: false, rememberBrowser: false);
-                    //TODO app domain model create app
-                    return RedirectToAction("OwnerInfo", "Owner");
-                }
-
-                AddErrors(registerResult);
-            }
-
-            return View(model);
-        }
-
-        [AllowAnonymous]
-        [HttpGet]
-        public ActionResult RegisterCustomerAndFirstApp(string email)
-        {
-            var model = new CustomerAndAppViewModel()
-            {
-                Customer = new RegisterViewModel
-                {
-                    Email = email
-                },
-                App = new ApplicationFieldsViewModel
-                {
-                    ContactEmail = email
-                }
-            };
-
-            return View(model);
-        }
-
-        [HttpPost]
-        [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> RegisterCustomerAndFirstApp(CustomerAndAppViewModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                var customer = new UserModel
-                {
-                    Name = model.Customer.Name,
-                    UserName = model.Customer.Email,
-                    Email = model.Customer.Email,
-                    RegistrationDate = DateTime.Today
-                };
-
-                var registerResult = await this.Register(customer, model.Customer.Password, Roles.Customer);
-                if (registerResult.Succeeded)
-                {
-                    await SignInManager.SignInAsync(customer, isPersistent: false, rememberBrowser: false);
-                    var applicationDomainModel = DependencyResolver.Current.GetService<ApplicationDomainModel>();
-                    model.App.CustomerId = customer.Id;                
-                    applicationDomainModel.CreateApplication(model.App);
-                    return RedirectToAction("Index", "CustomerAppManagement");
-                }
-                AddErrors(registerResult);
-            }
-
-            return View(model);
-        }
-
-        #endregion
-
         #region Agent
 
         [HttpGet]
@@ -230,7 +163,7 @@
             var customerId = User.Identity.GetUserId<long>();
             var model = new RegisterOperatorViewModel
             {
-                CustomerApps = UnitOfWork.Applications.GetCustomerApplications(customerId)
+                CustomerApps = Storage.Applications.GetCustomerApplications(customerId)
             };
 
             return View("~/Views/Owner/RegisterAgent.cshtml", model);
@@ -259,9 +192,9 @@
 
                     foreach (var appId in model.SelectedApps)
                     {
-                        UnitOfWork.Applications.AddUserToApplication(agent.Id, appId);                        
+                        Storage.Applications.AddUserToApplication(agent.Id, appId);                        
                     }
-                    UnitOfWork.Save();
+                    Storage.Save();
                     return RedirectToAction("OwnerAgents", "Owner");
                 }
                 else
@@ -271,7 +204,7 @@
             }
 
             var customerId = User.Identity.GetUserId<long>();
-            model.CustomerApps = UnitOfWork.Applications.GetCustomerApplications(customerId);
+            model.CustomerApps = Storage.Applications.GetCustomerApplications(customerId);
 
             return View("~/Views/Owner/RegisterAgent.cshtml", model);
         }
@@ -295,12 +228,12 @@
 
         // GET: /Account/ExternalLoginCallback
         [AllowAnonymous]
-        public async Task<ActionResult> ExternalLoginCallback(string returnUrl)
+        public async Task<ActionResult> ExternalLoginCallback()
         {
             var loginInfo = await AuthenticationManager.GetExternalLoginInfoAsync();
             if (loginInfo == null)
             {
-                return RedirectToAction("ExternalLoginSuccess", "Client", new { returnUrl = returnUrl });
+                return RedirectToAction("ExternalLoginFailure");
             }
 
             // Выполнение входа пользователя посредством данного внешнего поставщика входа, если у пользователя уже есть имя входа
@@ -308,85 +241,87 @@
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToAction("ExternalLoginSuccess", "Client", new { returnUrl = returnUrl });
+                    return RedirectToAction("ExternalLoginSuccess", "Client");
                 case SignInStatus.LockedOut:
-                    return View("Lockout");
-                case SignInStatus.RequiresVerification:
-                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = false });
+                    return View("Lockout");            
                 case SignInStatus.Failure:
                 default:
                     // Если у пользователя нет учетной записи, то ему предлагается создать ее
-                    return RedirectToAction("CreateUserByExternalInfo", new { Provider = loginInfo.Login.LoginProvider, ReturnUrl = returnUrl });
+                    return RedirectToAction("CreateUserByExternalInfo", new { Provider = loginInfo.Login.LoginProvider });
             }
         }
 
-        //[AllowAnonymous]
-        //public async Task<ActionResult> CreateUserByExternalInfo(string provider, string returnUrl)
-        //{
-        //    string email = null,
-        //        userName = null,
-        //        photoUrl = null,
-        //        link = null;
+        [AllowAnonymous]
+        public virtual async Task<ActionResult> CreateUserByExternalInfo(string provider)
+        {
+            string userName, email = "N/A", photoUrl = null, link = null;
 
-        //    var identity = AuthenticationManager.GetExternalIdentity(DefaultAuthenticationTypes.ExternalCookie);
-        //    userName = identity.Name;
-        //    switch (provider)
-        //    {
-        //        case "Facebook":
-        //            {
-        //                var accessToken = identity.FindFirstValue("FacebookAccessToken");
-        //                var fb = new FacebookClient(accessToken);
-        //                dynamic myInfo = fb.Get("/me?fields=email,picture");
-        //                email = myInfo.email;
-        //                photoUrl = string.Format("https://graph.facebook.com/{0}/picture", myInfo.id);
-        //                link = "https://www.facebook.com/" + myInfo.id;
-        //            }
-        //            break;
-        //        case "Twitter":
-        //            {
-        //                var tw = new TwitterService(
-        //                    "owRihJ8kuYIMDAa6XaK88O7Vj",
-        //                    "YTloVLtW2CDBhrFrzNbrZOJkaB2mxPBqZ36IWtxu3BNtN7td1u",
-        //                    identity.FindFirstValue("TwitterAccessToken"),
-        //                    identity.FindFirstValue("TwitterAccessTokenSecret")
-        //               );
-        //                var profile = tw.GetUserProfile(new GetUserProfileOptions());
-        //                if (profile != null)
-        //                {
-        //                    userName = profile.ScreenName;
-        //                    photoUrl = profile.ProfileImageUrl;
-        //                    link = "https://twitter.com/" + userName;
-        //                }
-        //            }
-        //            break;
-        //    }
+            var identity = AuthenticationManager.GetExternalIdentity(DefaultAuthenticationTypes.ExternalCookie);
+            userName = identity.Name;
+            switch (provider)
+            {
+                case "Facebook":
+                    {
+                        var accessToken = identity.FindFirstValue("FacebookAccessToken");
+                        var fb = new FacebookClient(accessToken);
+                        dynamic myInfo = fb.Get("/me?fields=email,picture");
+                        email = myInfo.email;
+                        photoUrl = string.Format("https://graph.facebook.com/{0}/picture", myInfo.id);
+                        link = "https://www.facebook.com/" + myInfo.id;
+                    }
+                    break;
+                case "Twitter":
+                    {
+                        var tw = new TwitterService
+                            (
+                                consumerKey: this.AuthSettings.TwitterSettings.AppSecret,
+                                consumerSecret: this.AuthSettings.TwitterSettings.AppSecret,
+                                token: identity.FindFirstValue("TwitterAccessToken"),
+                                tokenSecret: identity.FindFirstValue("TwitterAccessTokenSecret")
+                            );
 
-        //    var loginInfo = await AuthenticationManager.GetExternalLoginInfoAsync();
-        //    var user = new AppUser { Name = userName, UserName = userName, Email = email };
-        //    var result = await UserManager.CreateAsync(user);
-        //    if (result.Succeeded)
-        //    {
-        //        result = await UserManager.AddLoginAsync(user.Id, loginInfo.Login);
-        //        if (result.Succeeded)
-        //        {
-        //            await UserManager.AddToRoleAsync(user.Id, "Client");
-        //            await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-        //        }
-        //    }
-        //    if (result.Errors.Count() == 1)
-        //    {
-        //        user = UserManager.FindByEmail(email);
-        //        UserManager.AddLogin(user.Id, loginInfo.Login);
-        //    }
-        //    UserManager.AddClaim(user.Id, new Claim("PhotoUrl", photoUrl));
-        //    UserManager.AddClaim(user.Id, new Claim("SocialNetworkLink:" + provider, link));
+                        var profile = tw.GetUserProfile(new GetUserProfileOptions());
+                        if (profile != null)
+                        {
+                            userName = profile.ScreenName;
+                            photoUrl = profile.ProfileImageUrl;
+                            link = "https://twitter.com/" + userName;
+                        }
+                    }
+                    break;
+            }
 
-        //    return RedirectToAction("ExternalLoginSuccess", "Client", new { returnUrl = returnUrl });
-        //}
+            var loginInfo = await AuthenticationManager.GetExternalLoginInfoAsync();
+            var user = new UserModel { Name = userName, UserName = userName, Email = email };
+            var result = await UserManager.CreateAsync(user);
+            if (result.Succeeded)
+            {
+                result = await UserManager.AddLoginAsync(user.Id, loginInfo.Login);
+                if (result.Succeeded)
+                {
+                    return await this.OnRegisterSuccess(user);                                    
+                }
+            }
+
+            if (result.Errors.Count() == 1)
+            {
+                user = UserManager.FindByEmail(email);
+                UserManager.AddLogin(user.Id, loginInfo.Login);
+            }
+
+            UserManager.AddClaim(user.Id, new Claim("PhotoUrl", photoUrl));
+            UserManager.AddClaim(user.Id, new Claim("SocialNetworkLink:" + provider, link));
+
+            return RedirectToAction("Home/Index");
+        }
+
+        protected async virtual Task<ActionResult> OnRegisterSuccess(UserModel user)
+        {
+            await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+            return RedirectToAction("Index", "Home");
+        }
 
 
-
-        //
         // POST: /Account/LogOff
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -436,7 +371,7 @@
             }
         }
 
-        private void AddErrors(IdentityResult result)
+        protected void AddErrors(IdentityResult result)
         {
             foreach (var error in result.Errors)
             {
@@ -473,7 +408,7 @@
 
             public override void ExecuteResult(ControllerContext context)
             {
-                var properties = new AuthenticationProperties { RedirectUri = RedirectUri };
+                var properties = new AuthenticationProperties { RedirectUri = RedirectUri };                
                 if (UserId != null)
                 {
                     properties.Dictionary[XsrfKey] = UserId;

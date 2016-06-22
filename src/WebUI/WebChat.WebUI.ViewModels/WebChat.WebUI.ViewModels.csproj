@@ -45,6 +45,8 @@
     <Compile Include="AgentMessagesViewModel.cs" />
     <Compile Include="Application\ApplicationViewModel.cs" />
     <Compile Include="Application\AppUsersAndChatsInfoViewModel.cs" />
+    <Compile Include="Client\ClientInfo.cs" />
+    <Compile Include="Client\Location.cs" />
     <Compile Include="Customer\CustomerAndAppViewModel.cs" />
     <Compile Include="Agent\AgentShortInfoViewModel.cs" />
     <Compile Include="Agent\RegisterOperatorViewModel.cs" />

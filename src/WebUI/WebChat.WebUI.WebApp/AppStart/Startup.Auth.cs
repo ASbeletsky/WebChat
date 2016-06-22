@@ -13,11 +13,12 @@
     using Microsoft.Owin.Security.Facebook;
     using Services.Common;
     using Microsoft.Owin.Security.Twitter;
-    using Data.Data.Managers;
+    using Data.Storage.Managers;
     using Data.Storage.Identity;
     using Data.Storage;
     using Services.Interfaces;
     using Services.Interfaces.Settings;
+    using AppStart;
     #endregion
 
     public partial class Startup
@@ -25,14 +26,10 @@
         private IAuthSettings config = DependencyContainer.Current.GetService<IApplicationSettings>().AuthSettings;
         public void ConfigureAuth(IAppBuilder app)
         {
-            app.SetDefaultSignInAsAuthenticationType(DefaultAuthenticationTypes.ApplicationCookie);
-            ConfigureCookieAuth(app);
-            ConfigureFaceBookAuth(app);
-            ConfigureTwitterAuth(app);
-        }
-        
-        private void ConfigureCookieAuth(IAppBuilder app)
-        {
+            app.CreatePerOwinContext<WebChatDbContext>(DependencyContainer.Current.GetService<WebChatDbContext>);
+            app.CreatePerOwinContext<AppUserManager>(DependencyContainer.Current.GetService<AppUserManager>);
+            app.CreatePerOwinContext<AppSignInManager>(AppSignInManager.Create);
+
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
                 AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
@@ -47,11 +44,10 @@
                     )
                 }
             });
-        }
 
-        private void ConfigureFaceBookAuth(IAppBuilder app)
-        {
-            app.UseFacebookAuthentication(new FacebookAuthenticationOptions
+            app.SetDefaultSignInAsAuthenticationType("External");
+
+            var fb = new FacebookAuthenticationOptions()
             {
                 AppId = config.FacebookSettings.AppId,
                 AppSecret = config.FacebookSettings.AppId,
@@ -62,12 +58,13 @@
                         context.Identity.AddClaim(new System.Security.Claims.Claim(AppClaimTypes.FacebookAccessToken, context.AccessToken));
                         return Task.FromResult(true);
                     }
-                },
-            });
-        }
+                }               
+            };
+            fb.Scope.Add("email");
+            fb.Scope.Add("public_profile");
+            fb.SignInAsAuthenticationType = AppBuilderSecurityExtensions.GetDefaultSignInAsAuthenticationType(app);
+            app.UseFacebookAuthentication(fb);
 
-        private void ConfigureTwitterAuth(IAppBuilder app)
-        {
             app.UseTwitterAuthentication(new TwitterAuthenticationOptions
             {
                 ConsumerKey = config.TwitterSettings.AppId,
@@ -84,7 +81,8 @@
                 }
             });
         }
-
+        
+      
         private CertificateSubjectKeyIdentifierValidator GetTwitterCertificateValidator()
         {
             return new CertificateSubjectKeyIdentifierValidator(

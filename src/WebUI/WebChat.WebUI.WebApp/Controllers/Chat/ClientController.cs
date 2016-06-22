@@ -13,10 +13,19 @@
     using WebChat.Data.Storage.Identity;
     using WebChat.Data.Models.Identity;
     using Data.Interfaces;
+    using Business.DomainModels;
+    using Microsoft.AspNet.Identity;
+    using ViewModels.Client;
     #endregion
 
     public class ClientController : MvcBaseController
     {
+        private ClientDomainModel clientDomainModel;
+
+        public ClientController()
+        {
+            this.clientDomainModel = DependencyResolver.Current.GetService<ClientDomainModel>();
+        }
         private IDataStorage Storage
         {
             get { return DependencyResolver.Current.GetService<IDataStorage>(); }
@@ -27,43 +36,27 @@
             return new JsonpResult(RenderPartialToString("~/Views/Chat/Compact.cshtml", model: null));
         }
 
-
-        [HttpGet]
-        public ActionResult AuthPage()
+        [ActionName("info")]
+        public JsonResult GetClientInfo(long Id)
         {
-            var model = HttpContext.GetOwinContext().Authentication.GetExternalAuthenticationTypes()
-                                   .Select(provider => new ExternalProviderViewModel()
-                                   {
-                                       ProviderAuthenticationType = provider.AuthenticationType,
-                                       IconClass = "fa fa-" + provider.Caption.ToLower(),
-                                       ReferenceClass = "btn-" + provider.Caption.ToLower()
-                                   });
-
-            return PartialView("~/Views/Chat/_AuthExternalLogin.cshtml", model);
+            var info = clientDomainModel.GetClientInfo(Id);
+            return Json(info);
         }
 
-        public ActionResult ExternalLoginSuccess(string returnUrl)
+        [ActionName("photo")]
+        public string GetPhotoSource()
         {
-            ViewBag.ReturnUrl = returnUrl;
-            return View("~/Views/Chat/ExternalLoginSuccess.cshtml");
+            long userId = User.Identity.GetUserId<long>();
+            return clientDomainModel.GetPhotoSrc(userId);
         }
 
-        [HttpPost]
-        public async Task<ActionResult> EmailLogin(int appId, string userName, string userEmail)
+        public JsonResult SetLocation(Location location)
         {
-            var registerDomainModel = DependencyResolver.Current.GetService<AccountController>();
-            var client = new UserModel { UserName = userEmail, Email = userEmail, Name = userName };
-            var result = await registerDomainModel.Register(client, password: null, roles: Roles.Client);
-            if (result.Succeeded)
-            {
-                Storage.Applications.AddUserToApplication(client.Id, appId);
-                await registerDomainModel.SignInManager.SignInAsync(client, isPersistent: false, rememberBrowser: false);
-                return Json(new { result = "Redirect", url = "/chat#/chat" });
-            }
-            else
-            {
-                return Json(new { result = "InvalidLogin", errors = result.Errors }, JsonRequestBehavior.AllowGet);
-            }
+            long userId = User.Identity.GetUserId<long>();
+            clientDomainModel.SetLocation(userId, location);
+            return Json(true);
         }
+
+        
     }
 }

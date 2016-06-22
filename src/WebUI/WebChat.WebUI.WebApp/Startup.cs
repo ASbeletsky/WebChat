@@ -1,7 +1,7 @@
 ﻿[assembly: Microsoft.Owin.OwinStartupAttribute(typeof(WebChat.WebUI.WebApp.Startup))]
 namespace WebChat.WebUI.WebApp
 {
-
+    using Microsoft.Owin.Logging;
     #region Using
 
     using Owin;
@@ -11,8 +11,9 @@ namespace WebChat.WebUI.WebApp
     using System.Web.Optimization;
     using System.Web.Routing;
     using WebChat.WebUI.WebApp.AppStart;
+    using System;
 
-    #endregion 
+    #endregion
 
     public partial class Startup
     {

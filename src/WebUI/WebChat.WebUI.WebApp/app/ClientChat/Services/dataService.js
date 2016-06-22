@@ -8,7 +8,7 @@ chatApp.factory('DataService', ['$http', function ($http) {
         var items = $http(
             {
                 method: 'GET',
-                url: '/api/' + controller + '/' + action
+                url: '/' + controller + '/' + action
             })
              .then(function (response) {
                  return response.data;
@@ -19,14 +19,14 @@ chatApp.factory('DataService', ['$http', function ($http) {
     var post = function (controller, action, data) {
         $http({
             method: 'POST',
-            url: '/api/' + controller + '/' + action,
+            url: '/' + controller + '/' + action,
             data: data
         });
     }
 
 /*---------------------------------------------------------------------------------*/
     DataService.postLocation = function (x, y) {
-        var coordinates = { latitude: x, longitude: y };
+        var coordinates = { Latitude: x, Longitude: y };
         post('Client', 'SetLocation', coordinates);
     };
 

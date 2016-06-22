@@ -6,7 +6,7 @@
 <h2>@ViewBag.Title</h2>
 
 <h2>Please register your operators so that they can start chatting with clients</h2>
-@using (Html.BeginForm("RegisterOperator", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+@using (Html.BeginForm("Register", "AgentAccount", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
     @Html.AntiForgeryToken()
     <hr />
