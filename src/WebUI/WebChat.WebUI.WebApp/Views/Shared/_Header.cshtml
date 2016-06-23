@@ -17,7 +17,7 @@
 
                         if (User.IsInRole("Agent"))
                         {
-                           <li>@Html.ActionLink("Чаты", "Index", "Agent")</li>
+                           <li>@Html.ActionLink("Чаты", "AgentIndex", "Chat")</li>
                         }
                         if (User.IsInRole("Customer"))
                         {

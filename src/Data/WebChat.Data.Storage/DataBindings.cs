@@ -13,7 +13,7 @@
     {
         public override void Load()
         {
-            Kernel.Bind<DbContext>().ToConstructor(context => new WebChatDbContext()).InRequestScope();
+            Kernel.Bind<WebChatDbContext>().ToSelf().InRequestScope();
             Kernel.Bind<IDataStorage>().To<EfDataStorage>().InRequestScope();
         }
     }

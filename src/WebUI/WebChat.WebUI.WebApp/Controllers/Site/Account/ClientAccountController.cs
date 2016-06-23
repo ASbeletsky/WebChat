@@ -55,18 +55,27 @@
         [AllowAnonymous]
         public async Task<ActionResult> EmailLogin(int appId, string userName, string userEmail)
         {
-            var registerDomainModel = DependencyResolver.Current.GetService<AccountController>();
-            var client = new UserModel { UserName = userEmail, Email = userEmail, Name = userName };
-            var result = await this.Register(client, password: null, roles: Roles.Client);
-            if (result.Succeeded)
+            var client = await UserManager.FindByEmailAsync(userEmail);
+            if (client != null)
             {
-                Storage.Applications.AddUserToApplication(client.Id, appId);
-                await this.SignInManager.SignInAsync(client, isPersistent: false, rememberBrowser: false);
+                await SignInManager.SignInAsync(client, isPersistent: false, rememberBrowser: true);
                 return Json(new { result = "Redirect", url = "/chat#/chat" });
             }
             else
             {
-                return Json(new { result = "InvalidLogin", errors = result.Errors }, JsonRequestBehavior.AllowGet);
+                var registerDomainModel = DependencyResolver.Current.GetService<AccountController>();
+                client = new UserModel { UserName = userEmail, Email = userEmail, Name = userName };
+                var result = await this.Register(client, password: null, roles: Roles.Client);
+                if (result.Succeeded)
+                {
+                    Storage.Applications.AddUserToApplication(client.Id, appId);
+                    await this.SignInManager.SignInAsync(client, isPersistent: false, rememberBrowser: false);
+                    return Json(new { result = "Redirect", url = "/chat#/chat" });
+                }
+                else
+                {
+                    return Json(new { result = "InvalidLogin", errors = result.Errors }, JsonRequestBehavior.AllowGet);
+                }
             }
         }
 

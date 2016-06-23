@@ -1,15 +1,23 @@
 ﻿namespace WebChat.WebUI.WebApp.Controllers.Site
 {
+
     #region Using
 
-    using System.Collections.Generic;
+    using Business.DomainModels;
+    using Services.Interfaces;
+    using System.Linq;
     using System.Web.Mvc;
-    using WebChat.WebUI.ViewModels;
-
+    using ViewModels.Agent;
+    using ViewModels.Shared;
     #endregion
     public class CustomerAgentManagementController : MvcBaseController
     {
+        private CustomerDomainModel customerDomainModel;
 
+        public CustomerAgentManagementController(CustomerDomainModel customerDomainModel)
+        {
+            this.customerDomainModel = customerDomainModel;
+        }
         public ActionResult Index()
         {
             return View();
@@ -17,16 +25,33 @@
 
         public JsonResult AgentsList()
         {
-            return JsonData(true, RenderPartialToString("_AgentsList", null), JsonRequestBehavior.AllowGet);
+            var application = DependencyContainer.Current.GetService<ApplicationDomainModel>();
+            var customer = DependencyContainer.Current.GetService<CustomerDomainModel>();
+            var customerAppsIds = customer.GetCustomerApps(CurrentUserId.Value).Select(app => app.Id).ToList();
+            var agents = customerAppsIds.SelectMany(appId => application.GetApplicationAgents(appId));
+
+            return JsonData(true, RenderPartialToString("_AgentsList", agents), JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult AgentsActivity()
+        [HttpGet]
+        public JsonResult AddAgent()
         {
-            return JsonData(true, RenderPartialToString("_AgentsActivity", null), JsonRequestBehavior.AllowGet);
+            var model = new RegisterAgentViewModel();
+            BindDropdowns();
+
+            return JsonData(true, RenderPartialToString("_AddAgent", model), JsonRequestBehavior.AllowGet);
         }
 
         #region private members
-        
+
+        private void BindDropdowns()
+        {
+            ViewBag.CustomerApps = customerDomainModel.GetCustomerApps(CurrentUserId.Value).Select(app => new SelectListItem
+            {
+                Value = app.Id.ToString(),
+                Text = app.WebsiteUrl
+            });
+        }
 
         #endregion
     }

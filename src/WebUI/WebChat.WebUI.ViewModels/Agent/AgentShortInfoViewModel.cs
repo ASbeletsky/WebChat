@@ -1,4 +1,6 @@
-﻿namespace WebChat.WebUI.ViewModels.Agent
+﻿using System;
+
+namespace WebChat.WebUI.ViewModels.Agent
 {
     public class AgentShortInfoViewModel
     {
@@ -7,7 +9,25 @@
             get;
             set;
         }
+
+        public int AppId
+        {
+            get;
+            set;
+        }
+
+        public string AppUrl
+        {
+            get;set;
+        }
+        
         public string Name
+        {
+            get;
+            set;
+        }
+
+        public decimal Rating
         {
             get;
             set;

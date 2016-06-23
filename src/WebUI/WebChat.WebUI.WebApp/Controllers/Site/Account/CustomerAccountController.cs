@@ -57,13 +57,14 @@
                     RegistrationDate = DateTime.Today
                 };
 
-                var registerResult = await this.Register(customer, model.Customer.Password, Roles.Customer);
+                var registerResult = await this.Register(customer, model.Customer.Password, Roles.Customer, Roles.Agent);
                 if (registerResult.Succeeded)
                 {
                     await SignInManager.SignInAsync(customer, isPersistent: false, rememberBrowser: false);
                     var applicationDomainModel = DependencyResolver.Current.GetService<ApplicationDomainModel>();
                     model.App.CustomerId = customer.Id;
-                    applicationDomainModel.CreateApplication(model.App);
+                    var newApp = applicationDomainModel.CreateApplication(model.App);
+                    Storage.Applications.AddUserToApplication(customer.Id, newApp.Id);
                     return RedirectToAction("Index", "CustomerAppManagement");
                 }
 

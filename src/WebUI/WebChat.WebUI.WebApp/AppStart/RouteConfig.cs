@@ -21,7 +21,7 @@
             routes.MapRoute(
                 name: "AgentChatApp",
                 url: "agent-dashboard/{*.}",
-                defaults: new { controller = "Agent", action = "Index" }
+                defaults: new { controller = "Chat", action = "AgentIndex" }
             );
 
             routes.MapRoute(

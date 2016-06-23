@@ -12,7 +12,8 @@ namespace WebChat.WebUI.WebApp
     using System.Web.Routing;
     using WebChat.WebUI.WebApp.AppStart;
     using System;
-
+    using Microsoft.AspNet.SignalR;
+    using RealTimeWebService;
     #endregion
 
     public partial class Startup
@@ -25,8 +26,8 @@ namespace WebChat.WebUI.WebApp
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             ConfigureAuth(app);
             app.UseWebApi(WebApiConfig.Register());
+            GlobalHost.DependencyResolver.Register(typeof(IUserIdProvider), () => new SignalrUserIdProvider());
             app.MapSignalR();
-            AntiForgeryConfig.UniqueClaimTypeIdentifier = ClaimTypes.NameIdentifier;
         }
     }
 }

@@ -10,7 +10,10 @@
     using Data.Models.Identity;
     using Data.Storage;
     using System.Linq;
-
+    using System.Collections.Generic;
+    using Services.Interfaces;
+    using Chat.Stotages;
+    using System;
     #endregion
 
     public class ApplicationDomainModel : BaseDomainModel
@@ -18,16 +21,18 @@
         public ApplicationFieldsViewModel GetAppInfo(int appId)
         {
             var appModel = Storage.Applications.GetById(appId);
-            return Converter.Convert<ApplicationModel, ApplicationFieldsViewModel>(appModel);  
+            return Converter.Convert<ApplicationModel, ApplicationFieldsViewModel>(appModel);
         }
 
-        public void CreateApplication(ApplicationFieldsViewModel app)
+        public ApplicationModel CreateApplication(ApplicationFieldsViewModel app)
         {
             var appModel = Converter.Convert<ApplicationFieldsViewModel, ApplicationModel>(app);
             appModel.Script = this.GenerateScript(appModel);
 
             Storage.Applications.Create(appModel);
             Storage.Save();
+
+            return appModel;
         }
 
         public void EditApplication(ApplicationFieldsViewModel app)
@@ -63,6 +68,22 @@
         }
 
         #endregion
+
+        public IList<AgentShortInfoViewModel> GetApplicationAgents(int appId)
+        {
+            var storedAgents = (from agent in Storage.Applications.GetAgents(appId)
+                                join dialogInfo in Storage.UsersInDialogs.All on agent.Id equals dialogInfo.UserId into agentGroup
+                                select new AgentShortInfoViewModel
+                                {
+                                    UserId = agent.Id,
+                                    Name = agent.UserName,
+                                    PhotoSource = "/Content/Images/default-user-image.png",
+                                    DialogsCount = agentGroup.Count(),
+                                    AppId = appId
+                                }).ToList();
+
+            return storedAgents;
+        }
 
         public AgentShortInfoViewModel GetBestAgent(int appId)
         {

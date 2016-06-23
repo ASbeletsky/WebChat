@@ -1,0 +1,45 @@
+﻿@model WebChat.Data.Models.Application.UsersInAppsModel
+@{
+    ViewBag.Title = "Чаты";
+    Layout = "~/Views/Shared/_AgentDashboardLayout.cshtml";
+}
+
+<input type="hidden" id="application-id" value="@Model.AppId"/>
+
+<div ng-app="chatApp">
+    <div class="row">
+        <div class="panel">
+            <div class="panel-heading">
+                <div class="row">
+                    <!--Dialog Navigation-->
+                    <div ng-controller="chatListController">
+                        <ul id="dialogs-navigation-menu " style="list-style:none;">
+                            <li class="col-md-2 col-sm-4 hidden-xs" ng-repeat="dialogLink in DialogsLinks">
+                                <div class="row">
+                                    <a style="align-self:center; color:black;" href="/agent-dashboard/dialog/{{dialogLink.Dialog.DialogId}}">
+                                        <div ng-class="(dialogLink.isEmpty()) ? 'empty-circle' : 'circle' ">
+                                            <img ng-src="{{dialogLink.Dialog.Client.PhotoUrl}}" class="img-circle" style="height:100px; width:auto" />
+                                        </div>
+                                        {{dialogLink.Dialog.Client.Name}}
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div><!--End Dialog Navigation-->
+            </div>
+            <div class="panel-body mh-15 ph-10">
+                <div id="wait-clients" style="display:none; text-align: center; vertical-align: middle;height:700px; line-height: 650px;">
+                   <p style="font-size:xx-large; font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif">На данный момент нет диалогов</p> 
+                </div>
+                <div ng-view>
+
+                </div>
+            </div>    
+        </div>
+        <!--Active Dialog-->
+    </div><!--End Active Dialog-->
+</div>
+
+
+

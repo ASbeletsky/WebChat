@@ -9,21 +9,55 @@
 
     #endregion
 
+    /// <summary>
+    /// Represents data storage by entity framework data base ORM
+    /// </summary>
     public class EfDataStorage : IDataStorage
     {
         #region Private Members
 
+        /// <summary>
+        /// Contains database context
+        /// </summary>
         private WebChatDbContext context;
+
+        /// <summary>
+        /// Contains message repository
+        /// </summary>
         private IMessageRepository messages;
+
+        /// <summary>
+        /// Contains dialog repository
+        /// </summary>
         private IDialogRepository dialogs; 
+
+        /// <summary>
+        /// Contains application reporsitory
+        /// </summary>
         private ICustomerAppRepository customerApplications;
+
+        /// <summary>
+        /// Contains user reporsitory
+        /// </summary>
         private IUserRepository users;
+
+        /// <summary>
+        /// Contains users in application
+        /// </summary>
         private IUsersInAppsRepository usersInApplication;
+
+        /// <summary>
+        /// Contains user dialog
+        /// </summary>
         private IUsersInDialogsRepository usersInDialogs;
-        private IUsersInRolesRepository usersInRoles; 
+        private IUsersInRolesRepository usersInRoles;
 
         #endregion
 
+        /// <summary>
+        /// Initialuzes new instance if <see cref="EfDataStorage"/>
+        /// </summary>
+        /// <param name="context">database context</param>
         public EfDataStorage(WebChatDbContext context)
         {
             this.context = context;

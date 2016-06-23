@@ -1,7 +1,15 @@
 ﻿chatApp.factory('ChatService',
-    ["$rootScope", "Hub", "customerAppData",
-    function ($rootScope, Hub, customerAppData) {
+    ["$rootScope", "Hub", "DataService",
+    function ($rootScope, Hub, DataService) {
+        var baseSiteUrlPath= $("base").first().attr("href")
         var ChatService = this;
+/*---------------------------------------------------------- Появление учасников ----------------------------------*/
+        ChatService.ConnectNewAgent = function () {
+            hub.promise.done(function () {
+                var appId = DataService.getAppInfo().AppId;
+                hub.onConnectAgent(appId);
+            });
+        };
 
 /*-------------------------------------------- Все диалоги -----------------------------------*/
 //Private:
@@ -24,21 +32,30 @@
             _dialogs = [];
             if($.isArray(dialogs)){
                 for (var i = 0; i < dialogs.length; i++) {
-                    _dialogs.push(new Dialog(dialogs[i].DialogId, dialogs[i].Client, dialogs[i].AppKey));
+                    _dialogs.push(new Dialog(dialogs[i].DialogId, dialogs[i].Client, dialogs[i].AppId));
                 }
             }
             else {
-                _dialogs.push(new Dialog(dialogs.DialogId, dialogs.Client, dialogs.AppKey));
+                _dialogs.push(new Dialog(dialogs.DialogId, dialogs.Client, dialogs.AppId));
             }
-            if (_active_dialog_id === undefined)
-                _active_dialog_id = _dialogs[0].DialogId;
+
+            if (_dialogs.length > 0) {
+                if (_active_dialog_id === undefined) {
+                    _active_dialog_id = _dialogs[0].DialogId;
+                }
+                $('#wait-clients').hide();
+            }
+            else{
+                $('#wait-clients').show();
+            }
+
             ChatService.setActiveDialog(_active_dialog_id);
         }
 
 /*-------------------------------------------- CRUD с диалогами -----------------------------------*/
 
-        ChatService.AddDialog = function (id, client, appKey) {
-            _dialogs.push(new Dialog(id, client, appKey));
+        ChatService.AddDialog = function (id, client, appId) {
+            _dialogs.push(new Dialog(id, client, appId));
         }
 
         ChatService.RemoveDialog = function (id) {
@@ -120,7 +137,7 @@
                 },
                 'addDialog': function (data) {
                     var dialog = JSON.parse(data);
-                    ChatService.AddDialog(dialog.DialogId, dialog.Client, dialog.AppKey);
+                    ChatService.AddDialog(dialog.DialogId, dialog.Client, dialog.AppId);
                     location = location.href;
                 },
                 'UpdateDialogs': function (data) {                    
@@ -138,13 +155,13 @@
                 },
                 'RemoveDialog' : function(dialogId){
                     ChatService.RemoveDialog(dialogId);
-                    window.location = $("base").first().attr("href") + 'agent-dashboard'
+                    window.location = baseSiteUrlPath + 'agent-dashboard'
                 },
                 'UpdateMessagesInDialog': function (data) {
                     var currentDialog = getDialogById(data.DialogId);
                     var messages = data.Messages;
                     for (var i = 0; i < messages.length; i++) {
-                        currentDialog.AddMessage(messages[i].UserName, messages[i].Text, messages[i].Time);
+                        currentDialog.AddMessage(messages[i].SenderName, messages[i].Text, messages[i].FormatedSendedAt);
                     }
                     $rootScope.$apply();
                 },
@@ -161,14 +178,6 @@
 
             logging: true
         });
-
-/*---------------------------------------------------------- Появление учасников ----------------------------------*/
-        ChatService.ConnectNewAgent = function () {
-            hub.promise.done(function () {
-                hub.onConnectAgent();
-            });
-        };
-
 
         return ChatService;
 }]);

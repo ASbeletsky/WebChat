@@ -10,7 +10,7 @@
     {
          [Required]
          [DataType(DataType.Text)]
-         [Display(Name = "Ваше имя")]
+         [Display(Name = "Имя")]
          public string Name { get; set; }
 
          [Required]

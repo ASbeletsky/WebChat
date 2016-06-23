@@ -7,7 +7,7 @@
         var items = $http(
             {
                 method: 'GET',
-                url: '/api/' + controller + '/' + action + '/' + param
+                url: '/' + controller + '/' + action + '/' + param
             })
              .then(function (response) {
                  return response.data;
@@ -18,7 +18,7 @@
     var post = function (controller, action, data) {
         $http({
             method: 'POST',
-            url: '/api/' + controller + '/' + action,
+            url: '/' + controller + '/' + action,
             data: data
         });
     }
@@ -32,22 +32,13 @@
         return get('client', 'info', clientId);
     }
 
+    DataService.getAppInfo = function () {
+        return {
+            AppId: $('#application-id').val()
+        }
+    };
+
 return DataService;
 }]);
 
-chatApp.factory('customerAppData', function ($http, $q) {
-    var promise = null;
-    return {
-        getAppKey: function (appId) {
-            if (promise) {
-                return promise;
-            }
-            promise = $http({ method: 'GET', url: '/api/CustomerApp/Key/' + appId })
-                .then(function (response) {
-                    return response.data;
-                });
-            return promise;
-        }
-    }
-});
 

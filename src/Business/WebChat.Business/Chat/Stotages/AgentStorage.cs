@@ -83,7 +83,7 @@
             {
                 if (this.GetById(item.Id) == null)
                 {
-                    item.Id = _agentsCounter++;
+                    item.Id = ++_agentsCounter;
                     return _agents.TryAdd(item, 2000);
                 }
                 return false;

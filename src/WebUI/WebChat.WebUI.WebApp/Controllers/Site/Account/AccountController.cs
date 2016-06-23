@@ -30,7 +30,7 @@
     #endregion
 
     [Authorize]
-    public class AccountController : Controller
+    public class AccountController : MvcBaseController
     {
         private AppSignInManager signInManager;
         private AppUserManager userManager;
@@ -141,72 +141,15 @@
                     registerResult = await UserManager.CreateAsync(user, password);
 
                 if (registerResult.Succeeded)
-                {
+                {                    
                     foreach (var role in roles)
                     {
                         registerResult = await UserManager.AddToRoleAsync(user.Id, role.ToString());
-                    }
+                    }                 
                 }
             }
 
             return registerResult;
-        }
-
-        #endregion
-
-        #region Agent
-
-        [HttpGet]
-        [ValidateAntiForgeryToken]
-        public ActionResult RegisterOperator()
-        {
-            var customerId = User.Identity.GetUserId<long>();
-            var model = new RegisterOperatorViewModel
-            {
-                CustomerApps = Storage.Applications.GetCustomerApplications(customerId)
-            };
-
-            return View("~/Views/Owner/RegisterAgent.cshtml", model);
-        }
-
-        // POST: /Account/RegisterOperator
-        [HttpPost]
-        public async Task<ActionResult> RegisterAgent(RegisterOperatorViewModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                var agent = new UserModel
-                {
-                    Name = model.Name,
-                    UserName = model.Email,
-                    Email = model.Email,
-                    PhoneNumber = model.Phone,
-                    RegistrationDate = DateTime.Today
-                };
-
-                var registerResult = await this.Register(agent, model.Password, Roles.Agent);
-
-                if (registerResult.Succeeded)
-                {
-                    registerResult = await UserManager.AddPhotoAsync(agent.Id, model.PhotoSrc);
-
-                    foreach (var appId in model.SelectedApps)
-                    {
-                        Storage.Applications.AddUserToApplication(agent.Id, appId);                        
-                    }
-                    Storage.Save();
-                    return RedirectToAction("OwnerAgents", "Owner");
-                }
-                else
-                {
-                    AddErrors(registerResult);
-                }
-            }
-
-            var customerId = User.Identity.GetUserId<long>();
-            model.CustomerApps = Storage.Applications.GetCustomerApplications(customerId);
-
-            return View("~/Views/Owner/RegisterAgent.cshtml", model);
         }
 
         #endregion

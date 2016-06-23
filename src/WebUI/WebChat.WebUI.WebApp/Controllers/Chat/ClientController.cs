@@ -40,14 +40,14 @@
         public JsonResult GetClientInfo(long Id)
         {
             var info = clientDomainModel.GetClientInfo(Id);
-            return Json(info);
+            return Json(info, JsonRequestBehavior.AllowGet);
         }
 
         [ActionName("photo")]
         public string GetPhotoSource()
         {
             long userId = User.Identity.GetUserId<long>();
-            return clientDomainModel.GetPhotoSrc(userId);
+            return Storage.Users.GetById(userId).PhotoSource;
         }
 
         public JsonResult SetLocation(Location location)
@@ -55,8 +55,6 @@
             long userId = User.Identity.GetUserId<long>();
             clientDomainModel.SetLocation(userId, location);
             return Json(true);
-        }
-
-        
+        }    
     }
 }

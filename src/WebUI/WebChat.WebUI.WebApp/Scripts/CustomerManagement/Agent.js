@@ -1,23 +1,65 @@
-﻿var agentManagement = agentManagement || {};
+﻿var agents = function () {
 
-var pageContainer = '#AjaxContainer';
+    var self = self || {};
 
-
-agentManagement.OpenLink = function (actionName){
-    $.ajax({
-        url: '/CustomerAgentManagement/' + actionName,
-        type: "get",
-        success: function (result){
-            if(result.IsSuccess){
-                $(pageContainer).html(result.Data);
+    var loadPage = function (data) {
+        $.ajax({
+            url: data.url,
+            type: "get",
+            data: data.params,
+            success: function (result) {
+                if (result.IsSuccess) {
+                    $(data.container).html(result.Data);
+                    if (typeof (data.onSuccess) != "undefined") {
+                        data.onSuccess();
+                    }
+                }
+                else {
+                    NotifyError(result.Message)
+                }
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                if (thrownError == "")
+                    thrownError = "Не удалось получить ответ от сервера";
+                NotifyError(thrownError)
             }
-            else{
-                NotifyError(result.Message)
+        });
+    };
+
+    self.getAgentList = function () {
+        loadPage({
+            url: '/CustomerAgentManagement/AgentsList/',
+            container: '#agent-list-container'
+        });
+    }
+
+    self.AddAgentPage = function () {
+        loadPage({
+            url: '/CustomerAgentManagement/AddAgent/',
+            container: '#agent-container',
+            onSuccess: function () {
+                $('#SelectedApps').chosen();
             }
-        }       
-    });
-};
+        });
+    }
+
+    self.OnAddAgentSuccess = function (result) {
+        if (result.IsSuccess) {
+            NotifySuccess(result.Message)
+            $('#agent-container').html(result.Data);
+        }
+        else {
+            NotifyError(result.Message);
+        }
+    }
+
+    return self;
+}();
+
+$('#add-agent-btn').on('click', function () {
+    agents.AddAgentPage();
+});
 
 $(document).ready(function () {
-    agentManagement.OpenLink('AgentsList');
+    agents.getAgentList();   
 });

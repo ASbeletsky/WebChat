@@ -34,6 +34,7 @@
             ChatDialog dilog = new ChatDialog(appId, client, agent)
             {
                 Id = Dialogs.GenerateId(),
+                ApplicationId = appId
             };
 
             DialogModel storedDialog = new DialogModel()
@@ -44,6 +45,7 @@
             };
 
             Storage.Dialogs.Create(storedDialog);
+            Storage.Save();
 
             var clietDialog = new UsersInDialogsModel { UserId = client.UserId, DialogId = storedDialog.Id };
             var agentDialog = new UsersInDialogsModel { UserId = agent.UserId, DialogId = storedDialog.Id };

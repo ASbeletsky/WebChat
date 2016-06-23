@@ -50,9 +50,9 @@
         /// Returns the most free agent. Algorithm of choosing the most free agent depends on Balancer.cs config
         /// </summary>
         /// <returns>The most free agent</returns>
-        public ChatAgent FreeAgent()
+        public ChatAgent FreeAgent(int appId)
         {
-            var agents = Agents.All;
+            var agents = Agents.All.Where(agent => agent.AppId == appId);
             if (agents.Any())
             {
                 Balancer balancer = Balancer.GetInstance(BalancerType.WorkingTime, agents);

@@ -251,7 +251,6 @@
     <Content Include="app\AgentChat\Services\dataService.js" />
     <Content Include="app\AgentChat\Views\ChatView.html" />
     <Content Include="app\AgentChat\Views\ClientView.html" />
-    <Content Include="app\AgentChat\Views\Layout.html" />
     <Content Include="app\ClientChat\app.js" />
     <Content Include="app\ClientChat\Controllers\authController.js" />
     <Content Include="app\ClientChat\Controllers\chatController.js" />
@@ -264,9 +263,11 @@
     <Content Include="app\ClientChat\Views\AuthView.html" />
     <Content Include="app\ClientChat\Views\ChatView.html" />
     <Content Include="app\ClientChat\Views\EndChatView.html" />
-    <Content Include="Content\Styles\Chat\chat-layout.css" />
-    <Content Include="Content\Styles\Chat\compact-start-page.css" />
-    <Content Include="Content\Styles\Chat\start-page.css" />
+    <Content Include="Content\Styles\Chat\agent\agent-dialogs-navigation.css" />
+    <Content Include="Content\Styles\Chat\client\chat-layout.css" />
+    <Content Include="Content\Styles\Chat\client\compact-start-page.css" />
+    <Content Include="Content\Styles\Chat\client\start-page.css" />
+    <Content Include="Content\Styles\Customer\Agents.css" />
     <Content Include="Content\Styles\Plugins\bootstrap\bootstrap-social.css" />
     <Content Include="Content\Styles\Plugins\bootstrap\bootstrap-theme.css" />
     <Content Include="Content\Styles\Plugins\bootstrap\bootstrap-theme.min.css" />
@@ -276,6 +277,10 @@
     <Content Include="Content\Styles\Plugins\charts\EasyPieChart.css" />
     <Content Include="Content\Styles\Plugins\charts\Flot.css" />
     <Content Include="Content\Styles\Plugins\charts\morris.css" />
+    <Content Include="Content\Styles\Plugins\chosen\bootstrap-chosen.css" />
+    <Content Include="Content\Styles\Plugins\chosen\chosen-sprite%402x.png" />
+    <Content Include="Content\Styles\Plugins\chosen\chosen-sprite.png" />
+    <Content Include="Content\Styles\Plugins\chosen\chosen.css" />
     <Content Include="Content\Styles\Plugins\font-icons\font-awesome.css" />
     <Content Include="Content\Styles\Plugins\jquery-ui\jquery-jvectormap-2.0.3.css" />
     <Content Include="Content\Styles\Customer\AppUsersAndChatsInfo.css" />
@@ -287,6 +292,10 @@
     <Content Include="Content\Styles\Plugins\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\Styles\Plugins\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="packages.config" />
+    <Content Include="Scripts\Plugins\chosen\chosen.jquery.js" />
+    <Content Include="Scripts\Plugins\chosen\chosen.jquery.min.js" />
+    <Content Include="Scripts\Plugins\chosen\chosen.proto.js" />
+    <Content Include="Scripts\Plugins\chosen\chosen.proto.min.js" />
     <Content Include="Scripts\Plugins\signalr\jquery.signalR-2.2.0.js" />
     <Content Include="Scripts\Plugins\signalr\jquery.signalR-2.2.0.min.js" />
     <Content Include="Scripts\Plugins\bootstrap\bootstrap.js" />
@@ -329,18 +338,16 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
-    <Content Include="Views\Account\RegisterCustomerAndFirstApp.cshtml" />
+    <Content Include="Views\CustomerAccount\RegisterCustomerAndFirstApp.cshtml" />
     <Content Include="Views\Account\RegisterOperator.cshtml" />
     <Content Include="Views\Account\_Register.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Application\_Application.cshtml" />
     <Content Include="Views\Shared\_Header.cshtml" />
     <Content Include="Views\CustomerAppManagement\Index.cshtml" />
-    <Content Include="Views\Shared\_Menu.cshtml" />
     <Content Include="Views\CustomerAgentManagement\_AgentsList.cshtml" />
     <Content Include="Views\Shared\_Footer.cshtml" />
     <Content Include="Views\CustomerAgentManagement\Index.cshtml" />
-    <Content Include="Views\CustomerAgentManagement\_AgentsActivity.cshtml" />
     <Content Include="Views\AppStatistic\_AppUsersAndChatsInfo.cshtml" />
     <Content Include="Views\AppStatistic\_UsersOnMap.cshtml" />
     <Content Include="Views\AppStatistic\_UsersStatistic.cshtml" />
@@ -357,6 +364,9 @@
     <Content Include="Views\Shared\_ChatClientLayout.cshtml" />
     <Content Include="Views\Chat\_AuthExternalLogin.cshtml" />
     <Content Include="Views\Chat\ExternalLoginSuccess.cshtml" />
+    <Content Include="Views\CustomerAgentManagement\_AddAgent.cshtml" />
+    <Content Include="Views\Chat\AgentIndex.cshtml" />
+    <Content Include="Views\Shared\_AgentDashboardLayout.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -401,8 +411,10 @@
     <Compile Include="AppStart\Startup.Auth.cs" />
     <Compile Include="AppStart\WebApiConfig.cs" />
     <Compile Include="AppStart\NinjectWebCommon.cs" />
+    <Compile Include="Controllers\Chat\AgentController.cs" />
     <Compile Include="Controllers\Chat\ChatController.cs" />
     <Compile Include="Controllers\Chat\ClientController.cs" />
+    <Compile Include="Controllers\Site\Account\AgentAccountController.cs" />
     <Compile Include="Controllers\Site\Account\ClientAccountController.cs" />
     <Compile Include="Controllers\Site\Account\CustomerAccountController.cs" />
     <Compile Include="Hubs\ChatHub.cs" />
@@ -454,7 +466,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\ClientAccount\" />
-    <Folder Include="Views\CustomerAccount\" />
     <Folder Include="Views\Dialog\" />
   </ItemGroup>
   <PropertyGroup>

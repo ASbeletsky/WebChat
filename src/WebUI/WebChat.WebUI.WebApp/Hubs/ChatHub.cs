@@ -37,7 +37,7 @@
         }
         private bool IsSupportAgent()
         {
-            return Context.User.IsInRole("SupportAgent");
+            return Context.User.IsInRole("Agent");
         }
         private bool IsClient()
         {
@@ -75,8 +75,7 @@
                     {
                         Clients.Caller.BeginDialog();
                     }
-                }
-                else ReturnUnAutorized();
+                }             
             }
             else
             {
@@ -90,7 +89,7 @@
         {
             if (IsAuthenticated)
             {
-                ChatAgent agent = agents.FreeAgent();
+                ChatAgent agent = agents.FreeAgent(appId);
 
                 if (agent != null)
                 {
@@ -117,6 +116,7 @@
             if (!agents.IsOnline(userId))
             {
                 var agent = new ChatAgent(userId, appId);
+                agent.StartWorkAt = DateTime.Now;
                 agents.ConnectAgent(agent);
             }
         }
@@ -232,23 +232,28 @@
 
         private void SendAllAgentDialogs(string userId)
         {
-            var agentDialogs = agents.GetByUserId(userId).Dialogs.ToList();
+            var agentDialogs = agents.GetByUserId(userId).Dialogs;
             var agentDialogsInJson = new List<string>();
-            foreach (var dialog in agentDialogs)
+
+            if (agentDialogs != null && agentDialogs.Any())
             {
-                var dialogInJson = Converter.ConvertToJson(new
+                foreach (var dialog in agentDialogs)
                 {
-                    DialogId = dialog.Id,
-                    Client = new
+                    var dialogInJson = Converter.ConvertToJson(new
                     {
-                        Id = dialog.Client.UserId,
-                        Name = Stoage.Users.All.Where(u => u.Id == dialog.Client.UserId).Select(u => u.Name).FirstOrDefault(),
-                        PhotoUrl = "/Content/Images/default-user-image.png"
-                    },
-                    AppID = dialog.ApplicationId
-                });
-                agentDialogsInJson.Add(dialogInJson);
+                        DialogId = dialog.Id,
+                        Client = new
+                        {
+                            Id = dialog.Client.UserId,
+                            Name = Stoage.Users.All.Where(u => u.Id == dialog.Client.UserId).Select(u => u.Name).FirstOrDefault(),
+                            PhotoUrl = "/Content/Images/default-user-image.png"
+                        },
+                        AppId = dialog.ApplicationId
+                    });
+                    agentDialogsInJson.Add(dialogInJson);
+                }
             }
+            
             Clients.User(userId).UpdateDialogs(agentDialogsInJson);
         }
 

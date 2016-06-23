@@ -9,6 +9,7 @@ namespace WebChat.Business.Chat.Entities
             Id = id;
             Client = client;
             Agent = agent;
+            Agent.Dialogs.Add(this);
         }
         public int Id { get; set; }
         public int ApplicationId { get; set; }

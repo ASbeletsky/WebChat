@@ -2,7 +2,7 @@
 <html>
 <head>
     <base href="@System.Configuration.ConfigurationManager.AppSettings["BaseUrlPath"].ToString()" />
-    @Styles.Render(WebChat.WebUI.WebApp.AppStart.BundleConfig.ChatStyles)
+    @Styles.Render(WebChat.WebUI.WebApp.AppStart.BundleConfig.ClientChatStyles)
     <meta charset="utf-8" />
 </head>
 <body>
@@ -15,7 +15,7 @@
         </div>
     </footer>
 
-    @Scripts.Render(WebChat.WebUI.WebApp.AppStart.BundleConfig.ChatScripts)
+    @Scripts.Render(WebChat.WebUI.WebApp.AppStart.BundleConfig.ChatScriptsShared)
     @Scripts.Render(WebChat.WebUI.WebApp.AppStart.BundleConfig.ClientChatApp)
 </body>
 </html>

@@ -2,4 +2,34 @@
     ViewBag.Title = "Операторы";
 }
 
+@section styles
+{
+    @Styles.Render(WebChat.WebUI.WebApp.AppStart.BundleConfig.CustomerAgentsStyles)
+}
+
+<div id="agent-task-bar">
+    <div class="well">
+        <div class="row">
+            <div class="col-sm-2">
+                <button id="add-agent-btn" onclick="agents.AddAgentPage();" class="btn btn-success"><i class="fa fa-user-plus"></i> Создать оператора</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="agent-container">
+
+</div>
+
+<div id="agent-list-container">
+
+</div>
+
+
+@section scripts
+{
+    @Scripts.Render(WebChat.WebUI.WebApp.AppStart.BundleConfig.CustomerAgentsScripts)
+
+}
+
 

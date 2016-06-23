@@ -1,0 +1,26 @@
+﻿@model WebChat.WebUI.ViewModels.Agent.RegisterAgentViewModel
+
+<div>
+    <div class="panel panel-default">
+        <h3 class="text-center">Регистрация аккаунта оператора</h3>
+        <div class="panel-body">
+            @using (Ajax.BeginForm("RegisterAgent", "AgentAccount", null, new AjaxOptions { HttpMethod = "POST", OnSuccess = "agents.OnAddAgentSuccess" }, new { @class="form-horizontal" } ))
+            {
+                <div class="row">
+                    @Html.Partial("~/Views/Account/_Register.cshtml", Model)
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.SelectedApps, new { @class = "col-md-4 control-label" })
+                        <div class="col-md-6">
+                            @Html.DropDownListFor(m => m.SelectedApps, (IEnumerable<SelectListItem>) ViewBag.CustomerApps, new { @class = "form-control"})
+                        </div>
+                    </div>
+                </div>              
+
+                <div class="text-center">
+                    <button class="btn btn-primary">Сохранить</button>
+                </div>              
+            }
+        </div>
+    </div>
+</div>

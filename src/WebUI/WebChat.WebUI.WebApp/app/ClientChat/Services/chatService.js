@@ -10,7 +10,7 @@
 /*----------------------------------------------- Начало диалога ----------------------------------------*/
             ChatService.ConnectNewClient = function () {
                 hub.promise.done(function () {
-                    var appId = DataService.getAppInfo.AppId;
+                    var appId = DataService.getAppInfo().AppId;
                     hub.onNewClient(appId);
                     
                 });

@@ -1,0 +1,34 @@
+﻿.menu-items {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+ul, menu, dir {
+    display: block;
+    list-style-type: disc;
+    -webkit-margin-before: 1em;
+    -webkit-margin-after: 1em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+    -webkit-padding-start: 40px;
+}
+
+.menu-items li a {
+    display: block;
+    height: 40px;
+    line-height: 40px;
+    border-bottom: 1px solid #e7ebee;
+    padding: 0 20px;
+    font-size: .875em;
+    -webkit-transition: background-color .15s ease-in-out 0;
+    transition: background-color .15s ease-in-out 0;
+    color: #344644;
+}
+
+.menu-items li a span.label {
+    margin-top: 10px;
+}
+.label {
+    padding: .6em .8em;
+}

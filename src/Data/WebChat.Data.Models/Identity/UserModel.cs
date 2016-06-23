@@ -43,5 +43,16 @@
             var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
             return userIdentity;
         }
+
+        public string PhotoSource
+        {
+            get
+            {
+                string photoSrc = this.Claims.FirstOrDefault(c => c.ClaimType == "PhotoUrl").ClaimValue;
+                if (photoSrc == null)
+                    photoSrc = "~/Content/Images/default-user-image.png";
+                return photoSrc;
+            }
+        }
     }
 }

@@ -1,0 +1,24 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <base href="@System.Configuration.ConfigurationManager.AppSettings["BaseUrlPath"].ToString()" />    
+    @Styles.Render(WebChat.WebUI.WebApp.AppStart.BundleConfig.SharedStyles)
+    @Styles.Render(WebChat.WebUI.WebApp.AppStart.BundleConfig.AgentChatStyles)
+    <meta charset="utf-8" />
+</head>
+<body>
+    @Html.Partial("_Header")
+
+    <div id="wrap" class="container body-content">
+        <div id="main">
+            @RenderBody()
+            <br />
+        </div>
+    </div>
+
+    @Html.Partial("_Footer")
+
+    @Scripts.Render(WebChat.WebUI.WebApp.AppStart.BundleConfig.ChatScriptsShared)
+    @Scripts.Render(WebChat.WebUI.WebApp.AppStart.BundleConfig.AgentChatApp)
+</body>
+</html> 

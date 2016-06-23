@@ -23,6 +23,7 @@
         #endregion
 
         #region Constructors
+
         public CustomerAppRepository(WebChatDbContext context)
         {
             _context = context;

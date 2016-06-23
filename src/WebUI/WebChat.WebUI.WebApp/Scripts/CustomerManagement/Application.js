@@ -1,7 +1,5 @@
 ﻿var app = function () {
     var self = self || {};
-
-    var appManagement = appManagement || {};
     var customerAppsDropdownId = '#customerApps';
     
     $('#customerApps').on('change', function () {
