@@ -56,6 +56,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Application\ApplicationFieldsViewModel.cs" />
     <Compile Include="Statistic\AppStatisticTimePeriodViewModel.cs" />
+    <Compile Include="Statistic\DialogPerDayChartIDataItem.cs" />
+    <Compile Include="Statistic\DialogsDurationPerDayChartDataItem.cs" />
+    <Compile Include="Statistic\MessageCountDifferenceChartDataItem.cs" />
     <Compile Include="SupportAgentViewModel.cs" />
     <Compile Include="Сhat\AuthViewModel.cs" />
     <Compile Include="Сhat\ExternalProviderViewModel.cs" />

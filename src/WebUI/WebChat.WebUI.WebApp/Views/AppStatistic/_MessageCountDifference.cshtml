@@ -1,0 +1,25 @@
+﻿@model int?
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="text-center">Сообщений в текущем и предыдущем месяце</h4>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            @using (Ajax.BeginForm("MessageCountDifferenceChart", "AppStatistic", new { appId = Model },
+                new AjaxOptions { HttpMethod = "POST", OnSuccess = "statistic.drowMessageCountDifference" },
+                new { id = "message-count-difference-form", @class = "form-horizontal" }))
+            {
+                <div class="col-sm-4">
+                    <button type="submit" class="btn btn-warning"><i class="fa fa-refresh"> Обновить</i></button>
+                </div>
+            }
+        </div>
+    </div>
+    <div class="body-content">
+        <div id="message-count-difference-chart" class="row">
+
+        </div>
+    </div>
+</div>
+

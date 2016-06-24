@@ -1,0 +1,23 @@
+﻿@model WebChat.WebUI.ViewModels.Statistic.AppStatisticTimePeriodViewModel
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="text-center">Средня продолжительность диалогов в день</h4>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            @using (Ajax.BeginForm("DialogsDurationPerDay", "AppStatistic", null,
+                new AjaxOptions { HttpMethod = "POST", OnSuccess = "statistic.drowAvarageDialogsDurationPerDay" },
+                new { id = "dialogs-duration-per-day-form", @class = "form-horizontal" }))
+            {
+                @Html.Partial("_ChartDates", Model)
+            }
+        </div>
+    </div>
+    <div class="body-content">
+        <div id="dialogs-duration-per-day-chart" class="row">
+
+        </div>
+    </div>
+</div>
+

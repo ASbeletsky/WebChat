@@ -11,6 +11,8 @@
     using Models.Chat;
     using Identity;
     using Models.Identity;
+    using WebUI.ViewModels.Statistic;
+    using System.Data.SqlClient;
     #endregion
 
     public class CustomerAppRepository : ICustomerAppRepository
@@ -132,33 +134,33 @@
         //    .ToList();
         //}
 
-        //public IEnumerable<ChatDurationPerDay> ChatDurationInPeriod(int AppId, DateTime StartDate, DateTime EndDate)
-        //{
-        //    return _context.Database.SqlQuery<ChatDurationPerDay>(
-        //        "select * from dbo.ChatDurationInPeriod(@appId, @StartDate, @EndDate)",
-        //        new SqlParameter("@StartDate", StartDate),
-        //        new SqlParameter("@EndDate", EndDate),
-        //        new SqlParameter("@appId", AppId))
-        //    .ToList();
-        //}
+        public IEnumerable<DialogsDurationPerDayChartDataItem> GetChatDurationInPeriod(int appId, DateTime startDate, DateTime endDate)
+        {
+            return _context.Database.SqlQuery<DialogsDurationPerDayChartDataItem>(
+                "select * from dbo.ChatDurationInPeriod(@appId, @StartDate, @EndDate)",
+                new SqlParameter("@StartDate", startDate),
+                new SqlParameter("@EndDate", endDate),
+                new SqlParameter("@appId", appId))
+            .ToList();
+        }
 
-        //public IEnumerable<DialogsPerDay> ChatsCountInPeriod(int AppId, DateTime StartDate, DateTime EndDate)
-        //{
-        //    return _context.Database.SqlQuery<DialogsPerDay>(
-        //        "select * from dbo.ChatsCountInPeriod(@appId, @StartDate, @EndDate)",
-        //        new SqlParameter("@StartDate", StartDate),
-        //        new SqlParameter("@EndDate", EndDate),
-        //        new SqlParameter("@appId", AppId))
-        //    .ToList();
-        //}
+        public IEnumerable<DialogPerDayChartIDataItem> GetChatsCountInPeriod(int appId, DateTime startDate, DateTime endDate)
+        {
+            return _context.Database.SqlQuery<DialogPerDayChartIDataItem>(
+                "select * from dbo.ChatsCountInPeriod(@appId, @StartDate, @EndDate)",
+                new SqlParameter("@StartDate", startDate),
+                new SqlParameter("@EndDate", endDate),
+                new SqlParameter("@appId", appId))
+            .ToList();
+        }
 
-        //public IEnumerable<MessagesByMonth> MessageCountInCurrentAndPreviosMonth(int AppId)
-        //{
-        //    return _context.Database.SqlQuery<MessagesByMonth>(
-        //        "select * from dbo.MessageCountInCurrentAndPreviosMonth(@appId)",
-        //        new SqlParameter("@appId", AppId))
-        //    .ToList();
-        //}
+        public MessageCountDifferenceChartDataItem MessageCountInCurrentAndPreviosMonth(int appId)
+        {
+            return _context.Database.SqlQuery<MessageCountDifferenceChartDataItem>(
+                "select * from dbo.MessageCountInCurrentAndPreviosMonth(@appId)",
+                new SqlParameter("@appId", appId))
+            .FirstOrDefault();
+        }
 
         //public IEnumerable<AgentAndMessageCount> MostActiveAgentOnDay(int AppId, DateTime Day)
         //{

@@ -2,23 +2,21 @@
 
 <div class="panel panel-default">
     <div class="panel-heading">
-        <div class="col-sm-6">
-            <h4>Диалогов в день</h4>
-        </div>
-        <div class="col-sm-6">
-            <div class="form-group">
-                @Html.LabelFor(model => model.StartDate, new { @class = "col-sm-6" })
-                @Html.TextBoxFor(model => model.StartDate, new { @class = "col-sm-6" })
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(model => model.EndDate, new { @class = "col-sm-6" })
-                @Html.TextBoxFor(model => model.EndDate, new { @class = "col-sm-6" })
-            </div>
-        </div>
+        <h4 class="text-center">Колличество диалогов в день</h4>
     </div>
     <div class="panel-body">
-        <div id="dialogs-per-day-chart">
+        <div class="row">
+            @using (Ajax.BeginForm("DialogsPerDay", "AppStatistic", null,
+                new AjaxOptions { HttpMethod = "POST", OnSuccess = "statistic.drowAvarageDialogsPerDay" },
+                new { id = "dialogs-per-day-form", @class="form-horizontal" }))
+            {
+                @Html.Partial("_ChartDates", Model)
+            }
+            </div>        
+        </div>
+        <div class="body-content">
+            <div id="dialogs-per-day-chart" class="row">
 
+            </div>
         </div>
     </div>
-</div>

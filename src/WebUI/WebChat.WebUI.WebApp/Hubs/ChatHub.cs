@@ -62,7 +62,7 @@
                     else
                         base.Clients.Caller.RegisterAsAgent();
                 }
-                if (IsClient())
+                else if (IsClient())
                 {
                     ChatDialog dialog = dialogs.FindByClientId(userId);
                     if (dialog != null)
@@ -75,7 +75,11 @@
                     {
                         Clients.Caller.BeginDialog();
                     }
-                }             
+                }
+                else
+                {
+                    ReturnUnAutorized();
+                }           
             }
             else
             {
@@ -225,7 +229,7 @@
             var data = new
             {
                 DialogId = chatDialogId,
-                Messages = messages
+                Messages = messages,
             };
             Clients.Caller.UpdateMessagesInDialog(data);
         }

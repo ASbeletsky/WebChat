@@ -1,0 +1,24 @@
+﻿@model WebChat.WebUI.ViewModels.Statistic.AppStatisticTimePeriodViewModel
+
+<div>
+    @Html.HiddenFor(model => model.AppId)
+    <div class="col-sm-4">
+        <div class="form-group">
+            @Html.LabelFor(model => model.StartDate, new { @class = "col-sm-6 control-label" })
+            <div class="col-sm-6">
+                @Html.TextBoxFor(model => model.StartDate, new { @class = " form-control" })
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="form-group">
+            @Html.LabelFor(model => model.EndDate, new { @class = "col-sm-6 control-label" })
+            <div class="col-sm-6">
+                @Html.TextBoxFor(model => model.EndDate, new { @class = " form-control" })
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <button type="submit" class="btn btn-primary"><i class="fa fa-refresh"> Обновить</i></button>
+    </div>
+</div>

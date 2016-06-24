@@ -65,6 +65,7 @@
                     model.App.CustomerId = customer.Id;
                     var newApp = applicationDomainModel.CreateApplication(model.App);
                     Storage.Applications.AddUserToApplication(customer.Id, newApp.Id);
+                    Storage.Save();
                     return RedirectToAction("Index", "CustomerAppManagement");
                 }
 

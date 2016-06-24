@@ -57,24 +57,57 @@
         $('.legend .legendColorBox').hide();
     };
 
-    self.drowAvarageDialogsPerDay = function (data) {
-        window.AvarageDialogsPerDayChart = Morris.Line({
-            element: 'dialogs-per-day-chart',
-            data: [
-              { y: '2006', a: 100, b: 90 },
-              { y: '2007', a: 75, b: 65 },
-              { y: '2008', a: 50, b: 40 },
-              { y: '2009', a: 75, b: 65 },
-              { y: '2010', a: 50, b: 40 },
-              { y: '2011', a: 75, b: 65 },
-              { y: '2012', a: 100, b: 90 }
-            ],
-            xkey: 'y',
-            ykeys: ['a'],
-            labels: ['Series A'],
-            resize: true
-        });
+    self.drowAvarageDialogsPerDay = function (result) {
+        if (result.IsSuccess) {
+            $('#dialogs-per-day-chart').empty();
+            window.AvarageDialogsPerDayChart = Morris.Line({
+                element: 'dialogs-per-day-chart',
+                data: result.Data,
+                xkey: 'FormatedDate',
+                ykeys: ['DialogsCount'],
+                labels: ['Диалогов'],
+                resize: true
+            });
+        }
+        else {
+            NotifyError(result.Message);
+        }       
     };
+
+    self.drowAvarageDialogsDurationPerDay = function (result) {
+        if (result.IsSuccess) {
+            $('#dialogs-duration-per-day-chart').empty();
+            window.AvarageDialogsDurationPerDayChart = Morris.Line({
+                element: 'dialogs-duration-per-day-chart',
+                data: result.Data,
+                xkey: 'FormatedDate',
+                ykeys: ['DurationInMinutes'],
+                labels: ['минут'],
+                lineColors: ['#167f39'],
+                resize: true
+            });
+        }
+        else {
+            NotifyError(result.Message);
+        }
+    };
+
+    self.drowMessageCountDifference = function (result) {
+        if (result.IsSuccess) {
+            $('#message-count-difference-chart').empty();
+            Morris.Bar({
+                element: 'message-count-difference-chart',
+                data: result.Data,
+                xkey: '2016',
+                ykeys: ['MessagesInCurrect', 'MessagesInPrevios'],
+                labels: ['сообщений в текущем', 'сообщений в предыдущем']
+               
+            });
+        }
+        else {
+            NotifyError(result.Message);
+        }
+    }
 
     return self;
 }();
@@ -82,7 +115,8 @@
 $(window).on('resize', function () {
     if (!window.recentResize) {
         window.AvarageDialogsPerDayChart.redraw();
+        window.AvarageDialogsDurationPerDayChart.redraw();
         window.recentResize = true;
-        setTimeout(function () { window.recentResize = false; }, 150);
+        setTimeout(function () { window.recentResize = false; }, 250);
     }
 });

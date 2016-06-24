@@ -121,20 +121,21 @@
         private string GenerateScript(ApplicationModel app)
         {
             string applicationSiteUrl = app.WebsiteUrl;
-            string mainChatScriptUrl = base.Settings.ServiceUrl.Host + ":" + base.Settings.ServiceUrl.Port + "/chat-script";
+            string chatServiseUrl = base.Settings.ServiceUrl.Host + ":" + base.Settings.ServiceUrl.Port;
 
             StringBuilder scriptBuilder = new StringBuilder();
             scriptBuilder.AppendLine(@"<script type='text/javascript'>")
                          .AppendLine(@"      var __chat = { };")
                          .AppendFormat("       __chat.appId = {0};", app.Id).AppendLine()
                          .AppendFormat("       __chat.targetUrl = '{0}';", applicationSiteUrl)
+                         .AppendFormat("       __chat.serviceUrl = ('https:' == document.location.protocol ? 'https://' : 'http://') + '{0}';", chatServiseUrl)
                          .AppendLine(@"      localStorage.setItem('webChatAppId', __chat.appId);")
                          .AppendLine(@"      localStorage.setItem('webChatTargetUrl', __chat.targetUrl);")
+                         .AppendLine(@"      localStorage.setItem('chatServiseUrl', __chat.serviceUrl);")
                          .AppendLine(@"      (function() {")
                          .AppendLine(@"           var lc = document.createElement('script');")
                          .AppendLine(@"           lc.type = 'text/javascript'; lc.async = true;")
-                         .Append(@"           lc.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + ")
-                         .AppendFormat("'{0}';", mainChatScriptUrl).AppendLine()
+                         .Append(@"               lc.src = __chat.serviceUrl + '/chat-script';")                       
                          .AppendLine(@"           var s = document.getElementsByTagName('script')[0];")
                          .AppendLine(@"           s.parentNode.insertBefore(lc, s);")
                          .AppendLine(@"      })();")

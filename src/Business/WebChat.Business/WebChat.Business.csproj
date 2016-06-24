@@ -67,6 +67,7 @@
     <Compile Include="Chat\Stotages\DialogStorage.cs" />
     <Compile Include="DomainModels\AgentDomainModel.cs" />
     <Compile Include="DomainModels\ApplicationDomainModel.cs" />
+    <Compile Include="DomainModels\ApplicationStatisticDomainModel.cs" />
     <Compile Include="DomainModels\BaseDomainModel.cs" />
     <Compile Include="DomainModels\ClientDomainModel.cs" />
     <Compile Include="DomainModels\DialogDomainModel.cs" />

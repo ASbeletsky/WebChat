@@ -69,6 +69,7 @@
                 if (result.Succeeded)
                 {
                     Storage.Applications.AddUserToApplication(client.Id, appId);
+                    Storage.Save();
                     await this.SignInManager.SignInAsync(client, isPersistent: false, rememberBrowser: false);
                     return Json(new { result = "Redirect", url = "/chat#/chat" });
                 }

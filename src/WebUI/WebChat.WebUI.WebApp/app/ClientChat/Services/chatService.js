@@ -18,19 +18,21 @@
 /*------------------------------------------------ Все сообщения -----------------------------------------*/
             ChatService.allMessages = [];
 
-            ChatService.addMessage = function (userName, chatMessage) {
+            ChatService.addMessage = function (userName, chatMessage, time) {
                 ChatService.allMessages.push(new MessageModel({
                     UserName: userName,
-                    ChatMessage: chatMessage
+                    ChatMessage: chatMessage,
+                    Time: time
                 }));
             }
 /*-------------------------------------------------- Сообщение ------------------------------------------*/
 
-            var MessageModel = function (chatApp) {
-                if (!chatApp) chatApp = {};
+            var MessageModel = function (message) {
+                if (!message) message = {};
                 var MessageModel = {
-                    UserName: chatApp.UserName,
-                    ChatMessage: chatApp.ChatMessage,
+                    UserName: message.UserName,
+                    ChatMessage: message.ChatMessage,
+                    Time : message.Time
                 }
                 return MessageModel;
             }
@@ -66,7 +68,7 @@
                     var messages = data.Messages;
                     ChatService.allMessages = [];
                     for (var i = 0; i < messages.length; i++) {
-                        ChatService.addMessage(messages[i].UserName, messages[i].Text);
+                        ChatService.addMessage(messages[i].SenderName, messages[i].Text, messages[i].FormatedSendedAt);
                     }
                     $rootScope.$apply();
                 },

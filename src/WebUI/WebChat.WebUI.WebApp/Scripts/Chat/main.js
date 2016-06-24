@@ -1,5 +1,5 @@
 ﻿; (function ($) {
-    var baseDomain = __chat.targetUrl;
+    var baseDomain = __chat.serviceUrl;
 
     function listener(event) {
 
@@ -30,12 +30,16 @@
         create_webchat_compact_container();
         create_webchat_compact_window();
 
+        showChatWindowIfNessasary();
+    });
+
+    function showChatWindowIfNessasary(){
         var chatWasOpened = localStorage.getItem("chatWasOpened");
         if (chatWasOpened === "false" || chatWasOpened === null)
             $('#webchat-compact-container').show(null);
         else
             open_chat_window();
-    });
+    }
 
     function create_webchat_compact_container() {
         $('<div id="webchat-compact-container"></div>').appendTo('body');
@@ -56,7 +60,7 @@
         }).done(function (data) {
             $('#webchat-compact').html(data);
             $('#webchat-compact-container').show(null);
-            open_chat_window();
+            showChatWindowIfNessasary();
         }).fail(function (XHR, status, error) {
             console.log(error);
         });
@@ -78,7 +82,7 @@
         }
         else {
             $('<div id="framewrap"></div>').appendTo('body');
-            $('#framewrap').attr('style', 'position: fixed; padding-top:0px; background-color:#f0ad4e; bottom: 0px; right: 15px; width: 300px; height: 385px; border: 1px black solid;');
+            $('#framewrap').attr('style', 'position: fixed; padding-top:0px; background-color:#f0ad4e; bottom: 0px; right: 15px; width: 280px; height: 380px; border: 1px black solid;');
 
             $('<iframe id="webchat-full" name="chat"/>').appendTo('#framewrap');
             $('#webchat-full').attr('style', 'dicplay="inline"; width:100%; height:100%; background-color:#fff;');
@@ -93,7 +97,7 @@
             window.setTimeout(function () {
                 iframeWin.postMessage({ key: "targetUrl", value: targetUrl }, baseDomain);
                 iframeWin.postMessage({ key: "targetAppId", value: targetAppId }, baseDomain);
-            }, 1000);
+            }, 1500);
 
         }
 

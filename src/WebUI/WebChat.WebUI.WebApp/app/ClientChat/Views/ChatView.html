@@ -27,19 +27,9 @@
                     </a>
 
             </div>
-            <div class="col-xs-5" style="padding-left:0px;">
+            <div class="col-xs-6" style="padding-left:0px;">
                 <div>{{agent.Name}}</div>
                 <div>{{agent.Rank}}</div>
-            </div>
-            <div class="col-xs-4">
-                <div class="row" style="padding-top:10px;">
-                    <div class="col-xs-5">
-                        <a href="agent.like()"><i class="fa fa-thumbs-o-up fa-lg" style="color:forestgreen"></i></a>
-                    </div>
-                    <div class="col-xs-7">                      
-                        <a href="agent.dislike()"><i class="fa fa-thumbs-o-down fa-lg" style="color:darkred"></i></a>
-                    </div>
-                </div>
             </div>
          </div>
       
@@ -49,8 +39,12 @@
         <div class="panel panel-default panel-body" style="overflow-y: auto; height:200px; margin-top:7px; margin-bottom:3px;">
             <ul style="list-style-type:none; padding-left:5px;">
                 <li ng-repeat="message in Messages">
-                    <div style="font-size: 13px;">{{message.UserName}}:</div>
-                    <div>{{message.ChatMessage}}</div>
+                    <div class="header">
+                        <strong class="primary-font">{{message.UserName}}</strong> <small class="pull-right text-muted">
+                            <span class="glyphicon glyphicon-time"></span> {{message.Time}}
+                        </small>
+                    </div>
+                    <p style="padding-left:15px;"> {{message.ChatMessage}} </p>
                 </li>
             </ul>
         </div>

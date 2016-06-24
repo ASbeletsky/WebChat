@@ -9,12 +9,12 @@
             <div id="socialLoginList" class="btn-toolbar" role="toolbar">
                 @foreach (var provider in Model)
                 {
-                    
+                    <div class="col-xs-6" style="padding:0px 5px">
                         <a class="btn external-login-form-submit btn-block btn-social @provider.ReferenceClass" id="@provider.ProviderAuthenticationType" onclick="authExternalProvider('@provider.ProviderAuthenticationType')">
                             <span class="@provider.IconClass"></span>
                             @provider.ProviderAuthenticationType
                         </a>
-                    
+                    </div>                  
                 }
             </div>
         }

@@ -272,7 +272,6 @@
     <Content Include="Content\Styles\Plugins\bootstrap\bootstrap-theme.css" />
     <Content Include="Content\Styles\Plugins\bootstrap\bootstrap-theme.min.css" />
     <Content Include="Content\Styles\Plugins\bootstrap\bootstrap.css" />
-    <Content Include="Content\Styles\Plugins\bootstrap\bootstrap.min.css" />
     <Content Include="Content\Images\default-user-image.png" />
     <Content Include="Content\Styles\Plugins\charts\EasyPieChart.css" />
     <Content Include="Content\Styles\Plugins\charts\Flot.css" />
@@ -367,6 +366,9 @@
     <Content Include="Views\CustomerAgentManagement\_AddAgent.cshtml" />
     <Content Include="Views\Chat\AgentIndex.cshtml" />
     <Content Include="Views\Shared\_AgentDashboardLayout.cshtml" />
+    <Content Include="Views\AppStatistic\_DialogsDurationPerDay.cshtml" />
+    <Content Include="Views\AppStatistic\_ChartDates.cshtml" />
+    <Content Include="Views\AppStatistic\_MessageCountDifference.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -466,7 +468,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\ClientAccount\" />
-    <Folder Include="Views\Dialog\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

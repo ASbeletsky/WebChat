@@ -138,26 +138,56 @@
         });      
     };
 
-    self.getAppCharts = function (appId) {
+    self.getDialogsPerDay = function (appId) {
         loadPage({
-            url: '/AppStatistic/AppCharts/',
-            params: { appId: appId },
-            container: '##appCharts',
+            url: '/AppStatistic/DialogsPerDay/',
+            params: { appId: appId},
+            container: '#dialogs-per-day-container',
             onSuccess: function () {
-                statistic.drowAvarageDialogsPerDay();
+                $('#dialogs-per-day-form #StartDate').datepicker({format: 'dd/mm/yyyy'});
+                $('#dialogs-per-day-form #EndDate').datepicker({ format: 'dd/mm/yyyy' });
+                $('#dialogs-per-day-form').submit();
             }
         });      
     };
 
+    self.getDialogsDurationPerDay = function (appId) {
+        loadPage({
+            url: '/AppStatistic/DialogsDurationPerDay/',
+            params: { appId: appId },
+            container: '#dialogs-duration-per-day-container',
+            onSuccess: function () {
+                $('#dialogs-duration-per-day-container #StartDate').datepicker({ format: 'dd/mm/yyyy' });
+                $('#dialogs-duration-per-day-container #EndDate').datepicker({ format: 'dd/mm/yyyy' });
+                $('#dialogs-duration-per-day-form').submit();
+            }
+        });
+    };
+
+    self.getMessageCountDifference = function (appId) {
+        loadPage({
+            url: '/AppStatistic/MessageCountDifferencePage/',
+            params: { appId: appId },
+            container: '#message-count-difference-container',
+            onSuccess: function () {
+                $('#message-count-difference-form').submit();
+            }
+        });
+    };
+
+
+    
     return self;
 }();
 
 $(document).ready(function () {   
     var appId = app.getAppId();
     app.getApplicationUsersAndChatsInfo(appId);
-    app.getUsersOnMap(appId);
-    app.getUsersStatistic(appId);
-    app.getAppCharts(appId);
+    //app.getUsersOnMap(appId);
+    //app.getUsersStatistic(appId);
+    app.getDialogsPerDay(appId);
+    //app.getMessageCountDifference(appId);
+    app.getDialogsDurationPerDay(appId);  
 });
 
 

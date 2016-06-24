@@ -79,7 +79,6 @@
 #operator_avatar {
   float: right;
   background-color: #D1D1D1;
-  background-image: url("https://cdn.livechatinc.com/chat-window/chat.png");
   background-size: cover;
   border-radius: 50%;
   overflow: hidden;
@@ -114,16 +113,6 @@
 #content [class^="icon-"],
 #content [class*=" icon-"] {
 	-webkit-font-smoothing: none;
-}
-@font-face {
-	font-family: 'livechat-modern';
-	src:url('http://cdn.livechatinc.com/fonts/modern/livechat-modern-9c9b70d143677806772972ab53ffd017.eot?-zbydp9');
-	src:url('http://cdn.livechatinc.com/fonts/modern/livechat-modern-9c9b70d143677806772972ab53ffd017.eot?#iefix-zbydp9') format('embedded-opentype'),
-		url('http://cdn.livechatinc.com/fonts/modern/livechat-modern-3b25a3b1eca2b7498bdf66a68006766a.woff?-zbydp9') format('woff'),
-		url('http://cdn.livechatinc.com/fonts/modern/livechat-modern-9f4b27836bdb3fa3f2b07f7d62d89163.ttf?-zbydp9') format('truetype'),
-		url('http://cdn.livechatinc.com/fonts/modern/livechat-modern-1778a38c1a97a54e1d48e3d41c586993.svg?-zbydp9#livechat-modern') format('svg');
-	font-weight: normal;
-	font-style: normal;
 }
 
 [class^="icon-"], [class*=" icon-"] {
@@ -172,12 +161,6 @@
 	content: "\e607";
 }
 
- @font-face {
-  font-family: 'Lato';
-  font-style: normal;
-  font-weight: 400;
-  src: local('Lato Regular'), local('Lato-Regular'), url(https://themes.googleusercontent.com/static/fonts/lato/v6/9k-RPmcnxYEPm8CNFsH2gg.woff) format('woff');
-}
 body {
 	font-family: 'Lato', sans-serif !important;
 }
